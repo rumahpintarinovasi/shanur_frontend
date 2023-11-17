@@ -1,0 +1,537 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SuratJalan2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e4b093fd-20e7-47b3-966a-c290bbd3cc43">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="KodeTF" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+	transferstok.`KodeTF` AS transferstok_KodeTF,
+	transferstok.`KodeUser` AS transferstok_KodeUser,
+	transferstok.`Tanggal` AS transferstok_Tanggal,
+	transferstok.`KodeKerja` AS transferstok_KodeKerja,
+	transferstok.`KodeMobil` AS transferstok_KodeMobil,
+	transferstok.`OutletAsal` AS transferstok_OutletAsal,
+	transferstok.`OutletTujuan` AS transferstok_OutletTujuan,
+	transferstok.`StatusDelivery` AS transferstok_StatusDelivery,
+	transferstok.`Biaya` AS transferstok_Biaya,
+	transferstok.`Keterangan` AS transferstok_Keterangan,
+	transferstok.KodePenerima AS transferstok_KodePenerima,
+    user.`KodeUser` AS user_KodeUser,
+    user.`NoIdentitas` AS user_NoIdentitas,
+    user.`KodeOutlet` AS user_KodeOutlet,
+    user.`Username` AS user_Username,
+    user.`Password` AS user_Password,
+    IdUser.`NoIdentitas` AS NoIdentitasUser,
+	IdUser.`KodeJenis` AS KodeJenisUser,
+	IdUser.`NamaLengkap` AS NamaLengkapUser,
+	IdUser.`JenisKelamin` AS JenisKelaminUser,
+	IdUser.`TempatLahir` AS TempatLahirUser,
+	IdUser.`TglLahir` AS TglLahirUser,
+	IdUser.`Alamat` AS AlamatUser,
+	IdUser.`RT` AS RTUser,
+	IdUser.`RW` AS RWUser,
+	IdUser.`Kelurahan` AS KelurahanUser,
+	IdUser.`Kecamatan` AS KecamatanUser,
+	IdUser.`Kabupaten` AS KabupatenUser,
+	IdUser.`Agama` AS AgamaUser,
+	IdUser.`StatusPernikahan` AS StatusPernikahanUser,
+	IdUser.`Pekerjaan` AS PekerjaanUser,
+	IdUser.`Kewarganegaraan` AS KewarganegaraanUser,
+    pekerjaan.`KodeKerja` AS pekerjaan_KodeKerja,
+	pekerjaan.`NoIdentitas` AS pekerjaan_NoIdentitas,
+	pekerjaan.`KodeJob` AS pekerjaan_KodeJob,
+	pekerjaan.`KodeOutlet` AS pekerjaan_KodeOutlet,
+	pekerjaan.`JenisPembayaran` AS pekerjaan_JenisPembayaran,
+	pekerjaan.`Gaji` AS pekerjaan_Gaji,
+    IdDriver.`NoIdentitas` AS NoIdentitasDriver,
+    IdDriver.`KodeJenis` AS KodeJenisDriver,
+    IdDriver.`NamaLengkap` AS NamaLengkapDriver,
+    IdDriver.`JenisKelamin` AS JenisKelaminDriver,
+    IdDriver.`TempatLahir` AS TempatLahirDriver,
+    IdDriver.`TglLahir` AS TglLahirDriver,
+    IdDriver.`Alamat` AS AlamatDriver,
+    IdDriver.`RT` AS RTDriver,
+    IdDriver.`RW` AS RWDriver,
+    IdDriver.`Kelurahan` AS KelurahanDriver,
+    IdDriver.`Kecamatan` AS KecamatanDriver,
+    IdDriver.`Kabupaten` AS KabupatenDriver,
+    IdDriver.`Agama` AS AgamaDriver,
+    IdDriver.`StatusPernikahan` AS StatusPernikahanDriver,
+    IdDriver.`Pekerjaan` AS PekerjaanDriver,
+    IdDriver.`Kewarganegaraan` AS KewarganegaraanDriver,
+	IdPenerima.`NoIdentitas` AS NoIdentitasPenerima,
+    IdPenerima.`KodeJenis` AS KodeJenisPenerima,
+    IdPenerima.`NamaLengkap` AS NamaLengkapPenerima,
+    IdPenerima.`JenisKelamin` AS JenisKelaminPenerima,
+    IdPenerima.`TempatLahir` AS TempatLahirPenerima,
+    IdPenerima.`TglLahir` AS TglLahirPenerima,
+    IdPenerima.`Alamat` AS AlamatPenerima,
+    IdPenerima.`RT` AS RTPenerima,
+    IdPenerima.`RW` AS RWPenerima,
+    IdPenerima.`Kelurahan` AS KelurahanPenerima,
+    IdPenerima.`Kecamatan` AS KecamatanPenerima,
+    IdPenerima.`Kabupaten` AS KabupatenPenerima,
+    IdPenerima.`Agama` AS AgamaPenerima,
+    IdPenerima.`StatusPernikahan` AS StatusPernikahanPenerima,
+    IdPenerima.`Pekerjaan` AS PekerjaanPenerima,
+    IdPenerima.`Kewarganegaraan` AS KewarganegaraanPenerima,
+    OutletAsal.`KodeOutlet` AS KodeOutletAsal,
+	OutletAsal.`NamaOutlet` AS NamaOutletAsal,
+	OutletAsal.`Alamat` AS AlamatAsal,
+	OutletAsal.`Kelurahan` AS KelurahanAsal,
+	OutletAsal.`Kecamatan` AS KecamatanAsal,
+	OutletAsal.`Kota` AS KotaAsal,
+	OutletAsal.`Provinsi` AS ProvinsiAsal,
+    OutletTujuan.`KodeOutlet` AS KodeOutletTujuan,
+	OutletTujuan.`NamaOutlet` AS NamaOutletTujuan,
+	OutletTujuan.`Alamat` AS AlamatTujuan,
+	OutletTujuan.`Kelurahan` AS KelurahanTujuan,
+	OutletTujuan.`Kecamatan` AS KecamatanTujuan,
+	OutletTujuan.`Kota` AS KotaTujuan,
+	OutletTujuan.`Provinsi` AS ProvinsiTujuan,
+    rinciantransfer.`KodeRincian` AS rinciantransfer_KodeRincian,
+	rinciantransfer.`KodeTF` AS rinciantransfer_KodeTF,
+	rinciantransfer.`Barcode` AS rinciantransfer_Barcode,
+	rinciantransfer.`Satuan` AS rinciantransfer_Satuan,
+	rinciantransfer.`StokDikirim` AS rinciantransfer_Kuantitas,
+	rinciantransfer.`HargaModal` AS rinciantransfer_HargaModal,
+	rinciantransfer.`TotalModal` AS rinciantransfer_TotalModal,
+	items.`Barcode` AS items_Barcode,
+    items.`NamaItem` AS items_NamaItem,
+    items.`JenisItem` AS items_JenisItem,
+    items.`KodeKategori` AS items_KodeKategori,
+    items.`KodeMerek` AS items_KodeMerek,
+	mobil.`KodeMobil` AS mobil_KodeMobil,
+    mobil.`NoPolisi` AS mobil_NoPolisi,
+    CASE WHEN (mobil.JenisMobil=1) THEN 'Pick Up Open'
+	WHEN (mobil.JenisMobil=2) THEN 'Pick Up Box'
+	WHEN (mobil.JenisMobil=3) THEN 'Truk Box'
+	WHEN (mobil.JenisMobil=4) THEN 'Truk Open' END AS JenisMobil,
+    mobil.`Merek` AS mobil_Merek,
+    mobil.`Warna` AS mobil_Warna,
+	UserPenerima.`KodeUser` AS KodeUserPenerima,
+    UserPenerima.`NoIdentitas` AS NoIdentitasPenerima,
+    UserPenerima.`KodeOutlet` AS KodeOutletPenerima,
+    UserPenerima.`Username` AS UsernamePenerima,
+    UserPenerima.`Password` AS PasswordPenerima
+    FROM transferstok transferstok INNER JOIN user UserPenerima INNER JOIN identitas IdPenerima
+    INNER JOIN user user INNER JOIN identitas IdUser INNER JOIN pekerjaan pekerjaan INNER JOIN identitas IdDriver
+    INNER JOIN outlet OutletAsal INNER JOIN outlet OutletTujuan INNER JOIN rinciantransfer rinciantransfer INNER JOIN items items INNER JOIN mobil mobil ON
+    (transferstok.KodeUser=user.KodeUser AND IdUser.NoIdentitas=user.NoIdentitas AND transferstok.KodeKerja=pekerjaan.KodeKerja
+    AND pekerjaan.NoIdentitas=IdDriver.NoIdentitas AND transferstok.OutletAsal=OutletAsal.KodeOutlet AND
+    transferstok.OutletTujuan=OutletTujuan.KodeOutlet AND transferstok.KodeTF=rinciantransfer.KodeTF AND rinciantransfer.Barcode=items.Barcode
+	AND transferstok.KodeMobil=mobil.KodeMobil AND UserPenerima.NoIdentitas=IdPenerima.NoIdentitas AND transferstok.KodePenerima=UserPenerima.KodeUser)
+	WHERE transferstok.KodeTF=$P{KodeTF} ]]>
+	</queryString>
+	<field name="transferstok_KodeTF" class="java.lang.Integer"/>
+	<field name="transferstok_KodeUser" class="java.lang.Integer"/>
+	<field name="transferstok_Tanggal" class="java.sql.Date"/>
+	<field name="transferstok_KodeKerja" class="java.lang.Integer"/>
+	<field name="transferstok_KodeMobil" class="java.lang.Integer"/>
+	<field name="transferstok_OutletAsal" class="java.lang.Integer"/>
+	<field name="transferstok_OutletTujuan" class="java.lang.Integer"/>
+	<field name="transferstok_StatusDelivery" class="java.lang.Integer"/>
+	<field name="transferstok_Biaya" class="java.lang.Double"/>
+	<field name="transferstok_Keterangan" class="java.lang.String"/>
+	<field name="transferstok_KodePenerima" class="java.lang.Integer"/>
+	<field name="user_KodeUser" class="java.lang.Integer"/>
+	<field name="user_NoIdentitas" class="java.lang.String"/>
+	<field name="user_KodeOutlet" class="java.lang.Integer"/>
+	<field name="user_Username" class="java.lang.String"/>
+	<field name="user_Password" class="java.lang.String"/>
+	<field name="NoIdentitasUser" class="java.lang.String"/>
+	<field name="KodeJenisUser" class="java.lang.Integer"/>
+	<field name="NamaLengkapUser" class="java.lang.String"/>
+	<field name="JenisKelaminUser" class="java.lang.Integer"/>
+	<field name="TempatLahirUser" class="java.lang.String"/>
+	<field name="TglLahirUser" class="java.sql.Date"/>
+	<field name="AlamatUser" class="java.lang.String"/>
+	<field name="RTUser" class="java.lang.String"/>
+	<field name="RWUser" class="java.lang.String"/>
+	<field name="KelurahanUser" class="java.lang.String"/>
+	<field name="KecamatanUser" class="java.lang.String"/>
+	<field name="KabupatenUser" class="java.lang.String"/>
+	<field name="AgamaUser" class="java.lang.String"/>
+	<field name="StatusPernikahanUser" class="java.lang.String"/>
+	<field name="PekerjaanUser" class="java.lang.String"/>
+	<field name="KewarganegaraanUser" class="java.lang.String"/>
+	<field name="pekerjaan_KodeKerja" class="java.lang.Integer"/>
+	<field name="pekerjaan_NoIdentitas" class="java.lang.String"/>
+	<field name="pekerjaan_KodeJob" class="java.lang.Integer"/>
+	<field name="pekerjaan_KodeOutlet" class="java.lang.Integer"/>
+	<field name="pekerjaan_JenisPembayaran" class="java.lang.Integer"/>
+	<field name="pekerjaan_Gaji" class="java.lang.Double"/>
+	<field name="NoIdentitasDriver" class="java.lang.String"/>
+	<field name="KodeJenisDriver" class="java.lang.Integer"/>
+	<field name="NamaLengkapDriver" class="java.lang.String"/>
+	<field name="JenisKelaminDriver" class="java.lang.Integer"/>
+	<field name="TempatLahirDriver" class="java.lang.String"/>
+	<field name="TglLahirDriver" class="java.sql.Date"/>
+	<field name="AlamatDriver" class="java.lang.String"/>
+	<field name="RTDriver" class="java.lang.String"/>
+	<field name="RWDriver" class="java.lang.String"/>
+	<field name="KelurahanDriver" class="java.lang.String"/>
+	<field name="KecamatanDriver" class="java.lang.String"/>
+	<field name="KabupatenDriver" class="java.lang.String"/>
+	<field name="AgamaDriver" class="java.lang.String"/>
+	<field name="StatusPernikahanDriver" class="java.lang.String"/>
+	<field name="PekerjaanDriver" class="java.lang.String"/>
+	<field name="KewarganegaraanDriver" class="java.lang.String"/>
+	<field name="NoIdentitasPenerima" class="java.lang.String"/>
+	<field name="KodeJenisPenerima" class="java.lang.Integer"/>
+	<field name="NamaLengkapPenerima" class="java.lang.String"/>
+	<field name="JenisKelaminPenerima" class="java.lang.Integer"/>
+	<field name="TempatLahirPenerima" class="java.lang.String"/>
+	<field name="TglLahirPenerima" class="java.sql.Date"/>
+	<field name="AlamatPenerima" class="java.lang.String"/>
+	<field name="RTPenerima" class="java.lang.String"/>
+	<field name="RWPenerima" class="java.lang.String"/>
+	<field name="KelurahanPenerima" class="java.lang.String"/>
+	<field name="KecamatanPenerima" class="java.lang.String"/>
+	<field name="KabupatenPenerima" class="java.lang.String"/>
+	<field name="AgamaPenerima" class="java.lang.String"/>
+	<field name="StatusPernikahanPenerima" class="java.lang.String"/>
+	<field name="PekerjaanPenerima" class="java.lang.String"/>
+	<field name="KewarganegaraanPenerima" class="java.lang.String"/>
+	<field name="KodeOutletAsal" class="java.lang.Integer"/>
+	<field name="NamaOutletAsal" class="java.lang.String"/>
+	<field name="AlamatAsal" class="java.lang.String"/>
+	<field name="KelurahanAsal" class="java.lang.String"/>
+	<field name="KecamatanAsal" class="java.lang.String"/>
+	<field name="KotaAsal" class="java.lang.String"/>
+	<field name="ProvinsiAsal" class="java.lang.String"/>
+	<field name="KodeOutletTujuan" class="java.lang.Integer"/>
+	<field name="NamaOutletTujuan" class="java.lang.String"/>
+	<field name="AlamatTujuan" class="java.lang.String"/>
+	<field name="KelurahanTujuan" class="java.lang.String"/>
+	<field name="KecamatanTujuan" class="java.lang.String"/>
+	<field name="KotaTujuan" class="java.lang.String"/>
+	<field name="ProvinsiTujuan" class="java.lang.String"/>
+	<field name="rinciantransfer_KodeRincian" class="java.lang.Integer"/>
+	<field name="rinciantransfer_KodeTF" class="java.lang.Integer"/>
+	<field name="rinciantransfer_Barcode" class="java.lang.String"/>
+	<field name="rinciantransfer_Satuan" class="java.lang.String"/>
+	<field name="rinciantransfer_Kuantitas" class="java.lang.Double"/>
+	<field name="rinciantransfer_HargaModal" class="java.lang.Double"/>
+	<field name="rinciantransfer_TotalModal" class="java.lang.Double"/>
+	<field name="items_Barcode" class="java.lang.String"/>
+	<field name="items_NamaItem" class="java.lang.String"/>
+	<field name="items_JenisItem" class="java.lang.Integer"/>
+	<field name="items_KodeKategori" class="java.lang.Integer"/>
+	<field name="items_KodeMerek" class="java.lang.Integer"/>
+	<field name="mobil_KodeMobil" class="java.lang.Integer"/>
+	<field name="mobil_NoPolisi" class="java.lang.String"/>
+	<field name="JenisMobil" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="mobil_Merek" class="java.lang.String"/>
+	<field name="mobil_Warna" class="java.lang.String"/>
+	<field name="KodeUserPenerima" class="java.lang.Integer"/>
+	<field name="KodeOutletPenerima" class="java.lang.Integer"/>
+	<field name="UsernamePenerima" class="java.lang.String"/>
+	<field name="PasswordPenerima" class="java.lang.String"/>
+	<variable name="GrandTotal" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{rinciantransfer_TotalModal}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="68" splitType="Stretch">
+			<staticText>
+				<reportElement x="188" y="0" width="39" height="20" uuid="0bab2892-99a2-48a0-b10a-8b42a235f347"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[KodeTF]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="226" y="0" width="12" height="20" uuid="32cb8d23-d2b7-4103-b1b7-61a965aa563d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="237" y="0" width="76" height="20" uuid="e77eab7f-650d-44fc-99ae-8b683b5bf8d3"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{transferstok_KodeTF}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="455" y="0" width="100" height="20" uuid="3b53b8e4-39af-4c69-bead-2f7139b9c2b4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{transferstok_Tanggal}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="186" y="20" width="174" height="36" uuid="bae7c910-679d-466b-a4e1-321a30b784bb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="22" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Surat Jalan]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="96" splitType="Stretch">
+			<textField>
+				<reportElement x="138" y="0" width="417" height="16" uuid="c57c018d-97e3-4473-a523-3e2c44d2f571"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{NamaLengkapUser}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="126" height="16" uuid="cddb50a4-b19e-44dc-8a0e-3eaed539f271"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Pengirim]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="125" y="0" width="14" height="16" uuid="5747d5a7-954b-43c5-bae9-9465136fe2e6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="15" width="126" height="16" uuid="3ec0af46-952f-4654-9645-d82c99f57f0d"/>
+				<text><![CDATA[Driver]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="125" y="15" width="14" height="16" uuid="9d41b877-640b-4fcf-bea4-7b3fa5baa614"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="138" y="15" width="417" height="16" uuid="b1163713-ddfb-4631-bb46-e9c459574980"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{NamaLengkapDriver}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="30" width="126" height="16" uuid="5c8f0d1f-5ab8-497a-900f-db06951502a7"/>
+				<text><![CDATA[Outlet Asal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="125" y="30" width="14" height="16" uuid="d2e001dc-dc4b-43a7-b445-958987d16a87"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="138" y="30" width="417" height="16" uuid="05b58e94-a675-4898-97aa-686d456aeb2e"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{NamaOutletAsal}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="45" width="126" height="16" uuid="a6be27a4-75df-4f64-a91e-dedc82dd73bb"/>
+				<text><![CDATA[Outlet Tujuan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="125" y="45" width="14" height="16" uuid="27f547cd-aa15-4fcd-aa63-d868d6ecceed"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="138" y="45" width="417" height="16" uuid="a095b9e3-e0ba-4616-a1dd-5f122e578e53"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{NamaOutletTujuan}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="60" width="125" height="20" uuid="37d65caa-0c5a-48ec-ba92-f6306237baa9"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Mobil :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="125" y="60" width="14" height="20" uuid="7652c7e8-a8d0-4af2-98bd-5e36b7377847"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="138" y="61" width="417" height="35" uuid="1ab0acf4-aa12-4e71-afbb-4101612a80e1"/>
+				<textFieldExpression><![CDATA[$F{mobil_NoPolisi}+" - "+$F{mobil_Merek}+" - "+
+$F{JenisMobil}+" - "+$F{mobil_Warna}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="209" height="20" uuid="ba41079e-5005-4312-a5dc-b2b98cf31fc3"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Nama Item]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="455" y="0" width="100" height="20" uuid="99da3aee-7d31-4c1c-9f01-5e6a3c991467"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Total Modal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="360" y="0" width="95" height="20" uuid="2f2d9eda-0f9c-484d-8ac5-85a9c7f3648e"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Harga Modal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="287" y="0" width="73" height="20" uuid="34f76c18-e134-41f4-a672-efc03bab6172"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Stok Pindah]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="209" y="0" width="78" height="20" uuid="2a833097-e357-4a63-9b00-131aad210e2f"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Satuan]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="35" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="209" height="35" uuid="75c2a155-80ec-46c5-ac9c-ec7f60ea9a27"/>
+				<box leftPadding="2">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{items_NamaItem}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="455" y="0" width="100" height="35" uuid="a9c4978d-5e6a-4dcf-b1b2-207d145baa09"/>
+				<box rightPadding="2">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{rinciantransfer_TotalModal}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="360" y="0" width="95" height="35" uuid="d1fafa2e-3ba4-4e5c-971b-039ddbef5694"/>
+				<box leftPadding="0" rightPadding="2">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{rinciantransfer_HargaModal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="287" y="0" width="73" height="35" uuid="3e825a81-d0eb-43fa-85a8-bf6d013ed0fc"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{rinciantransfer_Kuantitas}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="209" y="0" width="78" height="35" uuid="f8772281-d884-4bcd-a04d-e3da71cefda5"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{rinciantransfer_Satuan}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="40"/>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="121">
+			<staticText>
+				<reportElement x="17" y="13" width="169" height="20" uuid="3afd2e2d-8f04-4eb4-961f-05cf961dd29c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[TTD (Pengirim)]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="17" y="88" width="169" height="20" uuid="b3ad792b-cc50-4c1c-bece-ee2540be49ef"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{NamaLengkapUser}]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
+	<summary>
+		<band height="160" splitType="Stretch">
+			<textField pattern="#,##0">
+				<reportElement x="455" y="0" width="100" height="20" uuid="579517fe-4760-4f99-a4bd-1b7c1160beae"/>
+				<box rightPadding="2">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{GrandTotal}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="352" y="0" width="89" height="20" uuid="353d3e5c-0e4d-40ee-9c7b-5b2cf84dc82d"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Grand Total Modal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="440" y="0" width="15" height="20" uuid="52d3bf32-0602-4a3a-8ada-64ca4d9bf60f"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,1458 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package App.gui;
+
+import App.Bisnis;
+import App.Outlet;
+import Financial.gui.DataPenyimpanan;
+import HumanResource.Sift;
+import HumanResource.gui.DaftarFitur;
+import HumanResource.gui.DaftarJenisPekerjaan;
+import HumanResource.gui.DataPekerjaan;
+import HumanResource.gui.EditAkses;
+import HumanResource.gui.Login;
+import HumanResource.gui.RegistrasiFitur;
+import HumanResource.gui.RegistrasiIdentitas;
+import HumanResource.gui.RegistrasiJenisIdentitas;
+import HumanResource.gui.RegistrasiJenisPekerjaan;
+import HumanResource.gui.TambahSift;
+import Inventori.gui.DaftarItems;
+import Inventori.gui.DaftarKategori;
+import Inventori.gui.DaftarMerek;
+import Inventori.gui.DaftarSatuan;
+import Inventori.gui.PenerimaanBarangSupplier;
+import Inventori.gui.RegistrasiItem;
+import Inventori.gui.RegistrasiKategori;
+import Inventori.gui.RegistrasiMerek;
+import Inventori.gui.RegistrasiSatuan;
+import Transaksi.gui.DaftarJenisPembayaran;
+import Transaksi.gui.DataTransaksi;
+import Financial.gui.RegistrasiPenyimpanan;
+import HumanResource.Identitas;
+import HumanResource.User;
+import HumanResource.gui.DaftarJenisIdentitas;
+import HumanResource.gui.DaftarSift;
+import HumanResource.gui.DaftarUser;
+import HumanResource.gui.GantiUsernamePassword;
+import Inventori.StokItem;
+import Inventori.gui.DaftarHarga;
+import Inventori.gui.DataItems;
+import Inventori.gui.DataStokItem;
+import Inventori.gui.DataStokOpname;
+import Inventori.gui.HistoriStokItem;
+import Inventori.gui.PengimputanStokOpname;
+import Inventori.gui.PenguranganStok;
+import Orderan.gui.HistoriPemindahanStok;
+import Orderan.gui.DataMobil;
+import Orderan.gui.KonfirmasiStok;
+import Orderan.gui.PemindahanStock;
+import Orderan.gui.PemindahanStok;
+import Orderan.gui.RegistrasiMobil;
+import Transaksi.JenisPembayaran;
+import Transaksi.gui.DataMember;
+import Transaksi.gui.DataSupplier;
+import Transaksi.gui.DataTransaksi2;
+import Transaksi.gui.Laba;
+import Transaksi.gui.Pelunasan;
+import Transaksi.gui.Pembelian;
+import Transaksi.gui.PembelianItem;
+import Transaksi.gui.PengimputanFakturPembelian;
+import Transaksi.gui.PenjualanKredit;
+import Transaksi.gui.PenjualanTunai;
+import Transaksi.gui.RegistrasiJenisPembayaran;
+import Transaksi.gui.RegistrasiMember;
+import Transaksi.gui.RegistrasiSupplier;
+import Transaksi.gui.SetKasAwal;
+import static java.awt.Component.CENTER_ALIGNMENT;
+import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.Rectangle;
+import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import javax.swing.ImageIcon;
+import javax.swing.JDesktopPane;
+import javax.swing.JFrame;
+
+/**
+ *
+ * @author Yestin
+ */
+public class MainForms extends javax.swing.JFrame {
+
+    Sift Sift = new Sift();
+    StokItem StokItem = new StokItem();
+    Outlet olt = new Outlet();
+    JenisPembayaran JP  = new JenisPembayaran();
+    User Usr = new User();
+    Identitas Id = new Identitas();
+    Bisnis Business = new Bisnis();
+    /**
+     * Creates new form MainForms
+     */
+    public MainForms() {
+        initComponents();
+        
+        setTitle("E-POS");
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        
+        ImageIcon ImgIcon = new ImageIcon("\\E-POS\\Delicates2.png");
+        
+        Dimension ScreenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        lblBackground.setBounds(0, 0, ScreenSize.width, ScreenSize.height);
+        Rectangle rect = lblBackground.getBounds();
+        Image ScaleImage = ImgIcon.getImage().getScaledInstance(rect.width, rect.height, Image.SCALE_SMOOTH);
+        ImgIcon = new ImageIcon(ScaleImage);
+        dpAplikasi.setBounds(0, 0, ScreenSize.width, ScreenSize.height);
+        dpAplikasi.setAlignmentX(CENTER_ALIGNMENT);
+        dpAplikasi.setAlignmentY(CENTER_ALIGNMENT);
+        lblBackground.setIcon(ImgIcon);
+        lblBackground.setAlignmentX(CENTER_ALIGNMENT);
+        lblBackground.setAlignmentY(CENTER_ALIGNMENT);
+        
+//        int LastSift = Sift.getLastSift();
+        int JmlhSift = Sift.getJumlahSift();
+        
+        if(JmlhSift==1){
+            Sift.getSift1(mSift, 1);
+        }
+        else if(JmlhSift==2){
+            Sift.getSift2(mSift, 1, 2);
+        }
+        else if(JmlhSift==3){
+            Sift.getSift3(mSift, 1, 2, 3);
+        }
+        else if(JmlhSift==4){
+            Sift.getSift4(mSift, 1, 2, 3, 4);
+        }
+        else if(JmlhSift==5){
+            Sift.getSift5(mSift, 1, 2, 3, 4, 5);
+        }
+    }
+
+//    public MainForms() {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        dpAplikasi = new javax.swing.JDesktopPane();
+        lblBackground = new javax.swing.JLabel();
+        mbAplikasi = new javax.swing.JMenuBar();
+        mInventori = new javax.swing.JMenu();
+        miRegistrasiKategori = new javax.swing.JMenuItem();
+        miDaftarKategori = new javax.swing.JMenuItem();
+        miRegistrasiMerek = new javax.swing.JMenuItem();
+        miDaftarMerek = new javax.swing.JMenuItem();
+        miRegistrasiSatuan = new javax.swing.JMenuItem();
+        miDaftarSatuan = new javax.swing.JMenuItem();
+        miRegistrasiItem = new javax.swing.JMenuItem();
+        miDaftarItem = new javax.swing.JMenuItem();
+        miDaftarHarga = new javax.swing.JMenuItem();
+        miPenerimaanBarangSupplier = new javax.swing.JMenuItem();
+        miDataStokItem = new javax.swing.JMenuItem();
+        miPengimputanStokOpname = new javax.swing.JMenuItem();
+        miDataStokOpname = new javax.swing.JMenuItem();
+        miHistoriStokItem = new javax.swing.JMenuItem();
+        miPenguranganStok = new javax.swing.JMenuItem();
+        miTransferStok = new javax.swing.JMenuItem();
+        miHistoriTransferStok = new javax.swing.JMenuItem();
+        miKonfirmasiPenerimaan = new javax.swing.JMenuItem();
+        mTransaksi = new javax.swing.JMenu();
+        miPenjualanTunai = new javax.swing.JMenuItem();
+        miSetKasAwal = new javax.swing.JMenuItem();
+        miLaba = new javax.swing.JMenuItem();
+        miDataTransaksi = new javax.swing.JMenuItem();
+        miPelunasan = new javax.swing.JMenuItem();
+        miPembelian = new javax.swing.JMenuItem();
+        miPenjualanKredit = new javax.swing.JMenuItem();
+        mAdministrasi = new javax.swing.JMenu();
+        miPengimputanFakturPembelian = new javax.swing.JMenuItem();
+        miRegistrasiSupplier = new javax.swing.JMenuItem();
+        miDataSupplier = new javax.swing.JMenuItem();
+        miRegistrasiCustomer = new javax.swing.JMenuItem();
+        miDataCustomer = new javax.swing.JMenuItem();
+        miPencetakanBarcode = new javax.swing.JMenuItem();
+        miSetNamaBisnis = new javax.swing.JMenuItem();
+        miRegistrasiOutlet = new javax.swing.JMenuItem();
+        miDaftarOutlet = new javax.swing.JMenuItem();
+        miRegistrasiJenisPembayaran = new javax.swing.JMenuItem();
+        miDaftarJenisPembayaran = new javax.swing.JMenuItem();
+        miTambahSift = new javax.swing.JMenuItem();
+        miDaftarSift = new javax.swing.JMenuItem();
+        miRegistrasiMobil = new javax.swing.JMenuItem();
+        miDataMobil = new javax.swing.JMenuItem();
+        mUser = new javax.swing.JMenu();
+        miRegistrasiUser = new javax.swing.JMenuItem();
+        miDaftarUser = new javax.swing.JMenuItem();
+        miGantiUsernamePassword = new javax.swing.JMenuItem();
+        miRegistrasiJenisIdentitas = new javax.swing.JMenuItem();
+        miDaftarJenisIdentitas = new javax.swing.JMenuItem();
+        miRegistrasiJenisPekerjaan = new javax.swing.JMenuItem();
+        miDaftarJenisPekerjaan = new javax.swing.JMenuItem();
+        miRegistrasiFitur = new javax.swing.JMenuItem();
+        miDaftarFitur = new javax.swing.JMenuItem();
+        miEditAkses = new javax.swing.JMenuItem();
+        miDataPekerjaan = new javax.swing.JMenuItem();
+        miLogin = new javax.swing.JMenuItem();
+        miLogout = new javax.swing.JMenuItem();
+        mFinancial = new javax.swing.JMenu();
+        miRegistrasiAkun = new javax.swing.JMenuItem();
+        miDataAkun = new javax.swing.JMenuItem();
+        miPembuatanMutasi = new javax.swing.JMenuItem();
+        miDataMutasi = new javax.swing.JMenuItem();
+        miRegistrasiPenyimpanan = new javax.swing.JMenuItem();
+        miDataPenyimpanan = new javax.swing.JMenuItem();
+        mKodeUser = new javax.swing.JMenu();
+        mSift = new javax.swing.JMenu();
+        mKodeOutlet = new javax.swing.JMenu();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+        });
+
+        dpAplikasi.setBackground(new java.awt.Color(255, 255, 255));
+
+        dpAplikasi.setLayer(lblBackground, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout dpAplikasiLayout = new javax.swing.GroupLayout(dpAplikasi);
+        dpAplikasi.setLayout(dpAplikasiLayout);
+        dpAplikasiLayout.setHorizontalGroup(
+            dpAplikasiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblBackground, javax.swing.GroupLayout.DEFAULT_SIZE, 1400, Short.MAX_VALUE)
+        );
+        dpAplikasiLayout.setVerticalGroup(
+            dpAplikasiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dpAplikasiLayout.createSequentialGroup()
+                .addComponent(lblBackground, javax.swing.GroupLayout.PREFERRED_SIZE, 877, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        mInventori.setBackground(new java.awt.Color(255, 255, 255));
+        mInventori.setForeground(new java.awt.Color(0, 0, 255));
+        mInventori.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/Inventori.png"))); // NOI18N
+        mInventori.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+
+        miRegistrasiKategori.setBackground(new java.awt.Color(255, 255, 255));
+        miRegistrasiKategori.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/RegistrasiKategori.png"))); // NOI18N
+        miRegistrasiKategori.setOpaque(true);
+        miRegistrasiKategori.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miRegistrasiKategoriActionPerformed(evt);
+            }
+        });
+        mInventori.add(miRegistrasiKategori);
+
+        miDaftarKategori.setBackground(new java.awt.Color(255, 255, 255));
+        miDaftarKategori.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/DaftarKategori.png"))); // NOI18N
+        miDaftarKategori.setOpaque(true);
+        miDaftarKategori.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miDaftarKategoriActionPerformed(evt);
+            }
+        });
+        mInventori.add(miDaftarKategori);
+
+        miRegistrasiMerek.setBackground(new java.awt.Color(255, 255, 255));
+        miRegistrasiMerek.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/RegistrasiMerek.png"))); // NOI18N
+        miRegistrasiMerek.setOpaque(true);
+        miRegistrasiMerek.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miRegistrasiMerekActionPerformed(evt);
+            }
+        });
+        mInventori.add(miRegistrasiMerek);
+
+        miDaftarMerek.setBackground(new java.awt.Color(255, 255, 255));
+        miDaftarMerek.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon2/DfatarMerek.png"))); // NOI18N
+        miDaftarMerek.setOpaque(true);
+        miDaftarMerek.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miDaftarMerekActionPerformed(evt);
+            }
+        });
+        mInventori.add(miDaftarMerek);
+
+        miRegistrasiSatuan.setBackground(new java.awt.Color(255, 255, 255));
+        miRegistrasiSatuan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/RegistrasiSatuan.png"))); // NOI18N
+        miRegistrasiSatuan.setOpaque(true);
+        miRegistrasiSatuan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miRegistrasiSatuanActionPerformed(evt);
+            }
+        });
+        mInventori.add(miRegistrasiSatuan);
+
+        miDaftarSatuan.setBackground(new java.awt.Color(255, 255, 255));
+        miDaftarSatuan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/DaftarSatuan.png"))); // NOI18N
+        miDaftarSatuan.setOpaque(true);
+        miDaftarSatuan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miDaftarSatuanActionPerformed(evt);
+            }
+        });
+        mInventori.add(miDaftarSatuan);
+
+        miRegistrasiItem.setBackground(new java.awt.Color(255, 255, 255));
+        miRegistrasiItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/RegistrasiItem.png"))); // NOI18N
+        miRegistrasiItem.setOpaque(true);
+        miRegistrasiItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miRegistrasiItemActionPerformed(evt);
+            }
+        });
+        mInventori.add(miRegistrasiItem);
+
+        miDaftarItem.setBackground(new java.awt.Color(255, 255, 255));
+        miDaftarItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/DataItem.png"))); // NOI18N
+        miDaftarItem.setOpaque(true);
+        miDaftarItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miDaftarItemActionPerformed(evt);
+            }
+        });
+        mInventori.add(miDaftarItem);
+
+        miDaftarHarga.setBackground(new java.awt.Color(255, 255, 255));
+        miDaftarHarga.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/DaftarHarga.png"))); // NOI18N
+        miDaftarHarga.setOpaque(true);
+        miDaftarHarga.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miDaftarHargaActionPerformed(evt);
+            }
+        });
+        mInventori.add(miDaftarHarga);
+
+        miPenerimaanBarangSupplier.setBackground(new java.awt.Color(255, 255, 255));
+        miPenerimaanBarangSupplier.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/PenambahanStok.png"))); // NOI18N
+        miPenerimaanBarangSupplier.setOpaque(true);
+        miPenerimaanBarangSupplier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miPenerimaanBarangSupplierActionPerformed(evt);
+            }
+        });
+        mInventori.add(miPenerimaanBarangSupplier);
+
+        miDataStokItem.setBackground(new java.awt.Color(255, 255, 255));
+        miDataStokItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/Data Stok Item.png"))); // NOI18N
+        miDataStokItem.setOpaque(true);
+        miDataStokItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miDataStokItemActionPerformed(evt);
+            }
+        });
+        mInventori.add(miDataStokItem);
+
+        miPengimputanStokOpname.setBackground(new java.awt.Color(255, 255, 255));
+        miPengimputanStokOpname.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/InputStokOpname.png"))); // NOI18N
+        miPengimputanStokOpname.setOpaque(true);
+        miPengimputanStokOpname.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miPengimputanStokOpnameActionPerformed(evt);
+            }
+        });
+        mInventori.add(miPengimputanStokOpname);
+
+        miDataStokOpname.setBackground(new java.awt.Color(255, 255, 255));
+        miDataStokOpname.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/DataStokOpname.png"))); // NOI18N
+        miDataStokOpname.setOpaque(true);
+        miDataStokOpname.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miDataStokOpnameActionPerformed(evt);
+            }
+        });
+        mInventori.add(miDataStokOpname);
+
+        miHistoriStokItem.setBackground(new java.awt.Color(255, 255, 255));
+        miHistoriStokItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/HistoriStokItem.png"))); // NOI18N
+        miHistoriStokItem.setOpaque(true);
+        miHistoriStokItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miHistoriStokItemActionPerformed(evt);
+            }
+        });
+        mInventori.add(miHistoriStokItem);
+
+        miPenguranganStok.setBackground(new java.awt.Color(255, 255, 255));
+        miPenguranganStok.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/PenguranganStokItem.png"))); // NOI18N
+        miPenguranganStok.setOpaque(true);
+        miPenguranganStok.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miPenguranganStokActionPerformed(evt);
+            }
+        });
+        mInventori.add(miPenguranganStok);
+
+        miTransferStok.setBackground(new java.awt.Color(255, 255, 255));
+        miTransferStok.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/TransferStok.png"))); // NOI18N
+        miTransferStok.setOpaque(true);
+        miTransferStok.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miTransferStokActionPerformed(evt);
+            }
+        });
+        mInventori.add(miTransferStok);
+
+        miHistoriTransferStok.setBackground(new java.awt.Color(255, 255, 255));
+        miHistoriTransferStok.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/HistoriPemindahanStok.png"))); // NOI18N
+        miHistoriTransferStok.setOpaque(true);
+        miHistoriTransferStok.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miHistoriTransferStokActionPerformed(evt);
+            }
+        });
+        mInventori.add(miHistoriTransferStok);
+
+        miKonfirmasiPenerimaan.setBackground(new java.awt.Color(255, 255, 255));
+        miKonfirmasiPenerimaan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/KonfirmasiPenerimaan.png"))); // NOI18N
+        miKonfirmasiPenerimaan.setOpaque(true);
+        miKonfirmasiPenerimaan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miKonfirmasiPenerimaanActionPerformed(evt);
+            }
+        });
+        mInventori.add(miKonfirmasiPenerimaan);
+
+        mbAplikasi.add(mInventori);
+
+        mTransaksi.setForeground(new java.awt.Color(0, 0, 255));
+        mTransaksi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/Transaksi.png"))); // NOI18N
+        mTransaksi.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+
+        miPenjualanTunai.setBackground(new java.awt.Color(255, 255, 255));
+        miPenjualanTunai.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/PenjualanTunai.png"))); // NOI18N
+        miPenjualanTunai.setOpaque(true);
+        miPenjualanTunai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miPenjualanTunaiActionPerformed(evt);
+            }
+        });
+        mTransaksi.add(miPenjualanTunai);
+
+        miSetKasAwal.setBackground(new java.awt.Color(255, 255, 255));
+        miSetKasAwal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/SetKasAwal.png"))); // NOI18N
+        miSetKasAwal.setOpaque(true);
+        miSetKasAwal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miSetKasAwalActionPerformed(evt);
+            }
+        });
+        mTransaksi.add(miSetKasAwal);
+
+        miLaba.setBackground(new java.awt.Color(255, 255, 255));
+        miLaba.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/Laba.png"))); // NOI18N
+        miLaba.setOpaque(true);
+        miLaba.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miLabaActionPerformed(evt);
+            }
+        });
+        mTransaksi.add(miLaba);
+
+        miDataTransaksi.setBackground(new java.awt.Color(255, 255, 255));
+        miDataTransaksi.setFont(new java.awt.Font("Cooper Black", 0, 18)); // NOI18N
+        miDataTransaksi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/DataTransaksi.png"))); // NOI18N
+        miDataTransaksi.setOpaque(true);
+        miDataTransaksi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miDataTransaksiActionPerformed(evt);
+            }
+        });
+        mTransaksi.add(miDataTransaksi);
+
+        miPelunasan.setBackground(new java.awt.Color(255, 255, 255));
+        miPelunasan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/Pelunasan.png"))); // NOI18N
+        miPelunasan.setOpaque(true);
+        miPelunasan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miPelunasanActionPerformed(evt);
+            }
+        });
+        mTransaksi.add(miPelunasan);
+
+        miPembelian.setBackground(new java.awt.Color(255, 255, 255));
+        miPembelian.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/Pembelian.png"))); // NOI18N
+        miPembelian.setOpaque(true);
+        miPembelian.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miPembelianActionPerformed(evt);
+            }
+        });
+        mTransaksi.add(miPembelian);
+
+        miPenjualanKredit.setBackground(new java.awt.Color(255, 255, 255));
+        miPenjualanKredit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/PenjualanKredit.png"))); // NOI18N
+        miPenjualanKredit.setOpaque(true);
+        miPenjualanKredit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miPenjualanKreditActionPerformed(evt);
+            }
+        });
+        mTransaksi.add(miPenjualanKredit);
+
+        mbAplikasi.add(mTransaksi);
+
+        mAdministrasi.setForeground(new java.awt.Color(0, 0, 255));
+        mAdministrasi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/Administrasi.png"))); // NOI18N
+        mAdministrasi.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+
+        miPengimputanFakturPembelian.setBackground(new java.awt.Color(255, 255, 255));
+        miPengimputanFakturPembelian.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/PengimputanFaktur.png"))); // NOI18N
+        miPengimputanFakturPembelian.setOpaque(true);
+        miPengimputanFakturPembelian.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miPengimputanFakturPembelianActionPerformed(evt);
+            }
+        });
+        mAdministrasi.add(miPengimputanFakturPembelian);
+
+        miRegistrasiSupplier.setBackground(new java.awt.Color(255, 255, 255));
+        miRegistrasiSupplier.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/RegistrasSupplier.png"))); // NOI18N
+        miRegistrasiSupplier.setOpaque(true);
+        miRegistrasiSupplier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miRegistrasiSupplierActionPerformed(evt);
+            }
+        });
+        mAdministrasi.add(miRegistrasiSupplier);
+
+        miDataSupplier.setBackground(new java.awt.Color(255, 255, 255));
+        miDataSupplier.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/DataSupplier.png"))); // NOI18N
+        miDataSupplier.setOpaque(true);
+        miDataSupplier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miDataSupplierActionPerformed(evt);
+            }
+        });
+        mAdministrasi.add(miDataSupplier);
+
+        miRegistrasiCustomer.setBackground(new java.awt.Color(255, 255, 255));
+        miRegistrasiCustomer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/RegistrasiMemberCustomer.png"))); // NOI18N
+        miRegistrasiCustomer.setOpaque(true);
+        miRegistrasiCustomer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miRegistrasiCustomerActionPerformed(evt);
+            }
+        });
+        mAdministrasi.add(miRegistrasiCustomer);
+
+        miDataCustomer.setBackground(new java.awt.Color(255, 255, 255));
+        miDataCustomer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/DataMember.png"))); // NOI18N
+        miDataCustomer.setOpaque(true);
+        miDataCustomer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miDataCustomerActionPerformed(evt);
+            }
+        });
+        mAdministrasi.add(miDataCustomer);
+
+        miPencetakanBarcode.setBackground(new java.awt.Color(255, 255, 255));
+        miPencetakanBarcode.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/PembuatanBarcode.png"))); // NOI18N
+        miPencetakanBarcode.setOpaque(true);
+        mAdministrasi.add(miPencetakanBarcode);
+
+        miSetNamaBisnis.setBackground(new java.awt.Color(255, 255, 255));
+        miSetNamaBisnis.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/Set Nama Bisnis.png"))); // NOI18N
+        miSetNamaBisnis.setOpaque(true);
+        miSetNamaBisnis.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miSetNamaBisnisActionPerformed(evt);
+            }
+        });
+        mAdministrasi.add(miSetNamaBisnis);
+
+        miRegistrasiOutlet.setBackground(new java.awt.Color(255, 255, 255));
+        miRegistrasiOutlet.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/RegistrasiOutlet.png"))); // NOI18N
+        miRegistrasiOutlet.setOpaque(true);
+        miRegistrasiOutlet.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miRegistrasiOutletActionPerformed(evt);
+            }
+        });
+        mAdministrasi.add(miRegistrasiOutlet);
+
+        miDaftarOutlet.setBackground(new java.awt.Color(255, 255, 255));
+        miDaftarOutlet.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/DaftarOutlet.png"))); // NOI18N
+        miDaftarOutlet.setOpaque(true);
+        miDaftarOutlet.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miDaftarOutletActionPerformed(evt);
+            }
+        });
+        mAdministrasi.add(miDaftarOutlet);
+
+        miRegistrasiJenisPembayaran.setBackground(new java.awt.Color(255, 255, 255));
+        miRegistrasiJenisPembayaran.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/RegistrasiJenisPembayaran.png"))); // NOI18N
+        miRegistrasiJenisPembayaran.setOpaque(true);
+        miRegistrasiJenisPembayaran.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miRegistrasiJenisPembayaranActionPerformed(evt);
+            }
+        });
+        mAdministrasi.add(miRegistrasiJenisPembayaran);
+
+        miDaftarJenisPembayaran.setBackground(new java.awt.Color(255, 255, 255));
+        miDaftarJenisPembayaran.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/DaftarJenisPembayaran.png"))); // NOI18N
+        miDaftarJenisPembayaran.setOpaque(true);
+        miDaftarJenisPembayaran.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miDaftarJenisPembayaranActionPerformed(evt);
+            }
+        });
+        mAdministrasi.add(miDaftarJenisPembayaran);
+
+        miTambahSift.setBackground(new java.awt.Color(255, 255, 255));
+        miTambahSift.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/Tambah Sift.png"))); // NOI18N
+        miTambahSift.setOpaque(true);
+        miTambahSift.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miTambahSiftActionPerformed(evt);
+            }
+        });
+        mAdministrasi.add(miTambahSift);
+
+        miDaftarSift.setBackground(new java.awt.Color(255, 255, 255));
+        miDaftarSift.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/DaftarSift.png"))); // NOI18N
+        miDaftarSift.setOpaque(true);
+        miDaftarSift.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miDaftarSiftActionPerformed(evt);
+            }
+        });
+        mAdministrasi.add(miDaftarSift);
+
+        miRegistrasiMobil.setBackground(new java.awt.Color(255, 255, 255));
+        miRegistrasiMobil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/RegistrasiMobil.png"))); // NOI18N
+        miRegistrasiMobil.setOpaque(true);
+        miRegistrasiMobil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miRegistrasiMobilActionPerformed(evt);
+            }
+        });
+        mAdministrasi.add(miRegistrasiMobil);
+
+        miDataMobil.setBackground(new java.awt.Color(255, 255, 255));
+        miDataMobil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/DataMobil.png"))); // NOI18N
+        miDataMobil.setOpaque(true);
+        miDataMobil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miDataMobilActionPerformed(evt);
+            }
+        });
+        mAdministrasi.add(miDataMobil);
+
+        mbAplikasi.add(mAdministrasi);
+
+        mUser.setBackground(new java.awt.Color(255, 255, 255));
+        mUser.setForeground(new java.awt.Color(0, 0, 255));
+        mUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/User.png"))); // NOI18N
+        mUser.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+
+        miRegistrasiUser.setBackground(new java.awt.Color(255, 255, 255));
+        miRegistrasiUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/Registrasi User.png"))); // NOI18N
+        miRegistrasiUser.setOpaque(true);
+        miRegistrasiUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miRegistrasiUserActionPerformed(evt);
+            }
+        });
+        mUser.add(miRegistrasiUser);
+
+        miDaftarUser.setBackground(new java.awt.Color(255, 255, 255));
+        miDaftarUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/DaftarUser.png"))); // NOI18N
+        miDaftarUser.setOpaque(true);
+        miDaftarUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miDaftarUserActionPerformed(evt);
+            }
+        });
+        mUser.add(miDaftarUser);
+
+        miGantiUsernamePassword.setBackground(new java.awt.Color(255, 255, 255));
+        miGantiUsernamePassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/GantiUsernamePassword.png"))); // NOI18N
+        miGantiUsernamePassword.setOpaque(true);
+        miGantiUsernamePassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miGantiUsernamePasswordActionPerformed(evt);
+            }
+        });
+        mUser.add(miGantiUsernamePassword);
+
+        miRegistrasiJenisIdentitas.setBackground(new java.awt.Color(255, 255, 255));
+        miRegistrasiJenisIdentitas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/RegistrasiJenisIdentitas.png"))); // NOI18N
+        miRegistrasiJenisIdentitas.setOpaque(true);
+        miRegistrasiJenisIdentitas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miRegistrasiJenisIdentitasActionPerformed(evt);
+            }
+        });
+        mUser.add(miRegistrasiJenisIdentitas);
+
+        miDaftarJenisIdentitas.setBackground(new java.awt.Color(255, 255, 255));
+        miDaftarJenisIdentitas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/DaftarJenisIdentitas.png"))); // NOI18N
+        miDaftarJenisIdentitas.setOpaque(true);
+        miDaftarJenisIdentitas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miDaftarJenisIdentitasActionPerformed(evt);
+            }
+        });
+        mUser.add(miDaftarJenisIdentitas);
+
+        miRegistrasiJenisPekerjaan.setBackground(new java.awt.Color(255, 255, 255));
+        miRegistrasiJenisPekerjaan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/RegistrasiJenisPekerjaan.png"))); // NOI18N
+        miRegistrasiJenisPekerjaan.setOpaque(true);
+        miRegistrasiJenisPekerjaan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miRegistrasiJenisPekerjaanActionPerformed(evt);
+            }
+        });
+        mUser.add(miRegistrasiJenisPekerjaan);
+
+        miDaftarJenisPekerjaan.setBackground(new java.awt.Color(255, 255, 255));
+        miDaftarJenisPekerjaan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/DaftarJenisPekerjaan.png"))); // NOI18N
+        miDaftarJenisPekerjaan.setOpaque(true);
+        miDaftarJenisPekerjaan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miDaftarJenisPekerjaanActionPerformed(evt);
+            }
+        });
+        mUser.add(miDaftarJenisPekerjaan);
+
+        miRegistrasiFitur.setBackground(new java.awt.Color(255, 255, 255));
+        miRegistrasiFitur.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/Registrasi Fitur.png"))); // NOI18N
+        miRegistrasiFitur.setOpaque(true);
+        miRegistrasiFitur.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miRegistrasiFiturActionPerformed(evt);
+            }
+        });
+        mUser.add(miRegistrasiFitur);
+
+        miDaftarFitur.setBackground(new java.awt.Color(255, 255, 255));
+        miDaftarFitur.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/DaftarFitur.png"))); // NOI18N
+        miDaftarFitur.setOpaque(true);
+        miDaftarFitur.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miDaftarFiturActionPerformed(evt);
+            }
+        });
+        mUser.add(miDaftarFitur);
+
+        miEditAkses.setBackground(new java.awt.Color(255, 255, 255));
+        miEditAkses.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/EditAkses.png"))); // NOI18N
+        miEditAkses.setOpaque(true);
+        miEditAkses.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miEditAksesActionPerformed(evt);
+            }
+        });
+        mUser.add(miEditAkses);
+
+        miDataPekerjaan.setBackground(new java.awt.Color(255, 255, 255));
+        miDataPekerjaan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/Data Pekerjaan.png"))); // NOI18N
+        miDataPekerjaan.setOpaque(true);
+        miDataPekerjaan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miDataPekerjaanActionPerformed(evt);
+            }
+        });
+        mUser.add(miDataPekerjaan);
+
+        miLogin.setBackground(new java.awt.Color(255, 255, 255));
+        miLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/Login.png"))); // NOI18N
+        miLogin.setOpaque(true);
+        miLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miLoginActionPerformed(evt);
+            }
+        });
+        mUser.add(miLogin);
+
+        miLogout.setBackground(new java.awt.Color(255, 255, 255));
+        miLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/Logout.png"))); // NOI18N
+        miLogout.setOpaque(true);
+        miLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miLogoutActionPerformed(evt);
+            }
+        });
+        mUser.add(miLogout);
+
+        mbAplikasi.add(mUser);
+
+        mFinancial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/Financial.png"))); // NOI18N
+
+        miRegistrasiAkun.setBackground(new java.awt.Color(255, 255, 255));
+        miRegistrasiAkun.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/Registrasi Akun.png"))); // NOI18N
+        miRegistrasiAkun.setOpaque(true);
+        miRegistrasiAkun.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miRegistrasiAkunActionPerformed(evt);
+            }
+        });
+        mFinancial.add(miRegistrasiAkun);
+
+        miDataAkun.setBackground(new java.awt.Color(255, 255, 255));
+        miDataAkun.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/DataAkun.png"))); // NOI18N
+        miDataAkun.setOpaque(true);
+        mFinancial.add(miDataAkun);
+
+        miPembuatanMutasi.setBackground(new java.awt.Color(255, 255, 255));
+        miPembuatanMutasi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/PembuatanMutasi.png"))); // NOI18N
+        miPembuatanMutasi.setOpaque(true);
+        mFinancial.add(miPembuatanMutasi);
+
+        miDataMutasi.setBackground(new java.awt.Color(255, 255, 255));
+        miDataMutasi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/DataMutasi.png"))); // NOI18N
+        miDataMutasi.setOpaque(true);
+        mFinancial.add(miDataMutasi);
+
+        miRegistrasiPenyimpanan.setBackground(new java.awt.Color(255, 255, 255));
+        miRegistrasiPenyimpanan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/RegistrasiPenyimpanan.png"))); // NOI18N
+        miRegistrasiPenyimpanan.setOpaque(true);
+        miRegistrasiPenyimpanan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miRegistrasiPenyimpananActionPerformed(evt);
+            }
+        });
+        mFinancial.add(miRegistrasiPenyimpanan);
+
+        miDataPenyimpanan.setBackground(new java.awt.Color(255, 255, 255));
+        miDataPenyimpanan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/DataPenyimpanan.png"))); // NOI18N
+        miDataPenyimpanan.setOpaque(true);
+        miDataPenyimpanan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miDataPenyimpananActionPerformed(evt);
+            }
+        });
+        mFinancial.add(miDataPenyimpanan);
+
+        mbAplikasi.add(mFinancial);
+
+        mKodeUser.setText("Kode User");
+        mbAplikasi.add(mKodeUser);
+
+        mSift.setText("Sift");
+        mbAplikasi.add(mSift);
+
+        mKodeOutlet.setText("Kode Outlet");
+        mbAplikasi.add(mKodeOutlet);
+
+        setJMenuBar(mbAplikasi);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(dpAplikasi)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(dpAplikasi)
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void miRegistrasiKategoriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRegistrasiKategoriActionPerformed
+        // TODO add your handling code here:
+        RegistrasiKategori RK = new RegistrasiKategori();
+        RK.setLocationRelativeTo(this);
+        RK.setVisible(true);
+    }//GEN-LAST:event_miRegistrasiKategoriActionPerformed
+
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode() == KeyEvent.VK_P){
+            PenerimaanBarangSupplier PB = new PenerimaanBarangSupplier();
+            PB.setLocationRelativeTo(this);
+            PB.setVisible(true);
+        }
+        else if(evt.getKeyCode() == KeyEvent.VK_D){
+            DataTransaksi DT = new DataTransaksi();
+            DT.setLocationRelativeTo(this);
+            DT.setVisible(true);
+        }
+    }//GEN-LAST:event_formKeyPressed
+
+    private void miDataTransaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miDataTransaksiActionPerformed
+        // TODO add your handling code here:
+        DataTransaksi dt = new DataTransaksi();
+        dt.setLocationRelativeTo(this);
+        dt.setVisible(true);
+    }//GEN-LAST:event_miDataTransaksiActionPerformed
+
+    private void miRegistrasiAkunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRegistrasiAkunActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_miRegistrasiAkunActionPerformed
+
+    private void miRegistrasiUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRegistrasiUserActionPerformed
+        // TODO add your handling code here:
+        RegistrasiIdentitas RI = new RegistrasiIdentitas();
+        RI.setLocationRelativeTo(this);
+        RI.setVisible(true);
+    }//GEN-LAST:event_miRegistrasiUserActionPerformed
+
+    private void miRegistrasiJenisIdentitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRegistrasiJenisIdentitasActionPerformed
+        // TODO add your handling code here:
+        RegistrasiJenisIdentitas RJI = new RegistrasiJenisIdentitas();
+        RJI.setLocationRelativeTo(this);
+        RJI.setVisible(true);
+    }//GEN-LAST:event_miRegistrasiJenisIdentitasActionPerformed
+
+    private void miDaftarJenisIdentitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miDaftarJenisIdentitasActionPerformed
+        // TODO add your handling code here:
+        DaftarJenisIdentitas DJI = new DaftarJenisIdentitas(this, true);
+        DJI.setLocationRelativeTo(this);
+        DJI.setVisible(true);
+    }//GEN-LAST:event_miDaftarJenisIdentitasActionPerformed
+
+    private void miDaftarKategoriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miDaftarKategoriActionPerformed
+        // TODO add your handling code here:
+        DaftarKategori DK = new DaftarKategori();
+        DK.setLocationRelativeTo(this);
+        DK.setVisible(true);
+    }//GEN-LAST:event_miDaftarKategoriActionPerformed
+
+    private void miRegistrasiMerekActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRegistrasiMerekActionPerformed
+        // TODO add your handling code here:
+        RegistrasiMerek RM = new RegistrasiMerek();
+        RM.setLocationRelativeTo(this);
+        RM.setVisible(true);
+    }//GEN-LAST:event_miRegistrasiMerekActionPerformed
+
+    private void miDaftarMerekActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miDaftarMerekActionPerformed
+        // TODO add your handling code here:
+        DaftarMerek DM = new DaftarMerek();
+        DM.setLocationRelativeTo(this);
+        DM.setVisible(true);
+    }//GEN-LAST:event_miDaftarMerekActionPerformed
+
+    private void miRegistrasiItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRegistrasiItemActionPerformed
+        // TODO add your handling code here:
+        RegistrasiItem RI = new RegistrasiItem();
+        
+        String KodeCabang = mKodeOutlet.getText().trim();
+        int KodeOutlet = Integer.valueOf(KodeCabang);
+        RI.ftxtKodeOutlet.setValue(new Integer(KodeOutlet));
+        
+        RI.setLocationRelativeTo(this);
+        RI.setVisible(true);
+    }//GEN-LAST:event_miRegistrasiItemActionPerformed
+
+    private void miDaftarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miDaftarItemActionPerformed
+        // TODO add your handling code here:
+        DataItems DI = new DataItems(this, true);
+        DI.setLocationRelativeTo(this);
+        DI.setVisible(true);
+    }//GEN-LAST:event_miDaftarItemActionPerformed
+
+    private void miRegistrasiSatuanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRegistrasiSatuanActionPerformed
+        // TODO add your handling code here:
+        RegistrasiSatuan RS = new RegistrasiSatuan();
+        RS.setLocationRelativeTo(this);
+        RS.setVisible(true);
+    }//GEN-LAST:event_miRegistrasiSatuanActionPerformed
+
+    private void miDaftarSatuanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miDaftarSatuanActionPerformed
+        // TODO add your handling code here:
+        DaftarSatuan DS = new DaftarSatuan();
+        DS.setLocationRelativeTo(this);
+        DS.setVisible(true);
+    }//GEN-LAST:event_miDaftarSatuanActionPerformed
+
+    private void miPenerimaanBarangSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miPenerimaanBarangSupplierActionPerformed
+        // TODO add your handling code here:
+        PenerimaanBarangSupplier PB = new PenerimaanBarangSupplier();
+        
+        String KodeCabang = mKodeOutlet.getText().trim();
+        int KodeOutlet = Integer.valueOf(KodeCabang);
+        PB.ftxtKodeOutlet.setValue(new Integer(KodeOutlet));
+        
+        PB.setLocationRelativeTo(this);
+        PB.setVisible(true);
+    }//GEN-LAST:event_miPenerimaanBarangSupplierActionPerformed
+
+    private void miRegistrasiOutletActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRegistrasiOutletActionPerformed
+        // TODO add your handling code here:
+        RegistrasiOutlet RO = new RegistrasiOutlet();
+        RO.setLocationRelativeTo(this);
+        RO.setVisible(true);
+    }//GEN-LAST:event_miRegistrasiOutletActionPerformed
+
+    private void miDaftarOutletActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miDaftarOutletActionPerformed
+        // TODO add your handling code here:
+        DaftarOutlet DO = new DaftarOutlet();
+        DO.setLocationRelativeTo(this);
+        DO.setVisible(true);
+    }//GEN-LAST:event_miDaftarOutletActionPerformed
+
+    private void miRegistrasiFiturActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRegistrasiFiturActionPerformed
+        // TODO add your handling code here:
+        RegistrasiFitur RF = new RegistrasiFitur();
+        RF.setLocationRelativeTo(this);
+        RF.setVisible(true);
+    }//GEN-LAST:event_miRegistrasiFiturActionPerformed
+
+    private void miHistoriStokItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miHistoriStokItemActionPerformed
+        // TODO add your handling code here:
+        HistoriStokItem HSI = new HistoriStokItem();
+        HSI.setLocationRelativeTo(this);
+        HSI.setVisible(true);
+    }//GEN-LAST:event_miHistoriStokItemActionPerformed
+
+    private void miLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miLoginActionPerformed
+        // TODO add your handling code here:
+        Login Log = new Login();
+        Log.setLocationRelativeTo(this);
+        Log.setVisible(true);
+    }//GEN-LAST:event_miLoginActionPerformed
+
+    private void miTambahSiftActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miTambahSiftActionPerformed
+        // TODO add your handling code here:
+        TambahSift TS = new TambahSift();
+        TS.setLocationRelativeTo(this);
+        TS.setVisible(true);
+    }//GEN-LAST:event_miTambahSiftActionPerformed
+
+    private void miEditAksesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miEditAksesActionPerformed
+        // TODO add your handling code here:
+        EditAkses EA = new EditAkses();
+        EA.setLocationRelativeTo(this);
+        EA.setVisible(true);
+    }//GEN-LAST:event_miEditAksesActionPerformed
+
+    private void miRegistrasiJenisPekerjaanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRegistrasiJenisPekerjaanActionPerformed
+        // TODO add your handling code here:
+        RegistrasiJenisPekerjaan RJP = new RegistrasiJenisPekerjaan();
+        RJP.setLocationRelativeTo(this);
+        RJP.setVisible(true);
+    }//GEN-LAST:event_miRegistrasiJenisPekerjaanActionPerformed
+
+    private void miDaftarJenisPekerjaanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miDaftarJenisPekerjaanActionPerformed
+        // TODO add your handling code here:
+        DaftarJenisPekerjaan DJP = new DaftarJenisPekerjaan();
+        DJP.setLocationRelativeTo(this);
+        DJP.setVisible(true);
+    }//GEN-LAST:event_miDaftarJenisPekerjaanActionPerformed
+
+    private void miDaftarJenisPembayaranActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miDaftarJenisPembayaranActionPerformed
+        // TODO add your handling code here:
+        DaftarJenisPembayaran DJP = new DaftarJenisPembayaran();
+        DJP.setLocationRelativeTo(this);
+        DJP.setVisible(true);
+    }//GEN-LAST:event_miDaftarJenisPembayaranActionPerformed
+
+    private void miDataPekerjaanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miDataPekerjaanActionPerformed
+        // TODO add your handling code here:
+        DataPekerjaan DP = new DataPekerjaan();
+        DP.setLocationRelativeTo(this);
+        DP.setVisible(true);
+    }//GEN-LAST:event_miDataPekerjaanActionPerformed
+
+    private void miDaftarFiturActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miDaftarFiturActionPerformed
+        // TODO add your handling code here:
+        DaftarFitur DF = new DaftarFitur();
+        DF.setLocationRelativeTo(this);
+        DF.setVisible(true);
+    }//GEN-LAST:event_miDaftarFiturActionPerformed
+
+    private void miRegistrasiPenyimpananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRegistrasiPenyimpananActionPerformed
+        // TODO add your handling code here:
+        RegistrasiPenyimpanan RP = new RegistrasiPenyimpanan();
+        RP.setLocationRelativeTo(this);
+        RP.setVisible(true);
+    }//GEN-LAST:event_miRegistrasiPenyimpananActionPerformed
+
+    private void miDataPenyimpananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miDataPenyimpananActionPerformed
+        // TODO add your handling code here:
+        DataPenyimpanan DP = new DataPenyimpanan();
+        DP.setLocationRelativeTo(this);
+        DP.setVisible(true);
+    }//GEN-LAST:event_miDataPenyimpananActionPerformed
+
+    private void miRegistrasiJenisPembayaranActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRegistrasiJenisPembayaranActionPerformed
+        // TODO add your handling code here:
+        RegistrasiJenisPembayaran RJP = new RegistrasiJenisPembayaran();
+        RJP.setLocationRelativeTo(this);
+        RJP.setVisible(true);
+    }//GEN-LAST:event_miRegistrasiJenisPembayaranActionPerformed
+
+    private void miRegistrasiMobilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRegistrasiMobilActionPerformed
+        // TODO add your handling code here:
+        RegistrasiMobil RM = new RegistrasiMobil();
+        RM.setLocationRelativeTo(this);
+        RM.setVisible(true);
+    }//GEN-LAST:event_miRegistrasiMobilActionPerformed
+
+    private void miDataMobilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miDataMobilActionPerformed
+        // TODO add your handling code here:
+        DataMobil DM = new DataMobil();
+        DM.setLocationRelativeTo(this);
+        DM.setVisible(true);
+    }//GEN-LAST:event_miDataMobilActionPerformed
+
+    private void miTransferStokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miTransferStokActionPerformed
+        // TODO add your handling code here:
+        PemindahanStok PS = new PemindahanStok();
+        
+        String KodeUser = mKodeUser.getText().trim();
+        int KodeUsr = Integer.valueOf(KodeUser);
+        PS.ftxtKodeUser.setValue(new Integer(KodeUsr));
+        String KodeOutlet = mKodeOutlet.getText().trim();
+        int KodeCbang = Integer.valueOf(KodeOutlet);
+        PS.ftxtKodeOutlet.setValue(new Integer(KodeCbang));
+        
+        PS.setLocationRelativeTo(this);
+        PS.setVisible(true);
+    }//GEN-LAST:event_miTransferStokActionPerformed
+
+    private void miDaftarSiftActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miDaftarSiftActionPerformed
+        // TODO add your handling code here:
+        DaftarSift DS = new DaftarSift();
+        DS.setLocationRelativeTo(this);
+        DS.setVisible(true);
+    }//GEN-LAST:event_miDaftarSiftActionPerformed
+
+    private void miHistoriTransferStokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miHistoriTransferStokActionPerformed
+        // TODO add your handling code here:
+        HistoriPemindahanStok HPS = new HistoriPemindahanStok();
+        HPS.setLocationRelativeTo(this);
+        HPS.setVisible(true);
+    }//GEN-LAST:event_miHistoriTransferStokActionPerformed
+
+    private void miPembelianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miPembelianActionPerformed
+        // TODO add your handling code here:
+        Pembelian PI = new Pembelian();
+        
+        String KodeUser = mKodeUser.getText().trim();
+        int KodeUsr = Integer.valueOf(KodeUser);
+        PI.ftxtKodeUser.setValue(new Integer(KodeUsr));
+        String KodeOutlet = mKodeOutlet.getText().trim();
+        int KodeCbang = Integer.valueOf(KodeOutlet);
+        PI.ftxtKodeOutlet.setValue(new Integer(KodeCbang));
+        
+        PI.setLocationRelativeTo(this);
+        PI.setVisible(true);
+    }//GEN-LAST:event_miPembelianActionPerformed
+
+    private void miRegistrasiSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRegistrasiSupplierActionPerformed
+        // TODO add your handling code here:
+        RegistrasiSupplier RS = new RegistrasiSupplier();
+        RS.setLocationRelativeTo(this);
+        RS.setVisible(true);
+    }//GEN-LAST:event_miRegistrasiSupplierActionPerformed
+
+    private void miDataSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miDataSupplierActionPerformed
+        // TODO add your handling code here:
+        DataSupplier DS = new DataSupplier(this, true);
+        DS.setLocationRelativeTo(this);
+        DS.setVisible(true);
+    }//GEN-LAST:event_miDataSupplierActionPerformed
+
+    private void miRegistrasiCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRegistrasiCustomerActionPerformed
+        // TODO add your handling code here:
+        RegistrasiMember RM = new RegistrasiMember();
+        RM.setLocationRelativeTo(this);
+        RM.setVisible(true);
+    }//GEN-LAST:event_miRegistrasiCustomerActionPerformed
+
+    private void miDataStokItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miDataStokItemActionPerformed
+        // TODO add your handling code here:
+        DataStokItem DSI = new DataStokItem();
+        DSI.setLocationRelativeTo(this);
+        DSI.setVisible(true);
+    }//GEN-LAST:event_miDataStokItemActionPerformed
+
+    private void miKonfirmasiPenerimaanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miKonfirmasiPenerimaanActionPerformed
+        // TODO add your handling code here:
+        KonfirmasiStok Confirm = new KonfirmasiStok();
+        
+        String KodeUser = mKodeUser.getText().trim();
+        int KodeUsr = Integer.valueOf(KodeUser);
+        Confirm.ftxtKodeUser.setValue(new Integer(KodeUsr));
+        String KodeOutlet = mKodeOutlet.getText().trim();
+        int KodeCbang = Integer.valueOf(KodeOutlet);
+        Confirm.ftxtKodeOutlet.setValue(new Integer(KodeCbang));
+        
+        Confirm.setLocationRelativeTo(this);
+        Confirm.setVisible(true);
+    }//GEN-LAST:event_miKonfirmasiPenerimaanActionPerformed
+
+    private void miDataCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miDataCustomerActionPerformed
+        // TODO add your handling code here:
+        DataMember DM = new DataMember(this, true);
+        DM.setLocationRelativeTo(this);
+        DM.setVisible(true);
+    }//GEN-LAST:event_miDataCustomerActionPerformed
+
+    private void miPenguranganStokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miPenguranganStokActionPerformed
+        // TODO add your handling code here:
+        PenguranganStok PS = new PenguranganStok();
+        
+        String Outlet = (((String)mKodeOutlet.getText()).toString());
+        int KodeOutlet = Integer.valueOf(Outlet);
+        PS.ftxtKodeOutlet.setValue(new Integer(KodeOutlet));
+        String NamaOutlet = olt.getNamaOutlet(KodeOutlet);
+        PS.txtOutlet.setText(NamaOutlet);
+        
+        PS.setLocationRelativeTo(this);
+        PS.setVisible(true);
+    }//GEN-LAST:event_miPenguranganStokActionPerformed
+
+    private void miPenjualanTunaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miPenjualanTunaiActionPerformed
+        // TODO add your handling code here:
+        PenjualanTunai Penjualan = new PenjualanTunai();
+        
+        String KodeCbang = mKodeOutlet.getText().trim();
+        int KodeOutlet = Integer.valueOf(KodeCbang);
+        Penjualan.ftxtKodeOutlet.setValue(KodeOutlet);
+        
+        String KodeUser = mKodeUser.getText().trim();
+        int KodeUsr = Integer.valueOf(KodeUser);
+        String NoIdentitas = Usr.getNoIdentitas(KodeUsr);
+        String Nama = Id.getNamaLengkap(NoIdentitas);
+        int KodeBisnis = Business.getLastKodeBisnis();
+        String NamaBisnis = Business.getNamaBisnis(KodeBisnis);
+        Penjualan.txtNamaBisnis.setText(NamaBisnis);
+        Penjualan.ftxtKodeUser.setValue(KodeUsr);
+        Penjualan.txtNamaUser.setText(Nama);
+        
+        String Sift = mSift.getText().trim();
+        int Sft = Integer.valueOf(Sift);
+        Penjualan.ftxtSift.setValue(Sft);
+        
+        Penjualan.setLocationRelativeTo(this);
+        Penjualan.setVisible(true);
+    }//GEN-LAST:event_miPenjualanTunaiActionPerformed
+
+    private void miSetKasAwalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miSetKasAwalActionPerformed
+        // TODO add your handling code here:
+        SetKasAwal SKA = new SetKasAwal();
+        
+        String KodeOutlet = mKodeOutlet.getText().trim();
+        int KodeCabang = Integer.valueOf(KodeOutlet);
+        SKA.ftxtKodeOutlet.setValue(new Integer(KodeCabang));
+        String Sft = mSift.getText().trim();
+        int Sf = Integer.valueOf(Sft);
+        int KodeSift = Sift.getKodeSift1(Sf);
+        SKA.ftxtKodeSift.setValue(new Integer(KodeSift));
+        String KodeUser = mKodeUser.getText().trim();
+        int KodeUsr = Integer.valueOf(KodeUser);
+        SKA.ftxtKodeUser.setValue(KodeUsr);
+        SKA.ftxtKodeJenis.setValue(new Integer(1));
+        
+        SKA.setLocationRelativeTo(this);
+        SKA.setVisible(true);
+        
+    }//GEN-LAST:event_miSetKasAwalActionPerformed
+
+    private void miSetNamaBisnisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miSetNamaBisnisActionPerformed
+        // TODO add your handling code here:
+        SetNamaBisnis SNB = new SetNamaBisnis(this, true);
+        SNB.setLocationRelativeTo(this);
+        SNB.setVisible(true);
+    }//GEN-LAST:event_miSetNamaBisnisActionPerformed
+
+    private void miLabaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miLabaActionPerformed
+        // TODO add your handling code here:
+        Laba Lb = new Laba();
+        Lb.setLocationRelativeTo(this);
+        Lb.setVisible(true);
+    }//GEN-LAST:event_miLabaActionPerformed
+
+    private void miPengimputanStokOpnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miPengimputanStokOpnameActionPerformed
+        // TODO add your handling code here:
+        PengimputanStokOpname PSO = new PengimputanStokOpname();
+        
+        String Outlet = (((String)mKodeOutlet.getText().trim()).toString());
+        int KodeOutlet = Integer.valueOf(Outlet);
+        PSO.ftxtKodeOutlet.setValue(new Integer(KodeOutlet));
+        String KodeUser = (((String)mKodeUser.getText().trim()).toString());
+        int KodeUsr = Integer.valueOf(KodeUser);
+        PSO.ftxtKodeUser.setValue(new Integer(KodeUsr));
+        
+        PSO.setLocationRelativeTo(this);
+        PSO.setVisible(true);
+    }//GEN-LAST:event_miPengimputanStokOpnameActionPerformed
+
+    private void miDataStokOpnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miDataStokOpnameActionPerformed
+        // TODO add your handling code here:
+        DataStokOpname DSO = new DataStokOpname();
+        DSO.setLocationRelativeTo(this);
+        DSO.setVisible(true);
+    }//GEN-LAST:event_miDataStokOpnameActionPerformed
+
+    private void miDaftarHargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miDaftarHargaActionPerformed
+        // TODO add your handling code here:
+        DaftarHarga DH = new DaftarHarga(this, true);
+        DH.setLocationRelativeTo(this);
+        DH.setVisible(true);
+    }//GEN-LAST:event_miDaftarHargaActionPerformed
+
+    private void miDaftarUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miDaftarUserActionPerformed
+        // TODO add your handling code here:
+        DaftarUser DU = new DaftarUser(this, true);
+        DU.setLocationRelativeTo(this);
+        DU.setVisible(true);
+    }//GEN-LAST:event_miDaftarUserActionPerformed
+
+    private void miGantiUsernamePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miGantiUsernamePasswordActionPerformed
+        // TODO add your handling code here:
+        GantiUsernamePassword GUP = new GantiUsernamePassword(this, true);
+        
+        String KodeUser = (((String)mKodeUser.getText().trim()).toString());
+        int KodeUsr = Integer.valueOf(KodeUser);
+        GUP.ftxtKodeUser.setValue(new Integer(KodeUsr));
+        
+        GUP.setLocationRelativeTo(this);
+        GUP.setVisible(true);
+    }//GEN-LAST:event_miGantiUsernamePasswordActionPerformed
+
+    private void miLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miLogoutActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_miLogoutActionPerformed
+
+    private void miPelunasanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miPelunasanActionPerformed
+        // TODO add your handling code here:
+        Pelunasan PFP = new Pelunasan();
+        
+        String KodeOutlet = mKodeOutlet.getText().trim();
+        int KodeCbng = Integer.valueOf(KodeOutlet);
+        PFP.ftxtKodeOutlet.setValue(new Integer(KodeCbng));
+        
+        PFP.setLocationRelativeTo(this);
+        PFP.setVisible(true);
+    }//GEN-LAST:event_miPelunasanActionPerformed
+
+    private void miPengimputanFakturPembelianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miPengimputanFakturPembelianActionPerformed
+        // TODO add your handling code here:
+        PengimputanFakturPembelian PFP = new PengimputanFakturPembelian();
+        
+        String KodeUser = mKodeUser.getText().trim();
+        int KodeUsr = Integer.valueOf(KodeUser);
+        PFP.ftxtKodeUser.setValue(new Integer(KodeUser));
+        String KodeOutlet = mKodeOutlet.getText().trim();
+        int KodeCabang = Integer.valueOf(KodeOutlet);
+        PFP.ftxtKodeOutlet.setValue(new Integer(KodeCabang));
+        
+        PFP.setLocationRelativeTo(this);
+        PFP.setVisible(true);
+    }//GEN-LAST:event_miPengimputanFakturPembelianActionPerformed
+
+    private void miPenjualanKreditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miPenjualanKreditActionPerformed
+        // TODO add your handling code here:
+        PenjualanKredit Penjualan = new PenjualanKredit();
+        
+        String KodeCbang = mKodeOutlet.getText().trim();
+        int KodeOutlet = Integer.valueOf(KodeCbang);
+        Penjualan.ftxtKodeOutlet.setValue(KodeOutlet);
+        
+        String KodeUser = mKodeUser.getText().trim();
+        int KodeUsr = Integer.valueOf(KodeUser);
+        String NoIdentitas = Usr.getNoIdentitas(KodeUsr);
+        String Nama = Id.getNamaLengkap(NoIdentitas);
+        int KodeBisnis = Business.getLastKodeBisnis();
+        String NamaBisnis = Business.getNamaBisnis(KodeBisnis);
+        Penjualan.ftxtKodeUser.setValue(KodeUsr);
+        
+        String Sift = mSift.getText().trim();
+        int Sft = Integer.valueOf(Sift);
+        Penjualan.ftxtSift.setValue(Sft);
+        
+        Penjualan.setLocationRelativeTo(this);
+        Penjualan.setVisible(true);
+    }//GEN-LAST:event_miPenjualanKreditActionPerformed
+    public JDesktopPane getDesktopPane(){
+        return dpAplikasi;
+    }
+    /**
+     * @param args the command line arguments
+     */
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDesktopPane dpAplikasi;
+    private javax.swing.JLabel lblBackground;
+    public javax.swing.JMenu mAdministrasi;
+    public javax.swing.JMenu mFinancial;
+    public javax.swing.JMenu mInventori;
+    public javax.swing.JMenu mKodeOutlet;
+    public javax.swing.JMenu mKodeUser;
+    public javax.swing.JMenu mSift;
+    public javax.swing.JMenu mTransaksi;
+    public javax.swing.JMenu mUser;
+    private javax.swing.JMenuBar mbAplikasi;
+    public javax.swing.JMenuItem miDaftarFitur;
+    private javax.swing.JMenuItem miDaftarHarga;
+    public javax.swing.JMenuItem miDaftarItem;
+    public javax.swing.JMenuItem miDaftarJenisIdentitas;
+    public javax.swing.JMenuItem miDaftarJenisPekerjaan;
+    public javax.swing.JMenuItem miDaftarJenisPembayaran;
+    public javax.swing.JMenuItem miDaftarKategori;
+    public javax.swing.JMenuItem miDaftarMerek;
+    public javax.swing.JMenuItem miDaftarOutlet;
+    public javax.swing.JMenuItem miDaftarSatuan;
+    public javax.swing.JMenuItem miDaftarSift;
+    public javax.swing.JMenuItem miDaftarUser;
+    public javax.swing.JMenuItem miDataAkun;
+    private javax.swing.JMenuItem miDataCustomer;
+    public javax.swing.JMenuItem miDataMobil;
+    public javax.swing.JMenuItem miDataMutasi;
+    public javax.swing.JMenuItem miDataPekerjaan;
+    public javax.swing.JMenuItem miDataPenyimpanan;
+    public javax.swing.JMenuItem miDataStokItem;
+    public javax.swing.JMenuItem miDataStokOpname;
+    public javax.swing.JMenuItem miDataSupplier;
+    public javax.swing.JMenuItem miDataTransaksi;
+    public javax.swing.JMenuItem miEditAkses;
+    public javax.swing.JMenuItem miGantiUsernamePassword;
+    public javax.swing.JMenuItem miHistoriStokItem;
+    public javax.swing.JMenuItem miHistoriTransferStok;
+    public javax.swing.JMenuItem miKonfirmasiPenerimaan;
+    public javax.swing.JMenuItem miLaba;
+    public javax.swing.JMenuItem miLogin;
+    public javax.swing.JMenuItem miLogout;
+    public javax.swing.JMenuItem miPelunasan;
+    private javax.swing.JMenuItem miPembelian;
+    public javax.swing.JMenuItem miPembuatanMutasi;
+    public javax.swing.JMenuItem miPencetakanBarcode;
+    public javax.swing.JMenuItem miPenerimaanBarangSupplier;
+    public javax.swing.JMenuItem miPengimputanFakturPembelian;
+    public javax.swing.JMenuItem miPengimputanStokOpname;
+    public javax.swing.JMenuItem miPenguranganStok;
+    public javax.swing.JMenuItem miPenjualanKredit;
+    public javax.swing.JMenuItem miPenjualanTunai;
+    public javax.swing.JMenuItem miRegistrasiAkun;
+    private javax.swing.JMenuItem miRegistrasiCustomer;
+    public javax.swing.JMenuItem miRegistrasiFitur;
+    public javax.swing.JMenuItem miRegistrasiItem;
+    public javax.swing.JMenuItem miRegistrasiJenisIdentitas;
+    public javax.swing.JMenuItem miRegistrasiJenisPekerjaan;
+    public javax.swing.JMenuItem miRegistrasiJenisPembayaran;
+    public javax.swing.JMenuItem miRegistrasiKategori;
+    public javax.swing.JMenuItem miRegistrasiMerek;
+    public javax.swing.JMenuItem miRegistrasiMobil;
+    public javax.swing.JMenuItem miRegistrasiOutlet;
+    public javax.swing.JMenuItem miRegistrasiPenyimpanan;
+    public javax.swing.JMenuItem miRegistrasiSatuan;
+    public javax.swing.JMenuItem miRegistrasiSupplier;
+    public javax.swing.JMenuItem miRegistrasiUser;
+    public javax.swing.JMenuItem miSetKasAwal;
+    public javax.swing.JMenuItem miSetNamaBisnis;
+    public javax.swing.JMenuItem miTambahSift;
+    public javax.swing.JMenuItem miTransferStok;
+    // End of variables declaration//GEN-END:variables
+}

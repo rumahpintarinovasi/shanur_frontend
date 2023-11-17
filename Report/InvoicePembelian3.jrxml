@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="InvoicePembelian3" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c48942cd-7d4f-4cf7-91d6-e3932caf2464">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="NoNota" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     businesscontact.`KodeBC` AS businesscontact_KodeBC,
+     businesscontact.`KodeMember` AS businesscontact_KodeMember,
+     businesscontact.`NamaBC` AS businesscontact_NamaBC,
+     businesscontact.`JenisKontak` AS businesscontact_JenisKontak,
+     businesscontact.`Alamat` AS businesscontact_Alamat,
+     businesscontact.`Kelurahan` AS businesscontact_Kelurahan,
+     businesscontact.`Kecamatan` AS businesscontact_Kecamatan,
+     businesscontact.`Kota` AS businesscontact_Kota,
+     businesscontact.`Telpon1` AS businesscontact_Telpon1,
+     businesscontact.`Telpon2` AS businesscontact_Telpon2,
+     businesscontact.`NoHP1` AS businesscontact_NoHP1,
+     businesscontact.`NoHP2` AS businesscontact_NoHP2,
+     rinciantransaksi.`NoNota` AS rinciantransaksi_NoNota,
+     rinciantransaksi.`Barcode` AS rinciantransaksi_Barcode,
+     rinciantransaksi.`NamaItem` AS rinciantransaksi_NamaItem,
+     rinciantransaksi.`Satuan` AS rinciantransaksi_Satuan,
+     rinciantransaksi.`Kuantitas` AS rinciantransaksi_Kuantitas,
+     rinciantransaksi.`Harga` AS rinciantransaksi_Harga,
+     rinciantransaksi.`Diskon` AS rinciantransaksi_Diskon,
+     rinciantransaksi.`Total` AS rinciantransaksi_Total,
+     transaksi.`NoNota` AS transaksi_NoNota,
+     transaksi.`NoFaktur` AS transaksi_NoFaktur,
+     transaksi.`KodeOutlet` AS transaksi_KodeOutlet,
+     transaksi.`KodeUser` AS transaksi_KodeUser,
+     transaksi.`KodeBC` AS transaksi_KodeBC,
+     transaksi.`TglTransaksi` AS transaksi_TglTransaksi,
+     transaksi.`JenisTransaksi` AS transaksi_JenisTransaksi,
+     transaksi.`KodeJenis` AS transaksi_KodeJenis,
+     transaksi.`Orderan` AS transaksi_Orderan,
+     transaksi.`SubTotal` AS transaksi_SubTotal,
+     transaksi.`PPN` AS transaksi_PPN,
+     transaksi.`GrandTotal` AS transaksi_GrandTotal,
+     transaksi.`JmlhPembayaran` AS transaksi_JmlhPembayaran,
+     transaksi.`StatusPelunasan` AS transaksi_StatusPelunasan,
+     transaksi.`TglLunas` AS transaksi_TglLunas,
+     transaksi.`Bayar` AS transaksi_Bayar,
+     transaksi.`Kembali` AS transaksi_Kembali,
+     transaksi.`TglJatuhTempo` AS transaksi_TglJatuhTempo
+FROM
+     `rinciantransaksi` rinciantransaksi INNER JOIN `transaksi` transaksi ON rinciantransaksi.`NoNota` = transaksi.`NoNota`
+     INNER JOIN `businesscontact` businesscontact ON transaksi.`KodeBC` = businesscontact.`KodeBC`
+WHERE
+     transaksi.NoNota = $P{NoNota}]]>
+	</queryString>
+	<field name="businesscontact_KodeBC" class="java.lang.Integer"/>
+	<field name="businesscontact_KodeMember" class="java.lang.String"/>
+	<field name="businesscontact_NamaBC" class="java.lang.String"/>
+	<field name="businesscontact_JenisKontak" class="java.lang.Integer"/>
+	<field name="businesscontact_Alamat" class="java.lang.String"/>
+	<field name="businesscontact_Kelurahan" class="java.lang.String"/>
+	<field name="businesscontact_Kecamatan" class="java.lang.String"/>
+	<field name="businesscontact_Kota" class="java.lang.String"/>
+	<field name="businesscontact_Telpon1" class="java.lang.String"/>
+	<field name="businesscontact_Telpon2" class="java.lang.String"/>
+	<field name="businesscontact_NoHP1" class="java.lang.String"/>
+	<field name="businesscontact_NoHP2" class="java.lang.String"/>
+	<field name="rinciantransaksi_NoNota" class="java.lang.Integer"/>
+	<field name="rinciantransaksi_Barcode" class="java.lang.String"/>
+	<field name="rinciantransaksi_NamaItem" class="java.lang.String"/>
+	<field name="rinciantransaksi_Satuan" class="java.lang.String"/>
+	<field name="rinciantransaksi_Kuantitas" class="java.lang.Double"/>
+	<field name="rinciantransaksi_Harga" class="java.lang.Double"/>
+	<field name="rinciantransaksi_Diskon" class="java.lang.Double"/>
+	<field name="rinciantransaksi_Total" class="java.lang.Double"/>
+	<field name="transaksi_NoNota" class="java.lang.Integer"/>
+	<field name="transaksi_NoFaktur" class="java.lang.String"/>
+	<field name="transaksi_KodeOutlet" class="java.lang.Integer"/>
+	<field name="transaksi_KodeUser" class="java.lang.Integer"/>
+	<field name="transaksi_KodeBC" class="java.lang.Integer"/>
+	<field name="transaksi_TglTransaksi" class="java.sql.Date"/>
+	<field name="transaksi_JenisTransaksi" class="java.lang.Integer"/>
+	<field name="transaksi_KodeJenis" class="java.lang.Integer"/>
+	<field name="transaksi_Orderan" class="java.lang.Integer"/>
+	<field name="transaksi_SubTotal" class="java.lang.Double"/>
+	<field name="transaksi_PPN" class="java.lang.Double"/>
+	<field name="transaksi_GrandTotal" class="java.lang.Double"/>
+	<field name="transaksi_JmlhPembayaran" class="java.lang.Double"/>
+	<field name="transaksi_StatusPelunasan" class="java.lang.Integer"/>
+	<field name="transaksi_TglLunas" class="java.sql.Date"/>
+	<field name="transaksi_Bayar" class="java.lang.Double"/>
+	<field name="transaksi_Kembali" class="java.lang.Double"/>
+	<field name="transaksi_TglJatuhTempo" class="java.sql.Date"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="77" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="38" height="20" uuid="9b2bdd8e-a70e-410b-87f3-622f94d88d2d"/>
+				<text><![CDATA[No Nota ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="48" y="0" width="100" height="20" uuid="28db55c9-4128-417a-aaf7-755ba76eaaac"/>
+				<textFieldExpression><![CDATA[$P{NoNota}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="38" y="0" width="11" height="20" uuid="e34ac0da-b9c1-4852-8108-e92431f25e50"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField pattern="dd-MM-yyyy">
+				<reportElement x="439" y="0" width="116" height="20" uuid="c6912c5d-56e2-4a03-b55d-8537dc53e05b"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{transaksi_TglTransaksi}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="175" y="32" width="222" height="32" uuid="5c352291-8806-4fc4-ae7f-ccfc45dc2327"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Invoice Pembelian]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="54" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="5135f307-8bc7-4196-abd7-8549500bebac"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[No Faktur]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="20" width="100" height="20" uuid="04baf9f2-d1dd-4fb5-a29e-fb5b9a326b98"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Nama Supplier]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="0" width="13" height="20" uuid="d63ff430-2149-4923-8291-dce8cb9ed3ef"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="20" width="13" height="20" uuid="845eabe2-d670-4cb4-91cf-ffda8d04d1b7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="113" y="0" width="442" height="20" uuid="788b23e2-a9ae-4de4-bb71-1d940b2b988f"/>
+				<textFieldExpression><![CDATA[$F{transaksi_NoFaktur}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="113" y="20" width="442" height="20" uuid="a1f40605-67e0-4837-9733-a8005d47d894"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{businesscontact_NamaBC}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="232" height="20" uuid="ee93183f-6486-4c8e-add4-865c99030cdc"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Nama Item]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="385" y="0" width="71" height="20" uuid="bdd9673e-5f41-42ee-a67c-c786165a1851"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Diskon]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="456" y="0" width="99" height="20" uuid="27d9c5e4-09cf-47f8-8238-9109dc10c376"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="232" y="0" width="53" height="20" uuid="e34448a6-d4f7-44a4-9a21-335df99d6662"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Kuantitas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="285" y="0" width="100" height="20" uuid="ed9f1f32-57d0-4b26-a950-afd9b03614bd"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Harga]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="33" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="232" y="0" width="53" height="33" uuid="b826db97-3bf3-49d3-8812-a6145811ada8"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{rinciantransaksi_Kuantitas}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="285" y="0" width="100" height="33" uuid="c95430d9-79c7-4fbe-a192-dd71613bd403"/>
+				<box leftPadding="0" rightPadding="2">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{rinciantransaksi_Harga}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="385" y="0" width="71" height="33" uuid="866a4ac5-9db3-45df-a5f8-2e503ee27330"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{rinciantransaksi_Diskon}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="456" y="0" width="99" height="33" uuid="38fbe167-9070-4fd0-9305-67cd61a2cd8c"/>
+				<box rightPadding="1">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{rinciantransaksi_Total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="232" height="33" uuid="6df2a2cd-7bdc-40d9-a701-dc5bc5e0ac21"/>
+				<box leftPadding="2">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{rinciantransaksi_Barcode}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="103" splitType="Stretch"/>
+	</summary>
+</jasperReport>

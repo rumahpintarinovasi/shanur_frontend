@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="StrukPenjualanPPN1" language="groovy" pageWidth="212" pageHeight="315" columnWidth="172" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="899124c6-3620-41d9-8490-73735795838b">
+	<property name="ireport.zoom" value="3.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="NoNota" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     businesscontact.`KodeBC` AS businesscontact_KodeBC,
+     businesscontact.`NoMember` AS businesscontact_NoMember,
+     businesscontact.`NamaBC` AS businesscontact_NamaBC,
+     businesscontact.`JenisKontak` AS businesscontact_JenisKontak,
+     businesscontact.`Alamat` AS businesscontact_Alamat,
+     businesscontact.`Kelurahan` AS businesscontact_Kelurahan,
+     businesscontact.`Kecamatan` AS businesscontact_Kecamatan,
+     businesscontact.`Kota` AS businesscontact_Kota,
+     businesscontact.`Telpon1` AS businesscontact_Telpon1,
+     businesscontact.`Telpon2` AS businesscontact_Telpon2,
+     businesscontact.`NoHP1` AS businesscontact_NoHP1,
+     businesscontact.`NoHP2` AS businesscontact_NoHP2,
+     member.`KodeMember` AS member_KodeMember,
+     member.`NoMember` AS member_NoMember,
+     member.`KodeBC` AS member_KodeBC,
+     member.`Level` AS member_Level,
+     member.`Diskon` AS member_Diskon,
+     member.`TglExpire` AS member_TglExpire,
+     rinciantransaksi.`KodeRincian` AS rinciantransaksi_KodeRincian,
+     rinciantransaksi.`NoNota` AS rinciantransaksi_NoNota,
+     rinciantransaksi.`Barcode` AS rinciantransaksi_Barcode,
+     rinciantransaksi.`Satuan` AS rinciantransaksi_Satuan,
+     rinciantransaksi.`Kuantitas` AS rinciantransaksi_Kuantitas,
+     rinciantransaksi.`Harga` AS rinciantransaksi_Harga,
+     rinciantransaksi.`Diskon` AS rinciantransaksi_Diskon,
+     rinciantransaksi.`Total` AS rinciantransaksi_Total,
+     CONCAT(items.NamaItem,'/',rinciantransaksi.Satuan) AS NamaItemSatuan,
+     satuan.NamaSatuan,
+     items.`Barcode` AS items_Barcode,
+     items.`NamaItem` AS items_NamaItem,
+     items.`JenisItem` AS items_JenisItem,
+     items.`KodeKategori` AS items_KodeKategori,
+     items.`KodeMerek` AS items_KodeMerek,
+     transaksi.`NoNota` AS transaksi_NoNota,
+     transaksi.`NoFaktur` AS transaksi_NoFaktur,
+     transaksi.`KodeOutlet` AS transaksi_KodeOutlet,
+     transaksi.`KodeUser` AS transaksi_KodeUser,
+     transaksi.`KodeBC` AS transaksi_KodeBC,
+     transaksi.`TglTransaksi` AS transaksi_TglTransaksi,
+     transaksi.`JenisTransaksi` AS transaksi_JenisTransaksi,
+     transaksi.`KodeJenis` AS transaksi_KodeJenis,
+     transaksi.`Orderan` AS transaksi_Orderan,
+     transaksi.`SubTotal` AS transaksi_SubTotal,
+     transaksi.`PPN` AS transaksi_PPN,
+     transaksi.Diskon AS transaksi_Diskon,
+     transaksi.`GrandTotal` AS transaksi_GrandTotal,
+     transaksi.`JmlhPembayaran` AS transaksi_JmlhPembayaran,
+     transaksi.`StatusPelunasan` AS transaksi_StatusPelunasan,
+     transaksi.`TglLunas` AS transaksi_TglLunas,
+     transaksi.`Bayar` AS transaksi_Bayar,
+     transaksi.`Kembali` AS transaksi_Kembali,
+     transaksi.`TglJatuhTempo` AS transaksi_TglJatuhTempo,
+     transaksi.`WktTransaksi` AS transaksi_WktTransaksi,
+     user.`KodeUser` AS user_KodeUser,
+     user.`NoIdentitas` AS user_NoIdentitas,
+     user.`KodeOutlet` AS user_KodeOutlet,
+     user.`Username` AS user_Username,
+     user.`Password` AS user_Password,
+     identitas.`NoIdentitas` AS identitas_NoIdentitas,
+     identitas.`KodeJenis` AS identitas_KodeJenis,
+     identitas.`NamaLengkap` AS identitas_NamaLengkap,
+     identitas.`JenisKelamin` AS identitas_JenisKelamin,
+     identitas.`TempatLahir` AS identitas_TempatLahir,
+     identitas.`TglLahir` AS identitas_TglLahir,
+     identitas.`Alamat` AS identitas_Alamat,
+     identitas.`RT` AS identitas_RT,
+     identitas.`RW` AS identitas_RW,
+     identitas.`Kelurahan` AS identitas_Kelurahan,
+     identitas.`Kecamatan` AS identitas_Kecamatan,
+     identitas.`Kabupaten` AS identitas_Kabupaten,
+     identitas.`Agama` AS identitas_Agama,
+     identitas.`StatusPernikahan` AS identitas_StatusPernikahan,
+     identitas.`Pekerjaan` AS identitas_Pekerjaan,
+     identitas.`Kewarganegaraan` AS identitas_Kewarganegaraan,
+     jenispembayaran.`KodeJenis` AS jenispembayaran_KodeJenis,
+     jenispembayaran.`NamaJenis` AS jenispembayaran_NamaJenis,
+     jenispembayaran.`KodePenyimpanan` AS jenispembayaran_KodePenyimpanan,
+     outlet.`KodeOutlet` AS outlet_KodeOutlet,
+     outlet.`NamaOutlet` AS outlet_NamaOutlet,
+     outlet.`Alamat` AS outlet_Alamat,
+     outlet.`Kelurahan` AS outlet_Kelurahan,
+     outlet.`Kecamatan` AS outlet_Kecamatan,
+     outlet.`Kota` AS outlet_Kota,
+     outlet.`Provinsi` AS outlet_Provinsi,
+     (SELECT SUM(poin.JmlhPoin) FROM poin WHERE NoMember=member.NoMember AND KodeBC=businesscontact.KodeBC) AS TotalPoin,
+(SELECT NamaBisnis FROM bisnis WHERE KodeBisnis=(SELECT MAX(KodeBisnis) FROM bisnis)) AS NamaBisnis
+FROM 
+	`identitas` identitas 
+	INNER JOIN `user` user 
+		ON identitas.NoIdentitas=user.NoIdentitas
+	INNER JOIN outlet outlet
+		ON user.KodeOutlet=outlet.KodeOutlet 
+	INNER JOIN`transaksi` transaksi
+		ON transaksi.KodeOutlet=outlet.KodeOutlet
+		AND transaksi.KodeUser=user.KodeUser
+    INNER JOIN `rinciantransaksi` rinciantransaksi
+    	ON transaksi.NoNota=rinciantransaksi.NoNota
+    INNER JOIN `jenispembayaran` jenispembayaran 
+    	ON jenispembayaran.KodeJenis=transaksi.KodeJenis
+    INNER JOIN `items` items  
+    	ON rinciantransaksi.Barcode=items.Barcode 
+    INNER JOIN satuan satuan
+		ON rinciantransaksi.Satuan=satuan.NamaSatuan
+	INNER JOIN `businesscontact` businesscontact 
+		ON businesscontact.KodeBC=transaksi.KodeBC
+    LEFT JOIN `member`
+     ON businesscontact.NoMember=member.NoMember 
+     AND businesscontact.KodeBC=member.KodeBC
+WHERE (1=1) AND
+transaksi.NoNota=$P{NoNota}]]>
+	</queryString>
+	<field name="businesscontact_KodeBC" class="java.lang.Integer"/>
+	<field name="businesscontact_NoMember" class="java.lang.String"/>
+	<field name="businesscontact_NamaBC" class="java.lang.String"/>
+	<field name="businesscontact_JenisKontak" class="java.lang.Integer"/>
+	<field name="businesscontact_Alamat" class="java.lang.String"/>
+	<field name="businesscontact_Kelurahan" class="java.lang.String"/>
+	<field name="businesscontact_Kecamatan" class="java.lang.String"/>
+	<field name="businesscontact_Kota" class="java.lang.String"/>
+	<field name="businesscontact_Telpon1" class="java.lang.String"/>
+	<field name="businesscontact_Telpon2" class="java.lang.String"/>
+	<field name="businesscontact_NoHP1" class="java.lang.String"/>
+	<field name="businesscontact_NoHP2" class="java.lang.String"/>
+	<field name="member_KodeMember" class="java.lang.Integer"/>
+	<field name="member_NoMember" class="java.lang.String"/>
+	<field name="member_KodeBC" class="java.lang.Integer"/>
+	<field name="member_Level" class="java.lang.String"/>
+	<field name="member_Diskon" class="java.lang.Double"/>
+	<field name="member_TglExpire" class="java.sql.Date"/>
+	<field name="rinciantransaksi_KodeRincian" class="java.lang.Integer"/>
+	<field name="rinciantransaksi_NoNota" class="java.lang.Integer"/>
+	<field name="rinciantransaksi_Barcode" class="java.lang.String"/>
+	<field name="rinciantransaksi_Satuan" class="java.lang.String"/>
+	<field name="rinciantransaksi_Kuantitas" class="java.lang.Double"/>
+	<field name="rinciantransaksi_Harga" class="java.lang.Double"/>
+	<field name="rinciantransaksi_Diskon" class="java.lang.Double"/>
+	<field name="rinciantransaksi_Total" class="java.lang.Double"/>
+	<field name="NamaItemSatuan" class="java.lang.String"/>
+	<field name="NamaSatuan" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="items_Barcode" class="java.lang.String"/>
+	<field name="items_NamaItem" class="java.lang.String"/>
+	<field name="items_JenisItem" class="java.lang.Integer"/>
+	<field name="items_KodeKategori" class="java.lang.Integer"/>
+	<field name="items_KodeMerek" class="java.lang.Integer"/>
+	<field name="transaksi_NoNota" class="java.lang.Integer"/>
+	<field name="transaksi_NoFaktur" class="java.lang.String"/>
+	<field name="transaksi_KodeOutlet" class="java.lang.Integer"/>
+	<field name="transaksi_KodeUser" class="java.lang.Integer"/>
+	<field name="transaksi_KodeBC" class="java.lang.Integer"/>
+	<field name="transaksi_TglTransaksi" class="java.sql.Date"/>
+	<field name="transaksi_JenisTransaksi" class="java.lang.Integer"/>
+	<field name="transaksi_KodeJenis" class="java.lang.Integer"/>
+	<field name="transaksi_Orderan" class="java.lang.Integer"/>
+	<field name="transaksi_SubTotal" class="java.lang.Double"/>
+	<field name="transaksi_PPN" class="java.lang.Double"/>
+	<field name="transaksi_Diskon" class="java.lang.Double"/>
+	<field name="transaksi_GrandTotal" class="java.lang.Double"/>
+	<field name="transaksi_JmlhPembayaran" class="java.lang.Double"/>
+	<field name="transaksi_StatusPelunasan" class="java.lang.Integer"/>
+	<field name="transaksi_TglLunas" class="java.sql.Date"/>
+	<field name="transaksi_Bayar" class="java.lang.Double"/>
+	<field name="transaksi_Kembali" class="java.lang.Double"/>
+	<field name="transaksi_TglJatuhTempo" class="java.sql.Date"/>
+	<field name="transaksi_WktTransaksi" class="java.lang.String"/>
+	<field name="user_KodeUser" class="java.lang.Integer"/>
+	<field name="user_NoIdentitas" class="java.lang.String"/>
+	<field name="user_KodeOutlet" class="java.lang.Integer"/>
+	<field name="user_Username" class="java.lang.String"/>
+	<field name="user_Password" class="java.lang.String"/>
+	<field name="identitas_NoIdentitas" class="java.lang.String"/>
+	<field name="identitas_KodeJenis" class="java.lang.Integer"/>
+	<field name="identitas_NamaLengkap" class="java.lang.String"/>
+	<field name="identitas_JenisKelamin" class="java.lang.Integer"/>
+	<field name="identitas_TempatLahir" class="java.lang.String"/>
+	<field name="identitas_TglLahir" class="java.sql.Date"/>
+	<field name="identitas_Alamat" class="java.lang.String"/>
+	<field name="identitas_RT" class="java.lang.String"/>
+	<field name="identitas_RW" class="java.lang.String"/>
+	<field name="identitas_Kelurahan" class="java.lang.String"/>
+	<field name="identitas_Kecamatan" class="java.lang.String"/>
+	<field name="identitas_Kabupaten" class="java.lang.String"/>
+	<field name="identitas_Agama" class="java.lang.String"/>
+	<field name="identitas_StatusPernikahan" class="java.lang.String"/>
+	<field name="identitas_Pekerjaan" class="java.lang.String"/>
+	<field name="identitas_Kewarganegaraan" class="java.lang.String"/>
+	<field name="jenispembayaran_KodeJenis" class="java.lang.Integer"/>
+	<field name="jenispembayaran_NamaJenis" class="java.lang.String"/>
+	<field name="jenispembayaran_KodePenyimpanan" class="java.lang.Integer"/>
+	<field name="outlet_KodeOutlet" class="java.lang.Integer"/>
+	<field name="outlet_NamaOutlet" class="java.lang.String"/>
+	<field name="outlet_Alamat" class="java.lang.String"/>
+	<field name="outlet_Kelurahan" class="java.lang.String"/>
+	<field name="outlet_Kecamatan" class="java.lang.String"/>
+	<field name="outlet_Kota" class="java.lang.String"/>
+	<field name="outlet_Provinsi" class="java.lang.String"/>
+	<field name="TotalPoin" class="java.math.BigDecimal"/>
+	<field name="NamaBisnis" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="SubTotal" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{rinciantransaksi_Total}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="58" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="32" height="11" uuid="5bd939ab-a901-4cc9-a3c4-8f7346660e92"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[No Nota :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="31" y="0" width="33" height="11" uuid="6dc4ec29-a551-44f3-96c9-05d38988129f"/>
+				<textElement verticalAlignment="Top">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{transaksi_NoNota}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="92" y="0" width="80" height="11" uuid="e22f290f-ccf7-4775-9ad6-42c73ef23607"/>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{transaksi_WktTransaksi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="21" width="172" height="20" uuid="44caf5a3-a2bf-4819-ba96-a9b104276c57"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{NamaBisnis}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="11" width="20" height="10" uuid="585cadfc-0bbe-42f6-8a41-b4e29b83509b"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[Staff :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="20" y="11" width="121" height="10" uuid="62f9aa6a-a90e-46c4-b384-acaede2f94fa"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{identitas_NamaLengkap}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="32" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="172" height="21" uuid="bb81b6f8-eecb-41bf-90e1-323863bcc518"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{items_NamaItem}+" / "+$F{NamaSatuan}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="32" y="21" width="23" height="11" uuid="4a853a60-4249-47e8-a172-ec6ef2dd71df"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{rinciantransaksi_Kuantitas}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="64" y="21" width="43" height="11" uuid="cb075b52-f111-40d8-925b-35762cdef69c"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{rinciantransaksi_Harga}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="116" y="21" width="56" height="11" uuid="0144754f-5067-49d5-8c88-4fffcc091804"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{rinciantransaksi_Total}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="54" y="21" width="11" height="11" uuid="3b62316a-6b85-4cea-84d7-b24b2be7d9a1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[X]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="106" y="21" width="11" height="11" uuid="59f788e0-09a9-48e8-85b2-3651c3a1f6ff"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[=]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<summary>
+		<band height="114" splitType="Stretch">
+			<staticText>
+				<reportElement x="64" y="0" width="43" height="20" uuid="ebe2bcfa-0f54-4ebf-ab2e-62cb92351cc1"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[Sub Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="106" y="0" width="11" height="20" uuid="7556f751-2e1c-4cd3-a95d-9012664288b6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[=]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="116" y="0" width="56" height="20" uuid="7ad4fdc4-c424-4ddb-ac31-de21f23f4043"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SubTotal}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="93" width="172" height="20" uuid="be874252-8a23-42b3-ae31-594a0318c808"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[Terimakasih Telah Berbelanja]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="116" y="19" width="56" height="19" uuid="b63447d9-7213-4019-b869-c1c72403cc35"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{transaksi_PPN}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="106" y="19" width="11" height="19" uuid="0f4cb60e-8acf-4a6d-84c0-ceb6b3e36ce0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[=]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="64" y="19" width="43" height="19" uuid="73062f41-8a00-4d5a-a0a9-930bbecf01b4"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[PPN (11%)]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="116" y="37" width="56" height="19" uuid="8a797d4b-79d4-4f71-bdfb-73263f1bfa03"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{transaksi_GrandTotal}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="106" y="37" width="11" height="19" uuid="6115a6dd-472d-45bd-be46-7cac6cef8d35"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[=]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="64" y="37" width="43" height="19" uuid="3c882ff0-f8f5-46f1-b1f1-0fc87951cebd"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[Grand Total]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

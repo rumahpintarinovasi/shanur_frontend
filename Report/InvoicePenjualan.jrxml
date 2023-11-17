@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="InvoicePenjualan" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="46afa220-570e-42d4-b844-a04568348e83">
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     businesscontact.`KodeBC` AS businesscontact_KodeBC,
+     businesscontact.`NoMember` AS businesscontact_NoMember,
+     businesscontact.`NamaBC` AS businesscontact_NamaBC,
+     businesscontact.`JenisKontak` AS businesscontact_JenisKontak,
+     businesscontact.`Alamat` AS businesscontact_Alamat,
+     businesscontact.`Kelurahan` AS businesscontact_Kelurahan,
+     businesscontact.`Kecamatan` AS businesscontact_Kecamatan,
+     businesscontact.`Kota` AS businesscontact_Kota,
+     businesscontact.`Telpon1` AS businesscontact_Telpon1,
+     businesscontact.`Telpon2` AS businesscontact_Telpon2,
+     businesscontact.`NoHP1` AS businesscontact_NoHP1,
+     businesscontact.`NoHP2` AS businesscontact_NoHP2,
+     items.`Barcode` AS items_Barcode,
+     items.`NamaItem` AS items_NamaItem,
+     items.`JenisItem` AS items_JenisItem,
+     items.`KodeKategori` AS items_KodeKategori,
+     items.`KodeMerek` AS items_KodeMerek,
+     rinciantransaksi.`KodeRincian` AS rinciantransaksi_KodeRincian,
+     rinciantransaksi.`NoNota` AS rinciantransaksi_NoNota,
+     rinciantransaksi.`Barcode` AS rinciantransaksi_Barcode,
+     rinciantransaksi.`Satuan` AS rinciantransaksi_Satuan,
+     rinciantransaksi.`Kuantitas` AS rinciantransaksi_Kuantitas,
+     rinciantransaksi.`Harga` AS rinciantransaksi_Harga,
+     rinciantransaksi.`Diskon` AS rinciantransaksi_Diskon,
+     rinciantransaksi.`Total` AS rinciantransaksi_Total,
+     transaksi.`NoNota` AS transaksi_NoNota,
+     transaksi.`NoFaktur` AS transaksi_NoFaktur,
+     transaksi.`KodeOutlet` AS transaksi_KodeOutlet,
+     transaksi.`KodeUser` AS transaksi_KodeUser,
+     transaksi.`KodeBC` AS transaksi_KodeBC,
+     transaksi.`TglTransaksi` AS transaksi_TglTransaksi,
+     transaksi.`JenisTransaksi` AS transaksi_JenisTransaksi,
+     transaksi.`KodeJenis` AS transaksi_KodeJenis,
+     transaksi.`Orderan` AS transaksi_Orderan,
+     transaksi.`SubTotal` AS transaksi_SubTotal,
+     transaksi.`PPN` AS transaksi_PPN,
+     transaksi.`GrandTotal` AS transaksi_GrandTotal,
+     transaksi.`JmlhPembayaran` AS transaksi_JmlhPembayaran,
+     transaksi.`StatusPelunasan` AS transaksi_StatusPelunasan,
+     transaksi.`TglLunas` AS transaksi_TglLunas,
+     transaksi.`Bayar` AS transaksi_Bayar,
+     transaksi.`Kembali` AS transaksi_Kembali,
+     transaksi.`TglJatuhTempo` AS transaksi_TglJatuhTempo,
+     jenispembayaran.`KodeJenis` AS jenispembayaran_KodeJenis,
+     jenispembayaran.`NamaJenis` AS jenispembayaran_NamaJenis,
+     jenispembayaran.`KodePenyimpanan` AS jenispembayaran_KodePenyimpanan,
+     businesscontact.`NoMember` AS businesscontact_NoMember
+FROM
+     `items` items INNER JOIN `rinciantransaksi` rinciantransaksi ON items.`Barcode` = rinciantransaksi.`Barcode`
+     INNER JOIN `transaksi` transaksi ON rinciantransaksi.`NoNota` = transaksi.`NoNota`
+     INNER JOIN `businesscontact` businesscontact ON transaksi.`KodeBC` = businesscontact.`KodeBC`
+     INNER JOIN `jenispembayaran` jenispembayaran ON transaksi.`KodeJenis` = jenispembayaran.`KodeJenis`]]>
+	</queryString>
+	<field name="businesscontact_KodeBC" class="java.lang.Integer"/>
+	<field name="businesscontact_NoMember" class="java.lang.String"/>
+	<field name="businesscontact_NamaBC" class="java.lang.String"/>
+	<field name="businesscontact_JenisKontak" class="java.lang.Integer"/>
+	<field name="businesscontact_Alamat" class="java.lang.String"/>
+	<field name="businesscontact_Kelurahan" class="java.lang.String"/>
+	<field name="businesscontact_Kecamatan" class="java.lang.String"/>
+	<field name="businesscontact_Kota" class="java.lang.String"/>
+	<field name="businesscontact_Telpon1" class="java.lang.String"/>
+	<field name="businesscontact_Telpon2" class="java.lang.String"/>
+	<field name="businesscontact_NoHP1" class="java.lang.String"/>
+	<field name="businesscontact_NoHP2" class="java.lang.String"/>
+	<field name="items_Barcode" class="java.lang.String"/>
+	<field name="items_NamaItem" class="java.lang.String"/>
+	<field name="items_JenisItem" class="java.lang.Integer"/>
+	<field name="items_KodeKategori" class="java.lang.Integer"/>
+	<field name="items_KodeMerek" class="java.lang.Integer"/>
+	<field name="rinciantransaksi_KodeRincian" class="java.lang.Integer"/>
+	<field name="rinciantransaksi_NoNota" class="java.lang.Integer"/>
+	<field name="rinciantransaksi_Barcode" class="java.lang.String"/>
+	<field name="rinciantransaksi_Satuan" class="java.lang.String"/>
+	<field name="rinciantransaksi_Kuantitas" class="java.lang.Double"/>
+	<field name="rinciantransaksi_Harga" class="java.lang.Double"/>
+	<field name="rinciantransaksi_Diskon" class="java.lang.Double"/>
+	<field name="rinciantransaksi_Total" class="java.lang.Double"/>
+	<field name="transaksi_NoNota" class="java.lang.Integer"/>
+	<field name="transaksi_NoFaktur" class="java.lang.String"/>
+	<field name="transaksi_KodeOutlet" class="java.lang.Integer"/>
+	<field name="transaksi_KodeUser" class="java.lang.Integer"/>
+	<field name="transaksi_KodeBC" class="java.lang.Integer"/>
+	<field name="transaksi_TglTransaksi" class="java.sql.Date"/>
+	<field name="transaksi_JenisTransaksi" class="java.lang.Integer"/>
+	<field name="transaksi_KodeJenis" class="java.lang.Integer"/>
+	<field name="transaksi_Orderan" class="java.lang.Integer"/>
+	<field name="transaksi_SubTotal" class="java.lang.Double"/>
+	<field name="transaksi_PPN" class="java.lang.Double"/>
+	<field name="transaksi_GrandTotal" class="java.lang.Double"/>
+	<field name="transaksi_JmlhPembayaran" class="java.lang.Double"/>
+	<field name="transaksi_StatusPelunasan" class="java.lang.Integer"/>
+	<field name="transaksi_TglLunas" class="java.sql.Date"/>
+	<field name="transaksi_Bayar" class="java.lang.Double"/>
+	<field name="transaksi_Kembali" class="java.lang.Double"/>
+	<field name="transaksi_TglJatuhTempo" class="java.sql.Date"/>
+	<field name="jenispembayaran_KodeJenis" class="java.lang.Integer"/>
+	<field name="jenispembayaran_NamaJenis" class="java.lang.String"/>
+	<field name="jenispembayaran_KodePenyimpanan" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
