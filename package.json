@@ -3,25 +3,11 @@
   "private": true,
   "type": "module",
   "scripts": {
-<<<<<<< HEAD
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
-=======
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
-  },
-  "dependencies": {
-    "@popperjs/core": "^2.11.8",
-    "bootstrap": "^5.3.2",
-    "core-js": "^3.8.3",
-    "vue": "^3.2.13",
-    "vue-router": "^4.2.5",
-    "vue-themify-icons": "^1.0.0"
->>>>>>> 92abe427fb4e3b5dfe2a788dd8d3fd541f852a06
   },
   "devDependencies": {
     "nuxt": "^3.9.1",
