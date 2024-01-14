@@ -1,0 +1,40 @@
+<template>
+    <div class="fixed-navbar">
+	<div class="pull-left">
+		<button type="button" class="menu-mobile-button glyphicon glyphicon-menu-hamburger js__menu_mobile"></button>
+		<h1 class="page-title">Home</h1>
+		<!-- /.page-title -->
+	</div>
+	<!-- /.pull-left -->
+	<div class="pull-right">
+		<div class="ico-item">
+			<a href="#" class="ico-item ti-search js__toggle_open" data-target="#searchform-header"></a>
+			<form action="#" id="searchform-header" class="searchform js__toggle"><input type="search" placeholder="Search..." class="input-search"><button class="ti-search button-search" type="submit"></button></form>
+			<!-- /.searchform -->
+		</div>
+		<!-- /.ico-item -->
+		<a href="#" class="ico-item ti-email notice-alarm js__toggle_open" data-target="#message-popup"></a>
+		<a href="#" class="ico-item ti-bell notice-alarm js__toggle_open" data-target="#notification-popup"></a>
+		<div class="ico-item">
+			<i class="ti-user"></i>
+			<ul class="sub-ico-item">
+				<li><a href="#">Settings</a></li>
+				<li><a class="js__logout" href="#">Log Out</a></li>
+			</ul>
+			<!-- /.sub-ico-item -->
+		</div>
+	</div>
+	<!-- /.pull-right -->
+</div>
+</template>
+
+<style scoped>
+@import "../assets/styles/style.min.css";
+@import "../assets/fonts/themify-icons/themify-icons.css";
+@import "../assets/plugin/mCustomScrollbar/jquery.mCustomScrollbar.min.css";
+@import "../assets/plugin/waves/waves.min.css";
+@import "../assets/plugin/sweet-alert/sweetalert.css";
+</style>
+
+
+  
