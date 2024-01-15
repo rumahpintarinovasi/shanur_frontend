@@ -1,5 +1,5 @@
 <template>
-    <div class="fixed-navbar">
+<div class="fixed-navbar">
 	<div class="pull-left">
 		<button type="button" class="menu-mobile-button glyphicon glyphicon-menu-hamburger js__menu_mobile"></button>
 		<h1 class="page-title">Home</h1>
@@ -13,7 +13,6 @@
 			<!-- /.searchform -->
 		</div>
 		<!-- /.ico-item -->
-		<a href="#" class="ico-item ti-email notice-alarm js__toggle_open" data-target="#message-popup"></a>
 		<a href="#" class="ico-item ti-bell notice-alarm js__toggle_open" data-target="#notification-popup"></a>
 		<div class="ico-item">
 			<i class="ti-user"></i>

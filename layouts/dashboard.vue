@@ -15,14 +15,11 @@
       </header>
       <div class="content">
         <Sidebar />
-        <Navbar />
       </div>
+      <Navbar />
     </div>
-    <div class="wrapper">
-      <div class="main-content">
-        <slot />
-      </div>
-    </div>
+    <slot />      
+      
   </Body>
 </template>
 
