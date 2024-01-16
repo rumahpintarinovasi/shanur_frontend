@@ -23,6 +23,7 @@
   </Body>
 </template>
 
+
 <style>
 
 @import "../assets/styles/style.min.css";
