@@ -19,7 +19,7 @@
       <Navbar />
     </div>
     <slot />      
-      
+     
   </Body>
 </template>
 

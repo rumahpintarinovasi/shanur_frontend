@@ -392,6 +392,7 @@
           </div>
           <!-- /.col-lg-6 col-xs-12 -->
         </div>
+        <Footer />
       </div>
     </div>
   </NuxtLayout>
