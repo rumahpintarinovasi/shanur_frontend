@@ -6,7 +6,7 @@ Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introdu
 Make sure to update your local:
 ```bash
 # jquery
-npm install
+npm install jquery
 ```
 
 ## Setup
