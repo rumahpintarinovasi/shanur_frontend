@@ -1,7 +1,9 @@
 <template>
 <div class="fixed-navbar">
 	<div class="pull-left">
-		<button type="button" class="menu-mobile-button glyphicon glyphicon-menu-hamburger js__menu_mobile"></button>
+		<button
+		@click="htmlAddMenuActive" 
+		type="button" class="menu-mobile-button glyphicon glyphicon-menu-hamburger js__menu_mobile"></button>
 		<h1 class="page-title">Home</h1>
 		<!-- /.page-title -->
 	</div>
@@ -26,6 +28,16 @@
 	<!-- /.pull-right -->
 </div>
 </template>
+
+<script>
+export default {
+  methods: {
+    htmlAddMenuActive() {
+	  document.querySelector('html').classList.toggle('menu-active');
+	},
+  },
+};
+</script>
 
 <style scoped>
 @import "../assets/styles/style.min.css";

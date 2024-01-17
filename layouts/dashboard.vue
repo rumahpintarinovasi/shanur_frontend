@@ -1,8 +1,9 @@
 <template>
-  <Head>
-    <Title>Shanur</Title>
-  </Head>
-  <Body>
+  <div>
+    <Head>
+      <Title>Shanur</Title>
+    </Head>
+    <Navbar />
     <div class="main-menu">
       <header class="header">
         <a href="index.html" class="logo"
@@ -11,31 +12,35 @@
         <button
           type="button"
           class="button-close fa fa-times js__menu_close"
+          @click="closeMenu"
         ></button>
       </header>
       <div class="content">
         <Sidebar />
       </div>
-      <Navbar />
     </div>
     <slot />      
-     
-  </Body>
+  </div>
 </template>
 
+<script>
+export default {
+  methods: {
+   closeMenu() {
+     document.querySelector('html').classList.remove('menu-active');
+   },
+  },
+};
+</script>
 
 <style>
-
 @import "../assets/styles/style.min.css";
-
 @import "../assets/fonts/themify-icons/themify-icons.css";
 @import "../assets/plugin/mCustomScrollbar/jquery.mCustomScrollbar.min.css";
 @import "../assets/plugin/waves/waves.min.css";
 @import "../assets/plugin/sweet-alert/sweetalert.css";
 
-
 html, body {
-    font-family: 'poppins';
+  font-family: 'poppins';
 }
-
 </style>

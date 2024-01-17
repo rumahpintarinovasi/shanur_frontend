@@ -8,6 +8,12 @@ export default defineNuxtConfig({
       enabled: true
     }
   },
+  plugins: [
+    {
+      src: '~/plugins/jquery.js', // path to your jQuery plugin file
+      mode: 'client', // only include on the client-side
+    },
+  ],
   pages: true,
   app: {
     head: {
