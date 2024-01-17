@@ -2,6 +2,13 @@
 
 Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
+## New Package Installed!
+Make sure to update your local:
+```bash
+# jquery
+npm install
+```
+
 ## Setup
 
 Make sure to install the dependencies:
