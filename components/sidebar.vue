@@ -9,9 +9,9 @@
 				<li>
 					<a class="waves-effect" href="calendar.html"><i class="menu-icon ti-calendar"></i><span>Calendar</span></a>
 				</li>
-				<li>
+				<li @click="handleMenuItemClick(0)" :class="{ active: activeIndex === 0 }">
 					<a class="waves-effect parent-item js__control" href="#"><i class="menu-icon ti-bar-chart"></i><span>Charts</span><span class="menu-arrow fa fa-angle-down"></span></a>
-					<ul class="sub-menu js__content">
+					<ul class="sub-menu js__content" :style="{ display: activeIndex === 0 ? 'block' : 'none' }">
 						<li><a href="chart-3d.html">3D Charts</a></li>
 						<li><a href="chart-chartist.html">Chartist Charts</a></li>
 						<li><a href="chart-chartjs.html">Chartjs Chart</a></li>
@@ -32,9 +32,9 @@
 			<h5 class="title">User Interface</h5>
 			<!-- /.title -->
 			<ul class="menu js__accordion">
-				<li>
+				<li @click="handleMenuItemClick(1)" :class="{ active: activeIndex === 1 }">
 					<a class="waves-effect parent-item js__control" href="#"><i class="menu-icon ti-flag"></i><span>Icons</span><span class="menu-arrow fa fa-angle-down"></span></a>
-					<ul class="sub-menu js__content">
+					<ul class="sub-menu js__content" :style="{ display: activeIndex === 1 ? 'block' : 'none' }">
 						<li><a href="icons-font-awesome-icons.html">Font Awesome</a></li>
 						<li><a href="icons-fontello.html">Fontello</a></li>
 						<li><a href="icons-material-icons.html">Material Design Icons</a></li>
@@ -43,9 +43,9 @@
 					</ul>
 					<!-- /.sub-menu js__content -->
 				</li>
-				<li>
+				<li  @click="handleMenuItemClick(2)" :class="{ active: activeIndex === 2 }">
 					<a class="waves-effect parent-item js__control" href="#"><i class="menu-icon ti-desktop"></i><span>UI Kit</span><span class="menu-arrow fa fa-angle-down"></span></a>
-					<ul class="sub-menu js__content">
+					<ul class="sub-menu js__content" :style="{ display: activeIndex === 2 ? 'block' : 'none' }">
 						<li><a href="ui-buttons.html">Buttons</a></li>
 						<li><a href="ui-cards.html">Cards</a></li>
 						<li><a href="ui-checkbox-radio.html">Checkboxs-Radios</a></li>
@@ -60,9 +60,9 @@
 					</ul>
 					<!-- /.sub-menu js__content -->
 				</li>
-				<li>
+				<li @click="handleMenuItemClick(3)" :class="{ active: activeIndex === 3 }">
 					<a class="waves-effect parent-item js__control" href="#"><i class="menu-icon ti-layout"></i><span>Forms</span><span class="notice notice-blue">7</span></a>
-					<ul class="sub-menu js__content">
+					<ul class="sub-menu js__content" :style="{ display: activeIndex === 3 ? 'block' : 'none' }">
 						<li><a href="form-elements.html">General Elements</a></li>
 						<li><a href="form-advanced.html">Advanced Form</a></li>
 						<li><a href="form-fileupload.html">Form Uploads</a></li>
@@ -73,9 +73,9 @@
 					</ul>
 					<!-- /.sub-menu js__content -->
 				</li>
-				<li>
+				<li @click="handleMenuItemClick(4)" :class="{ active: activeIndex === 4 }">
 					<a class="waves-effect parent-item js__control" href="#"><i class="menu-icon ti-layout-accordion-merged"></i><span>Tables</span><span class="menu-arrow fa fa-angle-down"></span></a>
-					<ul class="sub-menu js__content">
+					<ul class="sub-menu js__content" :style="{ display: activeIndex === 4 ? 'block' : 'none' }">
 						<li><a href="tables-basic.html">Basic Tables</a></li>
 						<li><a href="tables-datatable.html">Data Tables</a></li>
 						<li><a href="tables-responsive.html">Responsive Tables</a></li>
@@ -94,9 +94,9 @@
 				<li>
 					<a class="waves-effect" href="inbox.html"><i class="menu-icon ti-email"></i><span>Mail</span><span class="notice notice-danger">New</span></a>
 				</li>
-				<li class="current active">
+				<li  @click="handleMenuItemClick(5)" :class="{ active: activeIndex === 5 }">
 					<a class="waves-effect parent-item js__control" href="#"><i class="menu-icon ti-layers"></i><span>Page</span><span class="menu-arrow fa fa-angle-down"></span></a>
-					<ul class="sub-menu js__content">
+					<ul class="sub-menu js__content" :style="{ display: activeIndex === 5 ? 'block' : 'none' }">
 						<li class="current"><a href="page-starter.html">Starter Page</a></li>
 						<li><a href="page-login.html">Login</a></li>
 						<li><a href="page-register.html">Register</a></li>
@@ -108,9 +108,9 @@
 					</ul>
 					<!-- /.sub-menu js__content -->
 				</li>
-				<li>
+				<li  @click="handleMenuItemClick(6)" :class="{ active: activeIndex === 6 }">
 					<a class="waves-effect parent-item js__control" href="#"><i class="menu-icon ti-blackboard"></i><span>Extra Pages</span><span class="menu-arrow fa fa-angle-down"></span></a>
-					<ul class="sub-menu js__content">
+					<ul class="sub-menu js__content" :style="{ display: activeIndex === 6 ? 'block' : 'none' }">
 						<li><a href="extras-contact.html">Contact list</a></li>
 						<li><a href="extras-email-template.html">Email template</a></li>
 						<li><a href="extras-faq.html">FAQ</a></li>
@@ -130,11 +130,38 @@
 		</div>
 </template>
 
+<script>
+export default {
+  data() {
+    return {
+      activeIndex: null,
+    };
+  },
+  methods: {
+    handleMenuItemClick(index) {
+      if (this.activeIndex === index) {
+        // If the clicked menu is already active, close it
+        this.activeIndex = null;
+      } else {
+        // Toggle the clicked menu
+        this.activeIndex = index;
+      }
+    },
+  },
+};
+</script>
+
+
 <style scoped>
 @import "../assets/styles/style.min.css";
 @import "../assets/fonts/themify-icons/themify-icons.css";
 @import "../assets/plugin/mCustomScrollbar/jquery.mCustomScrollbar.min.css";
 @import "../assets/plugin/waves/waves.min.css";
 @import "../assets/plugin/sweet-alert/sweetalert.css";
+
+.sub-menu-active {
+	  display: block !important;
+}
+
 </style>
 
