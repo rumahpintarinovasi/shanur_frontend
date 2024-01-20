@@ -7,6 +7,9 @@ Make sure to update your local:
 ```bash
 # jquery
 npm install jquery
+
+#Apexchart
+npm install --save apexcharts vue3-apexcharts
 ```
 
 ## Setup
