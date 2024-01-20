@@ -13,6 +13,7 @@ export default defineNuxtConfig({
       src: '~/plugins/jquery.js', // path to your jQuery plugin file
       mode: 'client', // only include on the client-side
     },
+    '~/plugins/apexchart.js',
   ],
   pages: true,
   app: {
