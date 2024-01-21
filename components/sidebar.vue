@@ -1,31 +1,27 @@
 <template>
     <div class="navigation">
-			<h5 class="title">Navigation</h5>
+			<h5 class="title">Main Menu</h5>
 			<!-- /.title -->
 			<ul class="menu js__accordion">
 				<li>
 					<a class="waves-effect" href="index.html"><i class="menu-icon ti-dashboard"></i><span>Dashboard</span></a>
 				</li>
-				<li>
-					<a class="waves-effect" href="calendar.html"><i class="menu-icon ti-calendar"></i><span>Calendar</span></a>
-				</li>
 				<li @click="handleMenuItemClick(0)" :class="{ active: activeIndex === 0 }">
-					<a class="waves-effect parent-item js__control" href="#"><i class="menu-icon ti-bar-chart"></i><span>Charts</span><span class="menu-arrow fa fa-angle-down"></span></a>
+					<a class="waves-effect parent-item js__control" href="#"><i class="menu-icon ti-bar-chart"></i><span>Laporan</span><span class="menu-arrow fa fa-angle-down"></span></a>
 					<ul class="sub-menu js__content" :style="{ display: activeIndex === 0 ? 'block' : 'none' }">
-						<li><a href="chart-3d.html">3D Charts</a></li>
-						<li><a href="chart-chartist.html">Chartist Charts</a></li>
-						<li><a href="chart-chartjs.html">Chartjs Chart</a></li>
-						<li><a href="chart-dynamic.html">Dynamic Chart</a></li>
-						<li><a href="chart-flot.html">Flot Chart</a></li>
-						<li><a href="chart-knob.html">Knob Chart</a></li>
-						<li><a href="chart-morris.html">Morris Chart</a></li>
-						<li><a href="chart-sparkline.html">Sparkline Chart</a></li>
-						<li><a href="chart-other.html">Other Chart</a></li>
+						<li><a href="#">Laporan Penjualan</a></li>
+						<li><a href="#">Laporan Pembelian</a></li>
+						<li><a href="#">Kartu Stock</a></li>
+						<li><a href="#">Purchase Order</a></li>
+						<li><a href="#">Faktur Pembelian</a></li>
+						<li><a href="#">Retur Pembelian</a></li>
+						<li><a href="#">Faktur Penjualan</a></li>
+						<li><a href="#">Retur Penjualan</a></li>
+						<li><a href="#">Laporan Hutang</a></li>
+						<li><a href="#">Laporan Piutang</a></li>
+						<li><a href="#">Laporan Laba/Rugi</a></li>
 					</ul>
 					<!-- /.sub-menu js__content -->
-				</li>
-				<li>
-					<a class="waves-effect" href="widgets.html"><i class="menu-icon ti-layers-alt"></i><span>Widgets</span><span class="notice notice-yellow">6</span></a>
 				</li>
 			</ul>
 			<!-- /.menu js__accordion -->
