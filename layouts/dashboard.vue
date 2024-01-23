@@ -1,8 +1,8 @@
 <template>
-  <div>
-    <Head>
-      <Title>Shanur</Title>
-    </Head>
+  <Head>
+    <Title>Shanur</Title>
+  </Head>
+  <Body>
     <Navbar />
     <div class="main-menu">
       <header class="header">
@@ -19,16 +19,16 @@
         <Sidebar />
       </div>
     </div>
-    <slot />      
-  </div>
+    <slot />
+  </Body>
 </template>
 
 <script>
 export default {
   methods: {
-   closeMenu() {
-     document.querySelector('html').classList.remove('menu-active');
-   },
+    closeMenu() {
+      document.querySelector("html").classList.remove("menu-active");
+    },
   },
 };
 </script>
@@ -40,7 +40,8 @@ export default {
 @import "../assets/plugin/waves/waves.min.css";
 @import "../assets/plugin/sweet-alert/sweetalert.css";
 
-html, body {
-  font-family: 'poppins';
+html,
+body {
+  font-family: "poppins";
 }
 </style>
