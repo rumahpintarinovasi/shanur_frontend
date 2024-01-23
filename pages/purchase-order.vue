@@ -67,7 +67,7 @@
                     <th>Aksi</th>
                   </tr>
                 </thead>
-                <tbody>
+                <!-- <tbody>
                   <tr v-for="(item, index) in listDataPo" :key="index">
                     <td>{{ index + 1 }}</td>
                     <td>{{ item.kode }}</td>
@@ -89,7 +89,7 @@
                       </div>
                     </td>
                   </tr>
-                </tbody>
+                </tbody> -->
               </table>              
             </div>
             <!-- /.box-content -->
