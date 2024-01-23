@@ -68,63 +68,27 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>001</td>
-                    <td>AT0571</td>
-                    <td>Buku Kiky</td>
-                    <td>Rp.10000</td>
-                    <td>2</td>
-                    <td>Rp.100000</td>
+                  <tr v-for="(item, index) in listDataPo" :key="index">
+                    <td>{{ index + 1 }}</td>
+                    <td>{{ item.kode }}</td>
+                    <td>{{ item.nama }}</td>
+                    <td>{{ item.harga }}</td>
+                    <td>{{ item.jumlah }}</td>
+                    <td>{{ item.total }}</td>
                     <td>
-                      <!-- button hapus -->
-                      <div class="text-danger " style="cursor: pointer;">
+                      <div class="text-danger" style="cursor: pointer;" @click="listDataPo.splice(index, 1)">
                         Hapus
                       </div>
                     </td>
                   </tr>
                   <tr>
-                    <td>002</td>
-                    <td>AT0571</td>
-                    <td>Buku Kiky</td>
-                    <td>Rp.10000</td>
-                    <td>2</td>
-                    <td>Rp.100000</td>
-                    <td>
-                      <!-- button hapus -->
-                      <div class="text-danger " style="cursor: pointer;">
-                        Hapus
+                    <td colspan="7">
+                      <div class="text-black " style="cursor: pointer;" @click="addItem">
+                        <i class="fa fa-plus"></i>
+                        Tambah Item
                       </div>
                     </td>
                   </tr>
-                  <tr>
-                    <td>003</td>
-                    <td>AT0571</td>
-                    <td>Buku Kiky</td>
-                    <td>Rp.10000</td>
-                    <td>2</td>
-                    <td>Rp.100000</td>
-                    <td>
-                      <!-- button hapus -->
-                      <div class="text-danger " style="cursor: pointer;">
-                        Hapus
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>004</td>
-                    <td>AT0571</td>
-                    <td>Buku Kiky</td>
-                    <td>Rp.10000</td>
-                    <td>2</td>
-                    <td>Rp.100000</td>
-                    <td>
-                      <!-- button hapus -->
-                      <div class="text-danger " style="cursor: pointer;">
-                        Hapus
-                      </div>
-                    </td>
-                  </tr>
-
                 </tbody>
               </table>              
             </div>
@@ -175,6 +139,52 @@
 definePageMeta({
   layout: "dashboard",
 });
+
+const listDataPo = ref([
+  {
+    id: 1,
+    kode: "AT0571",
+    nama: "Buku Kiky",
+    harga: 10000,
+    jumlah: 2,
+    total: 20000,
+  },
+  {
+    id: 2,
+    kode: "AT0571",
+    nama: "Buku Kiky",
+    harga: 10000,
+    jumlah: 2,
+    total: 20000,
+  },
+  {
+    id: 3,
+    kode: "AT0571",
+    nama: "Buku Kiky",
+    harga: 10000,
+    jumlah: 2,
+    total: 20000,
+  },
+  {
+    id: 4,
+    kode: "AT0571",
+    nama: "Buku Kiky",
+    harga: 10000,
+    jumlah: 2,
+    total: 20000,
+  },
+])
+
+const addItem = () => {
+  listDataPo.value.push({
+    id: 5,
+    kode: "AT0571",
+    nama: "Buku Kiky",
+    harga: 10000,
+    jumlah: 2,
+    total: 20000,
+  })
+}
 </script>
 
 <style>
