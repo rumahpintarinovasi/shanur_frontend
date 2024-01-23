@@ -4,7 +4,7 @@
 			<!-- /.title -->
 			<ul class="menu js__accordion">
 				<li>
-					<a class="waves-effect" href="index.html"><i class="menu-icon ti-dashboard"></i><span>Dashboard</span></a>
+					<NuxtLink to="/"><i class="menu-icon ti-dashboard"></i><span>Dashboard</span></NuxtLink>
 				</li>
 				<li @click="handleMenuItemClick(0)" :class="{ active: activeIndex === 0 }">
 					<a class="waves-effect parent-item js__control" href="#"><i class="menu-icon ti-bar-chart"></i><span>Laporan</span><span class="menu-arrow fa fa-angle-down"></span></a>
@@ -12,7 +12,9 @@
 						<li><a href="#">Laporan Penjualan</a></li>
 						<li><a href="#">Laporan Pembelian</a></li>
 						<li><a href="#">Kartu Stock</a></li>
-						<li><a href="#">Purchase Order</a></li>
+						<li>
+							<NuxtLink to="/purchase-order">Purchase Order</NuxtLink>
+						</li>
 						<li><a href="#">Faktur Pembelian</a></li>
 						<li><a href="#">Retur Pembelian</a></li>
 						<li><a href="#">Faktur Penjualan</a></li>
