@@ -6,9 +6,9 @@
     <Navbar />
     <div class="main-menu">
       <header class="header">
-        <a href="index.html" class="logo"
-          ><i class="ico ti-rocket"></i>SpaceX</a
-        >
+        <NuxtLink to="/" class="logo">
+         <i class="ico ti-rocket"></i>SpaceX
+        </NuxtLink>
         <button
           type="button"
           class="button-close fa fa-times js__menu_close"
