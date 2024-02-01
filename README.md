@@ -5,12 +5,9 @@ Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introdu
 ## New Package Installed!
 Make sure to update your local:
 ```bash
-# jquery
-npm install jquery
+# jquery , apexchart, pinia, axios
+npm install
 
-#Apexchart
-npm install --save apexcharts vue3-apexcharts
-```
 
 ## Setup
 
