@@ -15,8 +15,10 @@
     "vue-router": "^4.2.5"
   },
   "dependencies": {
+    "@pinia/nuxt": "^0.5.1",
     "apexcharts": "^3.45.1",
     "jquery": "^3.7.1",
+    "pinia": "^2.1.7",
     "vue3-apexcharts": "^1.4.4"
   }
 }
