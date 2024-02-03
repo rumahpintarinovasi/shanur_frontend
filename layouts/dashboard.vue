@@ -24,14 +24,15 @@
 </template>
 
 <script>
+
+
 export default {
   async created() {
     try {
-      const { data } = await useApi("/todos/1", "get");
-      console.log(data?.value);
-      console.log("test")
+      const res = await this.$api("todos/1");
+      console.log(res.data);
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.log(error);
     }
   },
   methods: {

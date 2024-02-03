@@ -1,10 +1,18 @@
-// plugins/axios.js
-import axios from 'axios';
+import axios from "axios";
 
-export default function ({ app }, inject) {
-  const axiosInstance = axios.create({
-    baseURL: 'https://jsonplaceholder.typicode.com', // Replace with your API base URL
+export default defineNuxtPlugin((nuxtApp) => {
+  const defaultUrl = "https://jsonplaceholder.typicode.com";
+
+  let api = axios.create({
+    baseURL: defaultUrl,  // Corrected property name to baseURL
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
   });
 
-  inject('axios', axiosInstance);
-}
+  return {
+    provide: {
+      api: api,
+    },
+  };
+});
