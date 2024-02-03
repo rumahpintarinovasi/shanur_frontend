@@ -7,7 +7,7 @@
           <div class="col-lg-6 col-xs-12">
             <div class="box-content custom-height">
               <div class="flex-custom middle">
-                <h4 class="box-title">Tanggal PO</h4>
+                <h4 class="box-title">Tanggal</h4>
                 <div class="input-group" style="width: 100%">
                   <input
                     type="date"

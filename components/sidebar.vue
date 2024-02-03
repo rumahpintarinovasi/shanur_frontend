@@ -41,6 +41,14 @@
           <span>Product</span></a
         >
       </li>
+      <li>
+        <a href="/kasir"
+          >
+          <!-- icon cashier -->
+          <i class="menu-icon ti-wallet"></i>
+          <span>Kasir</span></a
+        >
+      </li>
     </ul>
   </div>
 </template>
