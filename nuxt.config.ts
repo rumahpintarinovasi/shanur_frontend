@@ -8,9 +8,12 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
   ],
   plugins: [
-    '~/plugins/axios.js',
+    '~/plugins/axios.ts',
     '~/plugins/apexchart.js',
   ],
+  build: {
+    transpile: ['axios'], // To avoid potential Axios issues with Nuxt 3
+  },
   pages: true,
   app: {
     head: {
