@@ -14,7 +14,7 @@
           class="button-close fa fa-times js__menu_close"
           @click="closeMenu"
         ></button>
-      </header>
+      </header> 
       <div class="content">
         <Sidebar />
       </div>
