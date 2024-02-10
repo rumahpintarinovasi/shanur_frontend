@@ -33,18 +33,18 @@
                         text-overflow: ellipsis;
                       "
                     >
-                      Jenis
+                      Type
                     </th>
-                    <th>Barang</th>
                     <th>Jumlah</th>
                     <th>Total Harga</th>
                     <th>Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>02/05/2023</td>
-                    <td>PO103</td>
+                  <tr v-for="invoice in invoices">
+
+                    <td>{{ invoice.invoiceDate }}</td>
+                    <td>{{ invoice.invoiceNumber }}</td>
                     <td
                       style="
                         max-width: 300px;
@@ -54,95 +54,10 @@
                       "
                       class="text-ellipsis"
                     >
-                      CV. Amidis Waterindo
+                      {{ invoice.type }}
                     </td>
-                    <td>Barang 1</td>
-                    <td>10</td>
-                    <td>Rp.1000000</td>
-                    <td>
-                      <a href="#" class="text-primary">Detail</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>02/05/2023</td>
-                    <td>PO103</td>
-                    <td
-                      style="
-                        max-width: 300px;
-                        white-space: nowrap;
-                        overflow: hidden;
-                        text-overflow: ellipsis;
-                      "
-                      class="text-ellipsis"
-                    >
-                      CV. Amidis Waterindo
-                    </td>
-                    <td>Barang 2</td>
-                    <td>10</td>
-                    <td>Rp.1000000</td>
-                    <td>
-                      <a href="#" class="text-primary">Detail</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>02/05/2023</td>
-                    <td>PO103</td>
-                    <td
-                      style="
-                        max-width: 300px;
-                        white-space: nowrap;
-                        overflow: hidden;
-                        text-overflow: ellipsis;
-                      "
-                      class="text-ellipsis"
-                    >
-                      CV. Amidis Waterindo
-                    </td>
-                    <td>Barang 3</td>
-                    <td>10</td>
-                    <td>Rp.1000000</td>
-                    <td>
-                      <a href="#" class="text-primary">Detail</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>02/05/2023</td>
-                    <td>PO103</td>
-                    <td
-                      style="
-                        max-width: 300px;
-                        white-space: nowrap;
-                        overflow: hidden;
-                        text-overflow: ellipsis;
-                      "
-                      class="text-ellipsis"
-                    >
-                      CV. Amidis Waterindo
-                    </td>
-                    <td>Barang 4</td>
-                    <td>10</td>
-                    <td>Rp.1000000</td>
-                    <td>
-                      <a href="#" class="text-primary">Detail</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>02/05/2023</td>
-                    <td>PO103</td>
-                    <td
-                      style="
-                        max-width: 300px;
-                        white-space: nowrap;
-                        overflow: hidden;
-                        text-overflow: ellipsis;
-                      "
-                      class="text-ellipsis"
-                    >
-                      CV. Amidis Waterindo
-                    </td>
-                    <td>Barang 5</td>
-                    <td>10</td>
-                    <td>Rp.1000000</td>
+                    <td>{{  invoice.totalItem }}</td>
+                    <td>{{  invoice.price }}</td>
                     <td>
                       <a href="#" class="text-primary">Detail</a>
                     </td>
@@ -163,19 +78,21 @@
 </template>
 
 <script lang="ts" setup>
-import { storeToRefs } from 'pinia'
+import { type Invoice } from '../../helpers/interface';
 import { useInvoicesStore } from '~/store/invoices'
 definePageMeta({
   layout: "dashboard",
 });
+const invoices = ref<Invoice[]| []>([])
 
 const invoicesStore = useInvoicesStore()
-
 const { fetchInvoices } = invoicesStore
-const { invoices  } = storeToRefs(invoicesStore)
 
-await fetchInvoices()
+onMounted(async () => {
+  invoices.value = await fetchInvoices()
+})
 
+// Method
 </script>
 
 <style>

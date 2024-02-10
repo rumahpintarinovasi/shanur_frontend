@@ -13,7 +13,6 @@ interface pluginResponse {
   provide : any
 }
 export default defineNuxtPlugin (()  => {
-
   const defaultUrl:string = 'http://localhost:4000/api/v1'
   const restAPI :AxiosInstance = axios.create({
     baseURL: defaultUrl,
