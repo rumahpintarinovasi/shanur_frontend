@@ -26,8 +26,24 @@ export const useProductStore = defineStore('product', () => {
     }
   }
 
+  const addProduct = async (payload: any) => {
+    try {
+      const { data } = await $axios({
+        method: "post",
+        url: "/product",
+        data: payload
+      })
+
+      return true;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+
   return {
     products,
-    fetchProduct
+    fetchProduct,
+    addProduct
   }
 });
