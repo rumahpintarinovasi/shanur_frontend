@@ -11,6 +11,10 @@ export default defineNuxtConfig({
     '~/plugins/axios.ts',
     '~/plugins/apexchart.js',
   ],
+  components: [
+    '~/components',
+    '~/components/Invoices',
+  ],
   build: {
     transpile: ['axios'], // To avoid potential Axios issues with Nuxt 3
   },
@@ -26,5 +30,10 @@ export default defineNuxtConfig({
       ],
     },
   },
+  runtimeConfig: {
+    public: {
+      BASE_URL_BACKEND: process.env.BASE_URL_BACKEND
+    }
+  }
 
 })

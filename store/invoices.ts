@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import axios from '~~/plugins/axios'
-import type { Invoice } from '../helpers/interface';
+import type { Invoice, InvoiceDetail } from '../helpers/interface';
 const $axios = axios().provide.axios
 
 export const useInvoicesStore = defineStore( 'invoices', () => {
@@ -40,9 +40,27 @@ export const useInvoicesStore = defineStore( 'invoices', () => {
         }
     }
 
+    const fetchInvoiceDetail = async (invoiceId : string) : Promise<Invoice> => {
+        try {
+            const { data } = await $axios({
+                method : 'get',
+                url : `/invoice/${invoiceId}`
+            })
+
+            if (data.data) {
+                invoices.value = data.data
+            }
+            return data.data
+
+        } catch (error) {
+            throw error
+        }
+    }
+
     return {
         invoices,
         fetchInvoices,
-        addInvoices
+        addInvoices,
+        fetchInvoiceDetail
     }
 })

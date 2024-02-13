@@ -1,12 +1,16 @@
 interface Invoice {
+    id? : string
     invoiceDate: string,
     invoiceNumber?: string,
+    trxTableName?: string,
     price: number,
     totalItem: number,
-    type : string
+    type : string,
+    invoiceItems? : InvoiceItem[]
 }
 
 interface InvoiceItem {
+    id ?: string
     productId : string,
     quantity: number,
     price : number,

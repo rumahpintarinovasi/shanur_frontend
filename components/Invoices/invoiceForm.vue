@@ -1,5 +1,4 @@
 <template>
-  <NuxtLayout>
     <div id="wrapper">
       <div class="main-content">
         <!-- /.row small-spacing two -->
@@ -7,11 +6,40 @@
           <div class="">
             <div class="box-content custom-height">
               <div class="flex-custom middle">
-                <h4 class="box-title">Tanggal</h4>
+                <h4 class="box-title">Invoice Number</h4>
                 <div class="input-group" style="width: 100%">
+                  <input 
+                    v-if="!isEdit"
+                    :value="invoiceForm?.invoiceNumber"
+                    class="form-control"
+                    disabled
+                  />
                   <input
+                    v-else
                     @change="(e) => handleChangeInvoiceForm(e)"
-                    :value="invoiceForm.invoiceDate"
+                    :value="new Date(invoiceForm.invoiceDate)"
+                    type="date"
+                    name="invoiceDate"
+                    class="form-control"
+                    placeholder="mm/dd/yyyy"
+                    id="datepicker"
+                    style="width: 100%"
+                  />
+                </div>
+              </div>
+              <div class="flex-custom middle" style="margin-top: 20px;">
+                <h4 class="box-title">Invoice Date</h4>
+                <div class="input-group" style="width: 100%">
+                  <input 
+                    v-if="!isEdit"
+                    :value="$moment(invoiceForm.invoiceDate).format('YYYY MMMM DD')"
+                    class="form-control"
+                    disabled
+                  />
+                  <input
+                    v-else
+                    @change="(e) => handleChangeInvoiceForm(e)"
+                    :value="new Date(invoiceForm.invoiceDate)"
                     type="date"
                     name="invoiceDate"
                     class="form-control"
@@ -36,7 +64,7 @@
                     <th>Price</th>
                     <th>Quantity</th>
                     <th>Total</th>
-                    <th>Action</th>
+                    <th v-if="isEdit" >Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -54,7 +82,7 @@
                     <td>
                       {{ formatCurrency(item.quantity * item.price) }}
                     </td>
-                    <td style="display: flex; gap: 10px" >
+                    <td v-if="isEdit" style="display: flex; gap: 10px" >
                       <button class="btn btn-info fa fa-pencil" />
                       <button class="btn btn-danger fa fa-trash" />
                     </td>
@@ -90,7 +118,9 @@
                 </tbody>
               </table>
 
-              <button @click="() => isAddNewItem = true" class="btn">Add Item</button>
+              <button 
+                v-if="isEdit"
+                @click="() => isAddNewItem = true" class="btn">Add Item</button>
             </div>
             <!-- /.box-content -->
           </div>
@@ -105,6 +135,7 @@
                 <div class="form-group" style="max-width: 100%">
                   <input
                     type="text"
+                    disabled
                     class="form-control font-bold"
                     placeholder="Rp. 0"
                     style="max-width: 100%"
@@ -112,24 +143,13 @@
                   />
                 </div>
               </div>
-              <!-- <div class="flex-custom">
-                <h4 class="box-title">Pembayaran</h4>
-                <div class="form-group">
-                  <select class="form-control" style="width: 100%">
-                    <option value="">Cash</option>
-                    <option value="1">Kredit</option>
-                    <option value="2">Dana</option>
-                    <option value="3">Ovo</option>
-                  </select>
-                </div>
-              </div> -->
             </div>
           </div>
           <div class="col-lg-6 col-xs-12">
             <!-- button ajukan po (green) batalkan po (red) flex row but in mobile column-->
-            <div class="flex-custom-responsive">
-              <button @click="handleSaveInvoices" type="button" class="btn btn-success">Save Invoices</button>
-              <button type="button" @click="() => $router.push('/invoice')" class="btn btn-danger">Cancel</button>
+            <div  class="flex-custom-responsive">
+              <button v-if="isEdit" @click="handleSaveInvoices" type="button" class="btn btn-success">Save Invoices</button>
+              <button @click="() => $router.back()" type="button" class="btn btn-danger">Back</button>
             </div>
           </div>
         </div>
@@ -137,38 +157,40 @@
         <Footer />
       </div>
     </div>
-  </NuxtLayout>
 </template>
 
-<script lang="ts" setup>
-import type { NewInvoice, Product, InputFileEvent, InvoiceItem } from "../../helpers/interface";
-import { useProductStore, useInvoicesStore } from '~/store'
-import { formatCurrency } from '../../helpers/utils'
-definePageMeta({
-  layout: "dashboard",
-});
-const router = useRouter()
 
-// Store
-const { addInvoices  } = useInvoicesStore()
-const productStore =  useProductStore()
-const { fetchProduct } = productStore
+<script  lang="ts" setup >
+import type { InvoiceItem, Product, NewInvoice, InputFileEvent, Invoice } from '~/helpers/interface';
+import { formatCurrency } from '~/helpers/utils'
+import moment from '~~/plugins/moment'
+const router = useRouter()
+const $moment = moment().provide.moment
 interface NewInvoiceItem extends InvoiceItem {
   total : number
 }
 
+interface InvoiceFormProps {
+    product: Product[] | [],
+    invoiceForm : Invoice,
+    type : string,
+    action : string
+}
+
+const props = defineProps<InvoiceFormProps>()
+
 // Ref State
-const products = ref<Product[]>()
-const invoiceForm = ref<NewInvoice>({
-  invoiceDate: "",
-  invoiceItems: [],
-});
+const products = toRef(props, 'product')
+const invoiceForm = toRef(props, 'invoiceForm')
+const type = toRef(props, 'type')
+const action = toRef(props, 'action')
 const newInvoiceItem = ref<NewInvoiceItem>({
   productId: '',
   quantity: 0,
   price: 0,
   total : 0
 })
+const isEdit = action.value === 'edit'
 const isAddNewItem = ref<boolean>(false)
 
 const totalPrice = computed(() => {
@@ -179,10 +201,6 @@ const totalPrice = computed(() => {
   return total
 })
 
-
-onMounted(async() => {
-  products.value = await fetchProduct()
-})
 
 // Method
 const handleChangeProductItem = (value: Event) => {
@@ -247,56 +265,11 @@ const handleSaveInvoices = async () => {
     invoiceItems: invoiceForm.value.invoiceItems
   }
 
-  await addInvoices(newInvoices)
-
 }
+
+
 </script>
 
-<style>
-.flex-custom {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 3em;
-  margin-bottom: 2em;
-}
+<style global >
 
-.flex-custom .box-title {
-  margin-bottom: 0 !important;
-  min-width: max-content;
-  max-width: max-content;
-}
-
-.flex-custom .form-group {
-  flex: 1;
-  margin: 0 !important;
-}
-
-.custom-height {
-  height: 185px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.form-control {
-  width: 100%;
-  box-sizing: border-box; /* Ensure padding and border are included in the width */
-}
-
-.custom-height {
-  height: 185px;
-}
-
-input {
-  width: 100%;
-}
-
-.flex-custom-responsive {
-  display: flex;
-  flex-direction: column;
-  max-width: 300px;
-  gap: 1.5em;
-  justify-content: space-between;
-}
 </style>
