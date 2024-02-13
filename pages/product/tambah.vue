@@ -56,7 +56,7 @@
                       type="email"
                       class="form-control"
                       id="inputKodeBarang"
-                      placeholder="Ketik Nama Barang"
+                      placeholder="Ketik Kode Barang"
                     />
                   </div>
                 </div>
@@ -72,7 +72,8 @@
                       type="text"
                       class="form-control"
                       id="inputNamaBarang"
-                      placeholder="Masukan Jumlah Masuk"
+                      placeholder="Masukan Nama Barang"
+                      v-model="newProduct.name"
                     />
                   </div>
                 </div>
@@ -85,11 +86,12 @@
                     >Satuan</label
                   >
                   <div class="col-sm-9">
-                    <select class="form-control" style="width: 100%">
+                    <select class="form-control" style="width: 100%" v-model="newProduct.unit">
                       <option value="">Pilih Satuan</option>
-                      <option value="1">Pcs</option>
-                      <option value="2">Box</option>
-                      <option value="3">Dus</option>
+                      <option value="pcs">Pcs</option>
+                      <option value="box">Box</option>
+                      <option value="dus">Dus</option>
+                      <option value="sak">Sak</option>
                     </select>
                   </div>
                 </div>
@@ -107,6 +109,7 @@
                       class="form-control"
                       id="inputHarga"
                       placeholder="Masukan Harga"
+                      :value="formatCurrency(newProduct.initPrice)"
                     />
                   </div>
                 </div>
@@ -121,7 +124,7 @@
             <!-- button ajukan po (green) batalkan po (red) flex row but in mobile column-->
               <div class="flex-custom-responsive " style="margin-left:10px;">
                 <button type="button" class="btn btn-danger">Batalkan</button>
-                <button type="button" class="btn btn-success">Simpan</button>
+                <button type="button" class="btn btn-success" @click="handleSubmit">Simpan</button>
             </div>
           </div>
         </div>
@@ -132,56 +135,56 @@
   </NuxtLayout>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import type { NewProduct } from "../../helpers/interface";
+import { useToast } from "vue-toast-notification";
+import "vue-toast-notification/dist/theme-sugar.css";
+import { useProductStore } from "~/store";
+import { formatCurrency } from "~/helpers/utils";
+
 definePageMeta({
   layout: "dashboard",
 });
 
-const listDataPo = ref([
-  {
-    id: 1,
-    kode: "AT0571",
-    nama: "Buku Kiky",
-    harga: 10000,
-    jumlah: 2,
-    total: 20000,
-  },
-  {
-    id: 2,
-    kode: "AT0571",
-    nama: "Buku Kiky",
-    harga: 10000,
-    jumlah: 2,
-    total: 20000,
-  },
-  {
-    id: 3,
-    kode: "AT0571",
-    nama: "Buku Kiky",
-    harga: 10000,
-    jumlah: 2,
-    total: 20000,
-  },
-  {
-    id: 4,
-    kode: "AT0571",
-    nama: "Buku Kiky",
-    harga: 10000,
-    jumlah: 2,
-    total: 20000,
-  },
-]);
+const $toast = useToast();
 
-const addItem = () => {
-  listDataPo.value.push({
-    id: 5,
-    kode: "AT0571",
-    nama: "Buku Kiky",
-    harga: 10000,
-    jumlah: 2,
-    total: 20000,
-  });
+const {addProduct} = useProductStore();
+const newProduct = ref<NewProduct>({
+  name: "",
+  initPrice: 0,
+  sellingPrice: 0,
+  unit: "",
+  storeId: "2", 
+});
+
+const handleSubmit = async () => {
+  try {
+    await addProduct(newProduct.value);
+    $toast.open({
+      message: "Berhasil menambahkan produk baru",
+      type: "success",
+      position: "top",
+    });
+    newProduct.value = {
+      name: "",
+      initPrice: 0,
+      sellingPrice: 0,
+      unit: "",
+      storeId: 0,
+    };
+  } catch (error) {
+    $toast.open({
+      message: error.response.data.message,
+      type: "error",
+      position: "top",
+      duration: 5000,
+    });
+    console.log(error);
+  }
 };
+
+
+
 </script>
 
 <style>

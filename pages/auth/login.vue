@@ -1,5 +1,5 @@
 <template>
-  <div id="single-wrapper">
+  <div id="single-wrapper" style="min-height: 100vh;" >
     <form action="#" class="frm-single">
       <div class="inside">
         <div class="title"><strong>Ninja</strong>Admin</div>

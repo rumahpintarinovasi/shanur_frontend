@@ -29,13 +29,28 @@ export const useProductStore = defineStore('product', () => {
         text: message,
         icon: 'error',
       })
-      console.log(error, '<< ini error')
       throw error;
     }
   }
 
+  const addProduct = async (payload: any) => {
+    try {
+      const { data } = await $axios({
+        method: "post",
+        url: "/product",
+        data: payload
+      })
+
+      return true;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+
   return {
     products,
-    fetchProduct
+    fetchProduct,
+    addProduct
   }
 });

@@ -36,51 +36,24 @@
                     </th>
                     <th>Unit</th>
                     <th>Harga</th>
-                    <th>Total Nilai</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>AT0571</td>
-                    <td>Buku Tulis Kiky 50gr</td>
-                    <td>Box</td>
-                    <td>Rp.50.000</td>
-                    <td>Rp.300.000.000</td>
-                  </tr>
-                  <tr>
-                    <td>AT0571</td>
-                    <td>Buku Tulis Kiky 50gr</td>
-                    <td>Box</td>
-                    <td>Rp.50.000</td>
-                    <td>Rp.300.000.000</td>
-                  </tr>
-                  <tr>
-                    <td>AT0571</td>
-                    <td>Buku Tulis Kiky 50gr</td>
-                    <td>Box</td>
-                    <td>Rp.50.000</td>
-                    <td>Rp.300.000.000</td>
-                  </tr>
-                  <tr>
-                    <td>AT0571</td>
-                    <td>Buku Tulis Kiky 50gr</td>
-                    <td>Box</td>
-                    <td>Rp.50.000</td>
-                    <td>Rp.300.000.000</td>
-                  </tr>
-                  <tr>
-                    <td>AT0571</td>
-                    <td>Buku Tulis Kiky 50gr</td>
-                    <td>Box</td>
-                    <td>Rp.50.000</td>
-                    <td>Rp.300.000.000</td>
-                  </tr>
-                  <tr>
-                    <td>AT0571</td>
-                    <td>Buku Tulis Kiky 50gr</td>
-                    <td>Box</td>
-                    <td>Rp.50.000</td>
-                    <td>Rp.300.000.000</td>
+                  <tr v-for="item in product">
+                    <td>{{ item.id }}</td>
+                    <td
+                      style="
+                        max-width: 300px;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                      "
+                      class="text-ellipsis"
+                    >
+                      {{ item.name }}
+                    </td>
+                    <td>{{ item.unit }}</td>
+                    <td>{{ item.sellingPrice }}</td>
                   </tr>
                 </tbody>
               </table>
@@ -97,10 +70,26 @@
   </NuxtLayout>
 </template>
 
-<script setup>
+<script lang="ts" setup>
+import { type Product } from '../../helpers/interface';
+import { useProductStore } from '~/store/product'
+
 definePageMeta({
   layout: "dashboard",
 });
+
+
+
+const product = ref<Product[]| []>([])
+
+const productStore = useProductStore()
+const { fetchProduct } = productStore
+
+onMounted(async () => {
+  product.value = await fetchProduct()
+  console.log(product.value)
+})
+
 </script>
 
 <style>
