@@ -28,9 +28,19 @@ interface Product {
     quantity : number,
 }
 
+interface NewProduct {
+    name : string,
+    initPrice : number,
+    sellingPrice: number,
+    storeId : string,
+    unit : string,
+
+}
+
 interface InputFileEvent extends Event {
     target : HTMLInputElement
 }
 
 
-export type { Invoice, NewInvoice, InvoiceItem, Product, InputFileEvent }
+
+export type { Invoice, NewInvoice, InvoiceItem, Product, NewProduct, InputFileEvent }
