@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 import axios from "~~/plugins/axios";
 import type { Product } from "../helpers/interface";
 const $axios = axios().provide.axios;
+import Swal from 'sweetalert2'
 
 export const useProductStore = defineStore('product', () => {
   // State
@@ -15,13 +16,20 @@ export const useProductStore = defineStore('product', () => {
         url: "/product",
       })
 
+
       if (data.data) {
         products.value = data.data
       }
 
-      console.log(data.data, '<< ini data')
       return products.value
     } catch (error) {
+      const message = error?.message || 'Something Wrong'
+      Swal.fire({
+        title: 'Error!',
+        text: message,
+        icon: 'error',
+      })
+      console.log(error, '<< ini error')
       throw error;
     }
   }

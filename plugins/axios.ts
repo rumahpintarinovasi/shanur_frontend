@@ -1,4 +1,3 @@
-import config from '~/config'
 import axios, { type AxiosRequestConfig, type AxiosInstance, type AxiosResponse } from 'axios';
 
 interface axiosPayload {
@@ -12,8 +11,9 @@ interface axiosPayload {
 interface pluginResponse {
   provide : any
 }
-export default defineNuxtPlugin (()  => {
-  const defaultUrl:string = 'http://localhost:4000/api/v1'
+export default defineNuxtPlugin ((nuxtApp)  => {
+  const config = useRuntimeConfig()
+  const defaultUrl:string = config.public.BASE_URL_BACKEND
   const restAPI :AxiosInstance = axios.create({
     baseURL: defaultUrl,
     headers: {

@@ -23,8 +23,8 @@
               <table class="table table-striped margin-bottom-10 margin-top-10">
                 <thead>
                   <tr>
-                    <th>Tanggal</th>
-                    <th>No. Inv</th>
+                    <th>Date</th>
+                    <th>Inv Number</th>
                     <th
                       style="
                         max-width: 300px;
@@ -35,16 +35,16 @@
                     >
                       Type
                     </th>
-                    <th>Jumlah</th>
-                    <th>Total Harga</th>
-                    <th>Aksi</th>
+                    <th>Quantity</th>
+                    <th>Total Price</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr v-for="invoice in invoices">
 
-                    <td>{{ invoice.invoiceDate }}</td>
-                    <td>{{ invoice.invoiceNumber }}</td>
+                    <td>{{ $moment(invoice.invoiceDate).format('DD MMMM YYYY')  }}</td>
+                    <td>{{ invoice.invoiceNumber || '-' }}</td>
                     <td
                       style="
                         max-width: 300px;
@@ -57,7 +57,8 @@
                       {{ invoice.type }}
                     </td>
                     <td>{{  invoice.totalItem }}</td>
-                    <td>{{  invoice.price }}</td>
+                    <td>{{  formatCurrency(Number(invoice.price))}}</td>
+                    <!-- <td>{{ invoice.price}}</td> -->
                     <td>
                       <a href="#" class="text-primary">Detail</a>
                     </td>
@@ -80,6 +81,9 @@
 <script lang="ts" setup>
 import { type Invoice } from '../../helpers/interface';
 import { useInvoicesStore } from '~/store/invoices'
+import { formatCurrency } from '../../helpers/utils'
+import moment from '~~/plugins/moment'
+const $moment = moment().provide.moment
 definePageMeta({
   layout: "dashboard",
 });
@@ -89,8 +93,9 @@ const invoicesStore = useInvoicesStore()
 const { fetchInvoices } = invoicesStore
 
 onMounted(async () => {
-  invoices.value = await fetchInvoices()
+    invoices.value = await fetchInvoices()
 })
+
 
 // Method
 </script>
