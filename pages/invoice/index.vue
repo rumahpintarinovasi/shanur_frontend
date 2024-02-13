@@ -10,14 +10,15 @@
             <div class="box-content">
               <div class="flex-custom">
                 <h4 class="box-title">Riwayat invoices</h4>
-                <a
-                  href="/invoice/tambah"
+                <NuxtLink
+                  to="/invoice/tambah"
                   class="btn btn-sm"
                   style="color: black; margin-bottom: 10px"
                 >
                   <i class="fa fa-plus"></i>
+
                   Buat Invoice
-                </a>
+                </NuxtLink>
               </div>
 
               <table class="table table-striped margin-bottom-10 margin-top-10">
@@ -42,9 +43,10 @@
                 </thead>
                 <tbody>
                   <tr v-for="invoice in invoices">
-
-                    <td>{{ $moment(invoice.invoiceDate).format('DD MMMM YYYY')  }}</td>
-                    <td>{{ invoice.invoiceNumber || '-' }}</td>
+                    <td>
+                      {{ $moment(invoice.invoiceDate).format("DD MMMM YYYY") }}
+                    </td>
+                    <td>{{ invoice.invoiceNumber || "-" }}</td>
                     <td
                       style="
                         max-width: 300px;
@@ -56,8 +58,8 @@
                     >
                       {{ invoice.type }}
                     </td>
-                    <td>{{  invoice.totalItem }}</td>
-                    <td>{{  formatCurrency(Number(invoice.price))}}</td>
+                    <td>{{ invoice.totalItem }}</td>
+                    <td>{{ formatCurrency(Number(invoice.price)) }}</td>
                     <!-- <td>{{ invoice.price}}</td> -->
                     <td>
                       <a href="#" class="text-primary">Detail</a>
@@ -79,23 +81,22 @@
 </template>
 
 <script lang="ts" setup>
-import { type Invoice } from '../../helpers/interface';
-import { useInvoicesStore } from '~/store/invoices'
-import { formatCurrency } from '../../helpers/utils'
-import moment from '~~/plugins/moment'
-const $moment = moment().provide.moment
+import { type Invoice } from "../../helpers/interface";
+import { useInvoicesStore } from "~/store/invoices";
+import { formatCurrency } from "../../helpers/utils";
+import moment from "~~/plugins/moment";
+const $moment = moment().provide.moment;
 definePageMeta({
   layout: "dashboard",
 });
-const invoices = ref<Invoice[]| []>([])
+const invoices = ref<Invoice[] | []>([]);
 
-const invoicesStore = useInvoicesStore()
-const { fetchInvoices } = invoicesStore
+const invoicesStore = useInvoicesStore();
+const { fetchInvoices } = invoicesStore;
 
 onMounted(async () => {
-    invoices.value = await fetchInvoices()
-})
-
+  invoices.value = await fetchInvoices();
+});
 
 // Method
 </script>
