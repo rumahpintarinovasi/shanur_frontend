@@ -23,7 +23,10 @@
         <div class="modal-body">
           <form class="form-horizontal">
             <div class="form-group">
-              <label for="inputEmail3" class="col-sm-3 control-label" style="text-align:left!important;"
+              <label
+                for="inputEmail3"
+                class="col-sm-3 control-label"
+                style="text-align: left !important"
                 >Nama Barang</label
               >
               <div class="col-sm-9">
@@ -36,7 +39,10 @@
               </div>
             </div>
             <div class="form-group">
-              <label for="inputPassword3" class="col-sm-3 control-label" style="text-align:left!important;"
+              <label
+                for="inputPassword3"
+                class="col-sm-3 control-label"
+                style="text-align: left !important"
                 >Jumlah Masuk</label
               >
               <div class="col-sm-9">
@@ -68,218 +74,164 @@
       </div>
     </div>
   </div>
-  <NuxtLayout>
-    <div id="wrapper">
-      <div class="main-content">
-        <!-- /.row small-spacing two -->
+  <div>
+    <NuxtLayout>
+      <div id="wrapper">
+        <div class="main-content">
+          <!-- /.row small-spacing two -->
 
-        <div class="row small-spacing">
-          <!-- Kartu Stok -->
-          <div class="col-12">
-            <div class="box-content">
-              <h4 class="box-title">Kartu Stock</h4>
-              <div style="overflow-x: scroll">
-                <table
-                  class="table table-striped margin-bottom-10 margin-top-10"
-                >
-                  <thead>
-                    <tr>
-                      <th>Tanggal</th>
-                      <th style="min-width: 100px">Kode</th>
-                      <th
-                        style="
-                          max-width: 200px;
-                          white-space: nowrap;
-                          overflow: hidden;
-                          text-overflow: ellipsis;
-                        "
-                      >
-                        Nama Barang
-                      </th>
-                      <th style="min-width: 150px">Jumlah Masuk</th>
-                      <th style="min-width: 150px">Jumlah Keluar</th>
-                      <th style="min-width: 150px">Saldo Akhir</th>
-                      <th style="min-width: 150px">Harga/pcs</th>
-                      <th style="min-width: 150px">Total Nilai Masuk</th>
-                      <th style="min-width: 150px">Total Nilai Keluar</th>
-                      <th style="min-width: 150px">Total Nilai Stock</th>
-                      <th>Aksi</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>02/05/2023</td>
-                      <td>AT0571</td>
-                      <td
-                        style="
-                          max-width: 200px;
-                          white-space: nowrap;
-                          overflow: hidden;
-                          text-overflow: ellipsis;
-                        "
-                        class="text-ellipsis"
-                      >
-                        CV. Amidis Waterindo
-                      </td>
-                      <td>100 Box</td>
-                      <td>90 Box</td>
-                      <td>10 Box</td>
-                      <td>Rp.5000</td>
-                      <td>Rp.500000</td>
-                      <td>Rp.450000</td>
-                      <td>Rp.50000</td>
-                      <td>
-                        <a
-                          href="#"
-                          class="text-primary"
-                          data-toggle="modal"
-                          data-target="#boostrapModal-1"
-                          >Edit</a
+          <div class="row small-spacing">
+            <!-- Kartu Stok -->
+            <div class="col-12">
+              <div class="box-content">
+                <h4 class="box-title">Kartu Stock</h4>
+                <div style="overflow-x: scroll">
+                  <table
+                    class="table table-striped margin-bottom-10 margin-top-10"
+                  >
+                    <thead>
+                      <tr>
+                        <th>Tanggal</th>
+                        <th style="min-width: 100px">Kode</th>
+                        <th
+                          style="
+                            max-width: 200px;
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                          "
                         >
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>02/05/2023</td>
-                      <td>AT0571</td>
-                      <td
-                        style="
-                          max-width: 200px;
-                          white-space: nowrap;
-                          overflow: hidden;
-                          text-overflow: ellipsis;
-                        "
-                        class="text-ellipsis"
-                      >
-                        CV. Amidis Waterindo
-                      </td>
-                      <td>100 Box</td>
-                      <td>90 Box</td>
-                      <td>10 Box</td>
-                      <td>Rp.5000</td>
-                      <td>Rp.500000</td>
-                      <td>Rp.450000</td>
-                      <td>Rp.50000</td>
-                      <td>
-                        <a
-                          href="#"
-                          class="text-primary"
-                          data-toggle="modal"
-                          data-target="#boostrapModal-1"
-                          >Edit</a
+                          Nama Barang
+                        </th>
+                        <th style="min-width: 150px">Jumlah Masuk</th>
+                        <th style="min-width: 150px">Jumlah Keluar</th>
+                        <th style="min-width: 150px">Saldo Akhir</th>
+                        <th style="min-width: 150px">Harga/pcs</th>
+                        <th style="min-width: 150px">Total Nilai Masuk</th>
+                        <th style="min-width: 150px">Total Nilai Keluar</th>
+                        <th style="min-width: 150px">Total Nilai Stock</th>
+                        <th>Aksi</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="item in stock">
+                        <td>{{ item.date }}</td>
+                        <td>{{ item.product.id }}</td>
+                        <td
+                          style="
+                            max-width: 200px;
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                          "
+                          class="text-ellipsis"
                         >
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>02/05/2023</td>
-                      <td>AT0571</td>
-                      <td
-                        style="
-                          max-width: 200px;
-                          white-space: nowrap;
-                          overflow: hidden;
-                          text-overflow: ellipsis;
-                        "
-                        class="text-ellipsis"
-                      >
-                        CV. Amidis Waterindo
-                      </td>
-                      <td>100 Box</td>
-                      <td>90 Box</td>
-                      <td>10 Box</td>
-                      <td>Rp.5000</td>
-                      <td>Rp.500000</td>
-                      <td>Rp.450000</td>
-                      <td>Rp.50000</td>
-                      <td>
-                        <a
-                          href="#"
-                          class="text-primary"
-                          data-toggle="modal"
-                          data-target="#boostrapModal-1"
-                          >Edit</a
-                        >
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>02/05/2023</td>
-                      <td>AT0571</td>
-                      <td
-                        style="
-                          max-width: 200px;
-                          white-space: nowrap;
-                          overflow: hidden;
-                          text-overflow: ellipsis;
-                        "
-                        class="text-ellipsis"
-                      >
-                        CV. Amidis Waterindo
-                      </td>
-                      <td>100 Box</td>
-                      <td>90 Box</td>
-                      <td>10 Box</td>
-                      <td>Rp.5000</td>
-                      <td>Rp.500000</td>
-                      <td>Rp.450000</td>
-                      <td>Rp.50000</td>
-                      <td>
-                        <a
-                          href="#"
-                          class="text-primary"
-                          data-toggle="modal"
-                          data-target="#boostrapModal-1"
-                          >Edit</a
-                        >
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>02/05/2023</td>
-                      <td>AT0571</td>
-                      <td
-                        style="
-                          max-width: 200px;
-                          white-space: nowrap;
-                          overflow: hidden;
-                          text-overflow: ellipsis;
-                        "
-                        class="text-ellipsis"
-                      >
-                        CV. Amidis Waterindo
-                      </td>
-                      <td>100 Box</td>
-                      <td>90 Box</td>
-                      <td>10 Box</td>
-                      <td>Rp.5000</td>
-                      <td>Rp.500000</td>
-                      <td>Rp.450000</td>
-                      <td>Rp.50000</td>
-                      <td>
-                        <a
-                          href="#"
-                          class="text-primary"
-                          data-toggle="modal"
-                          data-target="#boostrapModal-1"
-                          >Edit</a
-                        >
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                          {{ item.product.name }}
+                        </td>
+                        <td>{{ item.in }}</td>
+                        <td>{{ item.out }}</td>
+                        <td>{{ item.balance }}</td>
+                        <td>{{ item.price }}</td>
+                        <td>{{ item.totalIn }}</td>
+                        <td>{{ item.totalOut }}</td>
+                        <td>{{ item.totalStock }}</td>
+                        <td style="display: flex; gap: 10px">
+                          <button
+                            class="btn btn-info fa fa-pencil"
+                            data-toggle="modal"
+                            data-target="#boostrapModal-1"
+                          />
+                          <button class="btn btn-danger fa fa-trash" />
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <Pagination />
               </div>
-              <Pagination />  
+              <!-- /.box-content -->
             </div>
-            <!-- /.box-content -->
           </div>
-        </div>
 
-        <Footer />
+          <Footer />
+        </div>
       </div>
-    </div>
-  </NuxtLayout>
+    </NuxtLayout>
+  </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
+import type { Stock, NewStock } from "../../helpers/interface";
+import { useStockStore } from "~/store/stock";
+import { useToast } from "vue-toast-notification";
+import "vue-toast-notification/dist/theme-sugar.css";
+
 definePageMeta({
   layout: "dashboard",
+});
+
+const $toast = useToast();
+
+const stock = ref<Stock[]>([]);
+const newStock = ref<NewStock>({
+  date: "",
+  in: 0,
+  out: 0,
+  balance: 0,
+  price: 0,
+  totalIn: 0,
+  totalOut: 0,
+  totalStock: 0,
+  product: {
+    id: 0,
+    name: "",
+    unit: "",
+    sellingPrice: 0,
+  },
+});
+
+const stockStore = useStockStore();
+const { fetchAllStock, addStock } = stockStore;
+
+const handleSubmit = async () => {
+  try {
+    await addStock(newStock.value);
+    $toast.open({
+      message: "Berhasil menambahkan stok baru",
+      type: "success",
+      position: "top",
+    });
+    newStock.value = {
+      date: "",
+      in: 0,
+      out: 0,
+      balance: 0,
+      price: 0,
+      totalIn: 0,
+      totalOut: 0,
+      totalStock: 0,
+      product: {
+        id: 0,
+        name: "",
+        unit: "",
+        sellingPrice: 0,
+      },
+    };
+  } catch (error) {
+    console.log(error);
+    $toast.open({
+      message: error?.response?.data?.message,
+      type: "error",
+      position: "top",
+      duration: 5000,
+    });
+    console.log(error);
+  }
+};
+
+onMounted(async () => {
+  stock.value = await fetchAllStock();
+  console.log(stock.value);
 });
 </script>
 

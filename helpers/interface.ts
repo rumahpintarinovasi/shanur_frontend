@@ -36,9 +36,20 @@ interface NewProduct {
     name : string,
     initPrice : number,
     sellingPrice: number,
-    storeId : string,
     unit : string,
+}
 
+interface Stock {
+    id : string,
+    productId : string,
+    quantity : number,
+    price : number
+}
+
+interface NewStock {
+    productId : string,
+    quantity : number,
+    price : number
 }
 
 interface InputFileEvent extends Event {
@@ -47,4 +58,4 @@ interface InputFileEvent extends Event {
 
 
 
-export type { Invoice, NewInvoice, InvoiceItem, Product, NewProduct, InputFileEvent }
+export type { Invoice, NewInvoice, InvoiceItem, Product, NewProduct, Stock, NewStock, InputFileEvent }

@@ -41,8 +41,8 @@
             Register<i class="fa fa-arrow-circle-right"></i>
           </button>
           <!-- /.row -->
-          <a href="/auth/login" class="a-link"
-            ><i class="fa fa-sign-in"></i>Already have account? Login.</a
+          <NuxtLink to="/auth/login" class="a-link"
+            ><i class="fa fa-sign-in"></i>Already have account? Login.</NuxtLink
           >
           <div class="frm-footer">SHANUR 2022.</div>
           <!-- /.footer -->

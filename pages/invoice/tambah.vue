@@ -1,4 +1,5 @@
 <template>
+  <div>
   <NuxtLayout>
     <div id="wrapper">
       <div class="main-content">
@@ -138,6 +139,7 @@
       </div>
     </div>
   </NuxtLayout>
+  </div>
 </template>
 
 <script lang="ts" setup>
