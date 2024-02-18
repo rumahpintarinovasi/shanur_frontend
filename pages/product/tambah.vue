@@ -1,4 +1,5 @@
 <template>
+  <div>
   <NuxtLayout>
     <div id="wrapper">
       <div class="main-content">
@@ -105,11 +106,11 @@
                   >
                   <div class="col-sm-9">
                     <input
-                      type="text"
+                      type="number"
                       class="form-control"
                       id="inputHarga"
                       placeholder="Masukan Harga"
-                      :value="formatCurrency(newProduct.initPrice)"
+                      v-model="newProduct.initPrice"
                     />
                   </div>
                 </div>
@@ -133,6 +134,7 @@
       </div>
     </div>
   </NuxtLayout>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -154,10 +156,10 @@ const newProduct = ref<NewProduct>({
   initPrice: 0,
   sellingPrice: 0,
   unit: "",
-  storeId: "2", 
 });
 
 const handleSubmit = async () => {
+  newProduct.value.sellingPrice = newProduct.value.initPrice;
   try {
     await addProduct(newProduct.value);
     $toast.open({
@@ -170,11 +172,11 @@ const handleSubmit = async () => {
       initPrice: 0,
       sellingPrice: 0,
       unit: "",
-      storeId: 0,
     };
   } catch (error) {
+    console.log(error);
     $toast.open({
-      message: error.response.data.message,
+      message: error?.response?.data?.message,
       type: "error",
       position: "top",
       duration: 5000,

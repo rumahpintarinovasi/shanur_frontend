@@ -7,7 +7,7 @@
     <div class="main-menu">
       <header class="header">
         <NuxtLink to="/" class="logo">
-          <i class="ico ti-rocket"></i>SpaceX
+          SHANUR
         </NuxtLink>
         <button
           type="button"
