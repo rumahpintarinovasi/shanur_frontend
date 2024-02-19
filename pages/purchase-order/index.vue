@@ -1,5 +1,6 @@
 <template>
-  <NuxtLayout>
+    <div>
+      <NuxtLayout>
     <div id="wrapper">
       <div class="main-content">
         <!-- /.row small-spacing two -->
@@ -57,6 +58,7 @@
       </div>
     </div>
   </NuxtLayout>
+    </div>
 </template>
 
 <script lang="ts" setup>
