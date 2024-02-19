@@ -1,12 +1,13 @@
 interface Invoice {
     id? : string
-    invoiceDate: string,
+    invoiceDate?: string,
     invoiceNumber?: string,
     trxTableName?: string,
-    price: number,
-    totalItem: number,
-    type : string,
+    price?: number,
+    totalItem?: number,
+    type? : string,
     invoiceItems? : InvoiceItem[]
+    status? : string
 }
 
 interface InvoiceItem {
@@ -56,6 +57,10 @@ interface InputFileEvent extends Event {
     target : HTMLInputElement
 }
 
+interface RequestPayload {
+    whereConditions? : string[]
+    page? : number
+    size? : number
+}
 
-
-export type { Invoice, NewInvoice, InvoiceItem, Product, NewProduct, Stock, NewStock, InputFileEvent }
+export type { Invoice, NewInvoice, InvoiceItem, Product, NewProduct, Stock, NewStock, InputFileEvent, RequestPayload }

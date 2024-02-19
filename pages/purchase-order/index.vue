@@ -1,189 +1,83 @@
 <template>
-  <div>
-    <NuxtLayout>
-      <div id="wrapper">
-        <div class="main-content">
-          <!-- /.row small-spacing two -->
+  <NuxtLayout>
+    <div id="wrapper">
+      <div class="main-content">
+        <!-- /.row small-spacing two -->
 
-          <div class="row small-spacing">
-            <!-- Kartu Stok -->
-            <div class="col-12">
-              <div class="box-content">
-                <div class="flex-custom">
-                  <h4 class="box-title">Riwayat Purchase Order (PO)</h4>
-                  <NuxtLink
-                    to="/purchase-order/tambah"
-                    class="btn btn-sm"
-                    style="color: black; margin-bottom: 10px"
-                  >
-                    <i class="fa fa-plus"></i>
-                    Buat PO
-                  </NuxtLink>
-                </div>
-
-                <table
-                  class="table table-striped margin-bottom-10 margin-top-10"
+        <div class="row small-spacing">
+          <!-- Kartu Stok -->
+          <div class="col-12">
+            <div class="box-content">
+              <div class="flex-custom">
+                <h4 class="box-title">Riwayat invoices</h4>
+                <NuxtLink
+                  to="/purchase-order/tambah"
+                  class="btn btn-sm"
+                  style="color: black; margin-bottom: 10px"
                 >
-                  <thead>
-                    <tr>
-                      <th>Tanggal</th>
-                      <th>No. Inv</th>
-                      <th
-                        style="
-                          max-width: 300px;
-                          white-space: nowrap;
-                          overflow: hidden;
-                          text-overflow: ellipsis;
-                        "
-                      >
-                        Pemasok
-                      </th>
-                      <th>Barang</th>
-                      <th>Harga</th>
-                      <th>Jumlah</th>
-                      <th>Total</th>
-                      <th>Aksi</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>12/12/2021</td>
-                      <td>PO103</td>
-                      <td
-                        style="
-                          max-width: 300px;
-                          white-space: nowrap;
-                          overflow: hidden;
-                          text-overflow: ellipsis;
-                        "
-                      >
-                        PT. Amidis Waterindo
-                      </td>
-                      <td>Amidis 600ml</td>
-                      <td>Rp. 3.000</td>
-                      <td>200 box</td>
-                      <td>Rp. 600.000</td>
-                      <!-- td for detail button (only text) -->
-                      <td>
-                        <p style="cursor: pointer" class="text-primary">
-                          Detail
-                        </p>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>12/12/2021</td>
-                      <td>PO103</td>
-                      <td
-                        style="
-                          max-width: 300px;
-                          white-space: nowrap;
-                          overflow: hidden;
-                          text-overflow: ellipsis;
-                        "
-                      >
-                        PT. Amidis Waterindo
-                      </td>
-                      <td>Amidis 600ml</td>
-                      <td>Rp. 3.000</td>
-                      <td>200 box</td>
-                      <td>Rp. 600.000</td>
-                      <!-- td for detail button (only text) -->
-                      <td>
-                        <p style="cursor: pointer" class="text-primary">
-                          Detail
-                        </p>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>12/12/2021</td>
-                      <td>PO103</td>
-                      <td
-                        style="
-                          max-width: 300px;
-                          white-space: nowrap;
-                          overflow: hidden;
-                          text-overflow: ellipsis;
-                        "
-                      >
-                        PT. Amidis Waterindo
-                      </td>
-                      <td>Amidis 600ml</td>
-                      <td>Rp. 3.000</td>
-                      <td>200 box</td>
-                      <td>Rp. 600.000</td>
-                      <!-- td for detail button (only text) -->
-                      <td>
-                        <p style="cursor: pointer" class="text-primary">
-                          Detail
-                        </p>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>12/12/2021</td>
-                      <td>PO103</td>
-                      <td
-                        style="
-                          max-width: 300px;
-                          white-space: nowrap;
-                          overflow: hidden;
-                          text-overflow: ellipsis;
-                        "
-                      >
-                        PT. Amidis Waterindo
-                      </td>
-                      <td>Amidis 600ml</td>
-                      <td>Rp. 3.000</td>
-                      <td>200 box</td>
-                      <td>Rp. 600.000</td>
-                      <!-- td for detail button (only text) -->
-                      <td>
-                        <p style="cursor: pointer" class="text-primary">
-                          Detail
-                        </p>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>12/12/2021</td>
-                      <td>PO103</td>
-                      <td
-                        style="
-                          max-width: 300px;
-                          white-space: nowrap;
-                          overflow: hidden;
-                          text-overflow: ellipsis;
-                        "
-                      >
-                        PT. Amidis Waterindo
-                      </td>
-                      <td>Amidis 600ml</td>
-                      <td>Rp. 3.000</td>
-                      <td>200 box</td>
-                      <td>Rp. 600.000</td>
-                      <!-- td for detail button (only text) -->
-                      <td>
-                        <p style="cursor: pointer" class="text-primary">
-                          Detail
-                        </p>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-                <Pagination />
-              </div>
-              <!-- /.box-content -->
-            </div>
-          </div>
+                  <i class="fa fa-plus"></i>
 
-          <Footer />
+                  Buat Invoice
+              </NuxtLink>
+              </div>
+
+              <table class="table table-striped margin-bottom-10 margin-top-10">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Inv Number</th>
+                    <th>Quantity</th>
+                    <th>Total Price</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="invoice in invoices">
+                    <td>
+                      {{ $moment(invoice.invoiceDate).format("DD MMMM YYYY") }}
+                    </td>
+                    <td>{{ invoice.invoiceNumber || "-" }}</td>
+                    <td>{{ invoice.totalItem }}</td>
+                    <td>{{ formatCurrency(Number(invoice.price)) }}</td>
+                    <!-- <td>{{ invoice.price}}</td> -->
+                    <td>
+                      <a href="#" class="text-primary">Detail</a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <Pagination />
+            </div>
+            <!-- /.box-content -->
+          </div>
         </div>
+
+        <Footer />
       </div>
-    </NuxtLayout>
-  </div>
+    </div>
+  </NuxtLayout>
 </template>
 
-<script setup>
+<script lang="ts" setup>
+import { type Invoice } from "../../helpers/interface";
+import { useInvoicesStore } from "~/store/invoices";
+import { formatCurrency } from "../../helpers/utils";
+import moment from "~~/plugins/moment";
+const $moment = moment().provide.moment;
 definePageMeta({
   layout: "dashboard",
+});
+const invoices = ref<Invoice[] | []>([]);
+
+const invoicesStore = useInvoicesStore();
+const { fetchInvoices } = invoicesStore;
+
+onMounted(async () => {
+  const paramsFetchInvoices = {
+    whereConditions : [`{"type" : "Purchase Order" }`]
+  }
+  invoices.value = await fetchInvoices(paramsFetchInvoices);
 });
 </script>
 
@@ -192,6 +86,12 @@ p {
   margin: 0 !important;
 }
 
+.flex-custom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
 .flex-custom {
   display: flex;
   justify-content: space-between;

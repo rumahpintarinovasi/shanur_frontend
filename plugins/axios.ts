@@ -5,28 +5,30 @@ interface axiosPayload {
   url: string,
   data?: any,
   config?: AxiosRequestConfig,
-  isAuth?: boolean
+  isAuth?: boolean,
+  params : Object
 }
 
 interface pluginResponse {
   provide : any
 }
-export default defineNuxtPlugin ((nuxtApp)  => {
+export default defineNuxtPlugin (()  => {
   const config = useRuntimeConfig()
   const defaultUrl:string = config.public.BASE_URL_BACKEND || "http://localhost:4000/api/v1"
   const restAPI :AxiosInstance = axios.create({
     baseURL: defaultUrl,
     headers: {
       Accept: "application/json",
-    }
+    },
   })
 
   async function request(payload : axiosPayload) : Promise<AxiosResponse<any,any>> {
     const token:string|null = localStorage.getItem("authorizeToken");
+    console.log(payload, '<< ini payload')
     const options = {
       method: payload.method,
-      url: payload.url, 
-      ...payload.config,
+      url: payload.url,
+      params : payload.params,
       headers: {
         ...payload.config?.headers
       }
