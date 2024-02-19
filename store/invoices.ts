@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import axios from '~~/plugins/axios'
-import type { Invoice, InvoiceDetail } from '../helpers/interface';
+import type { Invoice, RequestPayload } from '../helpers/interface';
 const $axios = axios().provide.axios
 
 export const useInvoicesStore = defineStore( 'invoices', () => {
@@ -8,11 +8,16 @@ export const useInvoicesStore = defineStore( 'invoices', () => {
     const invoices = ref([])
 
     // Action
-    const fetchInvoices = async (): Promise<Invoice[]> => {
+    const fetchInvoices = async (options:RequestPayload = {}): Promise<Invoice[]> => {
         try {
+            const { whereConditions } = options
+            console.log(whereConditions, '<< ini where condut')
             const {data} = await $axios({
                 method: 'get',
                 url: '/invoice',
+                params: {
+                    whereConditions : whereConditions || ''
+                }
             })
             
             if (data.data) {

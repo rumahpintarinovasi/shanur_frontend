@@ -112,17 +112,6 @@
                   />
                 </div>
               </div>
-              <!-- <div class="flex-custom">
-                <h4 class="box-title">Pembayaran</h4>
-                <div class="form-group">
-                  <select class="form-control" style="width: 100%">
-                    <option value="">Cash</option>
-                    <option value="1">Kredit</option>
-                    <option value="2">Dana</option>
-                    <option value="3">Ovo</option>
-                  </select>
-                </div>
-              </div> -->
             </div>
           </div>
           <div class="col-lg-6 col-xs-12">
