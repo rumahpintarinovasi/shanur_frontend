@@ -4,49 +4,49 @@
     <!-- /.title -->
     <ul class="menu js__accordion">
       <li>
-        <a href="/"
+        <NuxtLink to="/"
           ><i class="menu-icon ti-dashboard"></i
-          ><span>Dashboard</span></a
+          ><span>Dashboard</span></NuxtLink
         >
       </li>
       <li>
-        <a href="/purchase-order"
+        <NuxtLink to="/purchase-order"
           >
           <!-- icon order -->
           <i class="menu-icon ti-shopping-cart"></i>
-          <span>Purchase Order</span></a
+          <span>Purchase Order</span></NuxtLink
         >
       </li>
       <li>
-        <a href="/invoice"
+        <NuxtLink to="/invoice"
           >
           <!-- icon transaction -->
           <i class="menu-icon ti-money"></i>
-          <span>Invoice</span></a
+          <span>Invoice</span></NuxtLink
         >
       </li>
       <li>
-        <a href="/stock"
+        <NuxtLink to="/stock"
           >
           <!-- icon supply -->
           <i class="menu-icon ti-bag"></i>
-          <span>Stock</span></a
+          <span>Stock</span></NuxtLink
         >
       </li>
       <li>
-        <a href="/product"
+        <NuxtLink to="/product"
           >
           <!-- icon product -->
           <i class="menu-icon ti-package"></i>
-          <span>Product</span></a
+          <span>Product</span></NuxtLink
         >
       </li>
       <li>
-        <a href="/kasir"
+        <NuxtLink to="/kasir"
           >
           <!-- icon cashier -->
           <i class="menu-icon ti-wallet"></i>
-          <span>Kasir</span></a
+          <span>Kasir</span></NuxtLink
         >
       </li>
     </ul>

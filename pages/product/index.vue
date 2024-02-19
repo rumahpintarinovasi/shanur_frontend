@@ -1,4 +1,5 @@
 <template>
+  <div>
   <NuxtLayout>
     <div id="wrapper">
       <div class="main-content">
@@ -10,14 +11,14 @@
             <div class="box-content">
               <div class="flex-custom">
                 <h4 class="box-title">Produk Terdaftar</h4>
-                <a
-                  href="/product/tambah"
+                <NuxtLink
+                  to="/product/tambah"
                   class="btn btn-sm"
                   style="color: black; margin-bottom: 10px"
                 >
                   <i class="fa fa-plus"></i>
                   Buat Produk
-                </a>
+              </NuxtLink>
               </div>
 
               <table class="table table-striped margin-bottom-10 margin-top-10">
@@ -36,6 +37,7 @@
                     </th>
                     <th>Unit</th>
                     <th>Harga</th>
+                    <th>Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -54,6 +56,10 @@
                     </td>
                     <td>{{ item.unit }}</td>
                     <td>{{ item.sellingPrice }}</td>
+                    <td style="display: flex; gap: 10px">
+                      <button class="btn btn-info fa fa-pencil" />
+                      <button class="btn btn-danger fa fa-trash" />
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -68,6 +74,7 @@
       </div>
     </div>
   </NuxtLayout>
+  </div>
 </template>
 
 <script lang="ts" setup>

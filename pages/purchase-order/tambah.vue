@@ -1,7 +1,9 @@
 <template>
+  <div>
   <NuxtLayout>
     <InvoiceForm type="purchaseOrder" action="edit" :product="products" :invoiceForm="invoiceForm" :onHandleSave="handleSave" />
   </NuxtLayout>
+  </div>
 </template>
 
 <script lang="ts" setup>

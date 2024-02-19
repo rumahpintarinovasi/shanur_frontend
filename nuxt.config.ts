@@ -25,7 +25,7 @@ export default defineNuxtConfig({
         {src: "/scripts/jquery.min.js"},
         {src: "/scripts/modernizr.min.js"},
         {src: "/plugin/bootstrap/js/bootstrap.min.js"},
-        {src: "/plugin/waves/waves.min.js"},
+        // {src: "/plugin/waves/waves.min.js"},
         {src: "/plugin/modal/remodal/remodal.min.js"},
       ],
     },

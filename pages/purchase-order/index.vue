@@ -92,6 +92,12 @@ p {
   align-items: center;
   margin-bottom: 20px;
 }
+.flex-custom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
 
 @media (max-width: 516px) {
   .flex-custom {
