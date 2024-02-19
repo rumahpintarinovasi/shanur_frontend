@@ -63,7 +63,7 @@
                     <td>{{ formatCurrency(Number(invoice.price)) }}</td>
                     <!-- <td>{{ invoice.price}}</td> -->
                     <td>
-                      <a :href="`/invoice/${invoice.id}`" class="text-primary">Detail</a>
+                      <a :href="`/invoice/detail/${invoice.id}`" class="text-primary">Detail</a>
                     </td>
                   </tr>
                 </tbody>
