@@ -10,15 +10,15 @@
             <div class="box-content">
               <div class="flex-custom">
                 <h4 class="box-title">Riwayat invoices</h4>
-                <a
-                  href="/purchase-order/tambah"
+                <NuxtLink
+                  to="/purchase-order/tambah"
                   class="btn btn-sm"
                   style="color: black; margin-bottom: 10px"
                 >
                   <i class="fa fa-plus"></i>
 
                   Buat Invoice
-              </a>
+              </NuxtLink>
               </div>
 
               <table class="table table-striped margin-bottom-10 margin-top-10">

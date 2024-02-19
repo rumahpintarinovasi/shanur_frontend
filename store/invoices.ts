@@ -55,6 +55,7 @@ export const useInvoicesStore = defineStore( 'invoices', () => {
             if (data.data) {
                 invoices.value = data.data
             }
+
             return data.data
 
         } catch (error) {
