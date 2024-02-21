@@ -21,6 +21,12 @@ export default defineNuxtConfig({
   pages: true,
   app: {
     head: {
+      // meta: [
+      //   {
+      //     "http-equiv": 'Content-Security-Policy',
+      //     content: 'upgrade-insecure-requests'
+      //   }
+      // ],
       script: [
         {src: "/scripts/jquery.min.js"},
         {src: "/scripts/modernizr.min.js"},

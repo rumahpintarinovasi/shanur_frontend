@@ -63,4 +63,15 @@ interface RequestPayload {
     size? : number
 }
 
-export type { Invoice, NewInvoice, InvoiceItem, Product, NewProduct, Stock, NewStock, InputFileEvent, RequestPayload }
+interface Discount {
+    discountPercentage : number
+    level : number
+    productId : string
+}
+
+interface NewDiscount {
+    discountPercentage : number
+    level : number
+}
+
+export type { Invoice, NewInvoice, InvoiceItem, Product, NewProduct, Stock, NewStock, InputFileEvent, RequestPayload, Discount, NewDiscount }
