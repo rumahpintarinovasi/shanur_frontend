@@ -10,7 +10,7 @@
           <div class="col-12">
             <div class="box-content">
               <div class="flex-custom">
-                <h4 class="box-title">Riwayat invoices</h4>
+                <h4 class="box-title">Riwayat PO</h4>
                 <NuxtLink
                   to="/purchase-order/tambah"
                   class="btn btn-sm"
@@ -18,7 +18,7 @@
                 >
                   <i class="fa fa-plus"></i>
 
-                  Buat Invoice
+                  Buat PO
               </NuxtLink>
               </div>
 
