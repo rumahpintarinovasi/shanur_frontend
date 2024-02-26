@@ -124,7 +124,7 @@
           <div class="">
             <!-- button ajukan po (green) batalkan po (red) flex row but in mobile column-->
               <div class="flex-custom-responsive " style="margin-left:10px;">
-                <button type="button" class="btn btn-danger">Batalkan</button>
+                <button  @click="() => $router.back()" type="button" class="btn btn-danger">Batalkan</button>
                 <button type="button" class="btn btn-success" @click="handleSubmit">Simpan</button>
             </div>
           </div>

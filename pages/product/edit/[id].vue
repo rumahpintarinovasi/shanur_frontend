@@ -1,4 +1,5 @@
 <template>
+  <div>
     <NuxtLayout>
       <div id="wrapper">
         <div class="main-content">
@@ -123,7 +124,7 @@
             <div class="">
               <!-- button ajukan po (green) batalkan po (red) flex row but in mobile column-->
                 <div class="flex-custom-responsive " style="margin-left:10px;">
-                  <button type="button" class="btn btn-danger">Batalkan</button>
+                  <button  @click="() => $router.back()" type="button" class="btn btn-danger">Batalkan</button>
                   <button type="button" class="btn btn-success" @click="handleSubmit">Simpan</button>
               </div>
             </div>
@@ -133,6 +134,7 @@
         </div>
       </div>
     </NuxtLayout>
+  </div>
   </template>
   
   <script setup lang="ts">
@@ -147,8 +149,9 @@
   });
   
   const $toast = useToast();
+  const $route = useRoute(); 
   
-  const {addProduct} = useProductStore();
+  const {updateProduct, fetchOneProduct} = useProductStore();
   const newProduct = ref<NewProduct>({
     name: "",
     initPrice: 0,
@@ -159,7 +162,7 @@
   const handleSubmit = async () => {
     newProduct.value.sellingPrice = newProduct.value.initPrice;
     try {
-      await addProduct(newProduct.value);
+      await updateProduct($route.params.id, newProduct.value);
       $toast.open({
         message: "Berhasil menambahkan produk baru",
         type: "success",
@@ -183,7 +186,11 @@
     }
   };
   
-  
+  onMounted(async () => {
+    const product = await fetchOneProduct($route.params.id);
+    newProduct.value = product;
+    console.log(newProduct.value);
+  });
   
   </script>
   

@@ -34,6 +34,19 @@ export const useUserStore = defineStore( 'user', () => {
     
         }
 
+        const loginUser = async (user) => {
+            const {data} = await $axios({
+                method: 'post',
+                url: '/auth/login',
+                data: user
+            })
+            
+            if (data.data) {
+                return data.data
+            }
+    
+        }
+
         const getRoles = async () => {
             const {data} = await $axios({
                 method: 'get',
@@ -63,6 +76,7 @@ export const useUserStore = defineStore( 'user', () => {
             user,
             fetchUser,
             registerUser,
+            loginUser,
             getRoles,
             createRole
         }

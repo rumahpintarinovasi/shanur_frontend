@@ -6,6 +6,7 @@ export default defineNuxtConfig({
   },
   modules: [
     '@pinia/nuxt',
+    'nuxt-primevue'
   ],
   plugins: [
     '~/plugins/axios.ts',

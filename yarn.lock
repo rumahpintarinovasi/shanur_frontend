@@ -603,7 +603,7 @@
     which "^3.0.1"
     ws "^8.16.0"
 
-"@nuxt/kit@^3.5.0", "@nuxt/kit@^3.8.2", "@nuxt/kit@^3.9.1", "@nuxt/kit@3.10.1":
+"@nuxt/kit@^3.5.0", "@nuxt/kit@^3.7.3", "@nuxt/kit@^3.8.2", "@nuxt/kit@^3.9.1", "@nuxt/kit@3.10.1":
   version "3.10.1"
   resolved "https://registry.npmjs.org/@nuxt/kit/-/kit-3.10.1.tgz"
   integrity sha512-M9VRY0QGbG6lWOVqt69ZF96RLBUZVXyFpbBUwHnoHgjF9BXSX/MT/hrZcJicN4aPM2QRephGgsBd4U5wFmmn6g==
@@ -3903,6 +3903,14 @@ nuxi@^3.10.0:
   optionalDependencies:
     fsevents "~2.3.3"
 
+nuxt-primevue@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.npmjs.org/nuxt-primevue/-/nuxt-primevue-0.3.0.tgz"
+  integrity sha512-sx5JZjqQ7H96FH5nWsL4Ypk4amkUz5nHsoxAiyc7oI3sSP54wfXPo5rjB4GKI50Ky7HPdE2CIWs137jRl6RkMw==
+  dependencies:
+    "@nuxt/kit" "^3.7.3"
+    primevue "~3.48.1"
+
 nuxt@^3.10.1, nuxt@^3.9.0:
   version "3.10.1"
   resolved "https://registry.npmjs.org/nuxt/-/nuxt-3.10.1.tgz"
@@ -4426,6 +4434,16 @@ pretty-bytes@^6.1.1:
   version "6.1.1"
   resolved "https://registry.npmjs.org/pretty-bytes/-/pretty-bytes-6.1.1.tgz"
   integrity sha512-mQUvGU6aUFQ+rNvTIAcZuWGRT9a6f6Yrg9bHs4ImKF+HZCEK+plBvnAZYSIQztknZF2qnzNtr6F8s0+IuptdlQ==
+
+primevue@^3.49.0:
+  version "3.49.0"
+  resolved "https://registry.npmjs.org/primevue/-/primevue-3.49.0.tgz"
+  integrity sha512-1lFTU/WK1wcjaaKqce7XldrH4MGPySXxH9Nyoj0d9QiGehePw9JUQrGhVgfjx3I/MD/VgE85wF1HihqtPJehbw==
+
+primevue@~3.48.1:
+  version "3.48.1"
+  resolved "https://registry.npmjs.org/primevue/-/primevue-3.48.1.tgz"
+  integrity sha512-lyJ+E0ZCv2pR9jIpdPLBysU8zB2hOKrN7q78orloWelPx05zSYoMVKAWaqKTHNpunD52xffjaqovt1y6B/9XoQ==
 
 proc-log@^3.0.0:
   version "3.0.0"

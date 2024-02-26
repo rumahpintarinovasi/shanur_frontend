@@ -57,8 +57,13 @@
                     <td>{{ item.unit }}</td>
                     <td>{{ item.sellingPrice }}</td>
                     <td style="display: flex; gap: 10px">
-                      <button class="btn btn-info fa fa-pencil" />
-                      <button class="btn btn-danger fa fa-trash" />
+                      <button 
+                      class="btn btn-info fa fa-pencil" 
+                      @click="router.push(`/product/edit/${item.id}`)"
+                      />
+                      <button class="btn btn-danger fa fa-trash" 
+                      @click="confirmDelete(item.id)"
+                      />
                     </td>
                   </tr>
                 </tbody>
@@ -81,16 +86,45 @@
 import { type Product } from '../../helpers/interface';
 import { useProductStore } from '~/store/product'
 
+import { useToast } from 'vue-toast-notification';
+import "vue-toast-notification/dist/theme-sugar.css";
+
+import {swal} from 'sweetalert2'
+
 definePageMeta({
   layout: "dashboard",
 });
 
-
+const router = useRouter()
 
 const product = ref<Product[]| []>([])
 
 const productStore = useProductStore()
-const { fetchProduct } = productStore
+const { fetchProduct, deleteProduct } = productStore
+
+const confirmDelete = (id: number) => {
+  swal({
+    title: 'Apakah Anda yakin?',
+    text: "Anda tidak akan dapat mengembalikan ini!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Ya, hapus!',
+    cancelButtonText: 'Batal'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      deleteProduct(id)
+      swal(
+        'Terhapus!',
+        'Produk telah dihapus.',
+        'success'
+      )
+    }
+  })
+}
+
+
 
 onMounted(async () => {
   product.value = await fetchProduct()
