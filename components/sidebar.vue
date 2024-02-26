@@ -49,6 +49,15 @@
           <span>Kasir</span></NuxtLink
         >
       </li>
+      <li>
+        <NuxtLink 
+          to="/user-management"
+          
+        >
+          <i class="menu-icon fa fa-users" />
+          <span>User Management</span>
+        </NuxtLink>
+      </li>
     </ul>
   </div>
 </template>

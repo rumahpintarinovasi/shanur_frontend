@@ -292,7 +292,6 @@ const handleChangeProductItem = (value: Event) => {
     : 0;
   newInvoiceItem.value.productName = productName;
 
-  console.log(newInvoiceItem.value, '<< ini new INvoice')
 };
 
 const handleChangeQantity = (value: Event) => {
@@ -306,9 +305,6 @@ const handleChangeInvoiceForm = (e: Event) => {
   const el = e as InputFileEvent;
   const { value, name } = el.target;
 
-  console.log(name, '<< ini name')
-  console.log(value, '<< ini value')
-
   switch (name) {
     case "invoiceDate":
     case "type":
@@ -321,7 +317,6 @@ const handleChangeInvoiceForm = (e: Event) => {
       break;
   }
 
-  console.log(invoiceForm.value, '<< ini in')
 };
 
 const handleSaveInvoiceItems = () => {
@@ -332,7 +327,6 @@ const handleSaveInvoiceItems = () => {
     productName: newInvoiceItem.value.productName,
   };
 
-  console.log(newItem, '<< ini new item')
   invoiceForm?.value?.invoiceItems?.push(newItem);
   newInvoiceItem.value = {
     productId: "",

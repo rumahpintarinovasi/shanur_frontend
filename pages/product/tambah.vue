@@ -174,14 +174,12 @@ const handleSubmit = async () => {
       unit: "",
     };
   } catch (error) {
-    console.log(error);
     $toast.open({
       message: error?.response?.data?.message,
       type: "error",
       position: "top",
       duration: 5000,
     });
-    console.log(error);
   }
 };
 

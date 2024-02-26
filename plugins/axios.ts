@@ -25,7 +25,6 @@ export default defineNuxtPlugin (()  => {
 
   async function request(payload : axiosPayload) : Promise<AxiosResponse<any,any>> {
     const token:string|null = localStorage.getItem("authorizeToken");
-    console.log(payload, '<< ini payload')
     const options = {
       method: payload.method,
       url: payload.url,
@@ -35,7 +34,7 @@ export default defineNuxtPlugin (()  => {
       }
     }
 
-    if (payload.isAuth) {
+    if (payload.isAuth|| true) {
       options.headers = {
         ...options.headers,
         Authorization: `Bearer ${token}`,
