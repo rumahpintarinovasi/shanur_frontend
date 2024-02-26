@@ -64,7 +64,7 @@ const handleSubmit = async (e) => {
   e.preventDefault()
 
   try {
-    await loginUser({
+    const response = await loginUser({
       userName: username.value,
       password: password.value
     })
@@ -76,7 +76,8 @@ const handleSubmit = async (e) => {
       duration: 5000
     })
 
-    // $router.push('/dashboard')
+    $router.push('/dashboard')
+    localStorage.setItem('token', response.data.token)
   } catch (error) {
     console.log(error)
     $toast.open({
