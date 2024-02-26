@@ -54,13 +54,16 @@
 </template>
 
 <script setup>
+
 import { useToast } from "vue-toast-notification";
 import "vue-toast-notification/dist/theme-sugar.css";
 
 import { storeToRefs } from 'pinia'
 import { useUserStore } from '~/store/user';
 
+
 const $toast = useToast();
+const $router = useRouter()
 
 const userStore = useUserStore()
 
@@ -92,6 +95,9 @@ const handleSubmit = async (e) => {
       position: 'top',
       duration: 5000
     })
+
+    $router.push('/auth/login')
+
   } catch (error) {
     console.log(error)
     $toast.open({
@@ -109,11 +115,8 @@ const handleSubmit = async (e) => {
 
 
 <style>
-/* @import "../../assets/styles/style.min.css";
+@import "../../assets/styles/style.min.css";
 @import "../../assets/fonts/themify-icons/themify-icons.css";
-@import "../../assets/plugin/mCustomScrollbar/jquery.mCustomScrollbar.min.css";
-@import "../../assets/plugin/waves/waves.min.css";
-@import "../../assets/plugin/sweet-alert/sweetalert.css"; */
 
 html,
 body {

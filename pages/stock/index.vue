@@ -116,7 +116,7 @@
                     <tbody>
                       <tr v-for="item in stock">
                         <td>{{ item.date }}</td>
-                        <td>{{ item.product.id }}</td>
+                        <td>{{ item.id }}</td>
                         <td
                           style="
                             max-width: 200px;
@@ -126,15 +126,8 @@
                           "
                           class="text-ellipsis"
                         >
-                          {{ item.product.name }}
+                          {{ item.name }}
                         </td>
-                        <td>{{ item.in }}</td>
-                        <td>{{ item.out }}</td>
-                        <td>{{ item.balance }}</td>
-                        <td>{{ item.price }}</td>
-                        <td>{{ item.totalIn }}</td>
-                        <td>{{ item.totalOut }}</td>
-                        <td>{{ item.totalStock }}</td>
                         <td style="display: flex; gap: 10px">
                           <button
                             class="btn btn-info fa fa-pencil"
@@ -202,7 +195,6 @@ const handleSubmit = async () => {
       position: "top",
     });
     newStock.value = {
-      date: "",
       in: 0,
       out: 0,
       balance: 0,

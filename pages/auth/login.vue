@@ -2,39 +2,31 @@
   <div id="single-wrapper" style="min-height: 100vh;" >
     <form action="#" class="frm-single">
       <div class="inside">
-        <div class="title"><strong>Ninja</strong>Admin</div>
+        <div class="title">SHANUR</div>
         <!-- /.title -->
         <div class="frm-title">Login</div>
         <!-- /.frm-title -->
         <div class="frm-input">
-          <input type="text" placeholder="Username" class="frm-inp" /><i
+          <input type="text" v-model="username" placeholder="Username" class="frm-inp" /><i
             class="fa fa-user frm-ico"
           ></i>
         </div>
         <!-- /.frm-input -->
         <div class="frm-input">
-          <input type="password" placeholder="Password" class="frm-inp" /><i
+          <input type="password" v-model="password" placeholder="Password" class="frm-inp" /><i
             class="fa fa-lock frm-ico"
           ></i>
         </div>
         <!-- /.frm-input -->
-        <div class="clearfix margin-bottom-20">
-          <div class="pull-left">
-            <div class="checkbox primary">
-              <input type="checkbox" id="rememberme" /><label for="rememberme"
-                >Remember me</label
-              >
-            </div>
-            <!-- /.checkbox -->
-          </div>
-          <!-- /.pull-left -->
-        </div>
+
         <!-- /.clearfix -->
-        <button type="submit" class="frm-submit">
+        <button type="submit" class="frm-submit" @click="handleSubmit">
           Login<i class="fa fa-arrow-circle-right"></i>
         </button>
-        <div class="row small-spacing">
-         
+        <div class="row small-spacing text-center">
+          <NuxtLink to="/auth/register" class="a-link"
+            ><i class="fa fa-user-plus"></i>Don't have account? Register.</NuxtLink
+          >
         </div>
         <!-- /.row -->
         
@@ -47,12 +39,62 @@
   </div>
 </template>
 
+<script setup>
+
+import { useToast } from "vue-toast-notification";
+import "vue-toast-notification/dist/theme-sugar.css";
+
+import { storeToRefs } from 'pinia'
+import { useUserStore } from '~/store/user';
+
+
+const $toast = useToast();
+const $router = useRouter()
+
+const userStore = useUserStore()
+
+const { loginUser } = userStore
+
+const roles = await userStore.getRoles();
+
+const username = ref('')
+const password = ref('')
+
+const handleSubmit = async (e) => {
+  e.preventDefault()
+
+  try {
+    await loginUser({
+      userName: username.value,
+      password: password.value
+    })
+
+    $toast.open({
+      message: 'Login successfully',
+      type: 'success',
+      position: 'top',
+      duration: 5000
+    })
+
+    // $router.push('/dashboard')
+  } catch (error) {
+    console.log(error)
+    $toast.open({
+      message: error.response.data.message,
+      type: 'error',
+      position: 'top',
+      duration: 5000
+    })
+  }
+  
+}
+
+
+</script>
+
 <style>
-/* @import "../../assets/styles/style.min.css";
-@import "../../assets/fonts/themify-icons/themify-icons.css";
-@import "../../assets/plugin/mCustomScrollbar/jquery.mCustomScrollbar.min.css";
-@import "../../assets/plugin/waves/waves.min.css";
-@import "../../assets/plugin/sweet-alert/sweetalert.css"; */
+ @import "../../assets/styles/style.min.css";
+@import "../../assets/fonts/themify-icons/themify-icons.css"; */
 
 html,
 body {
