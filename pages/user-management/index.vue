@@ -1,9 +1,9 @@
 <template>
+    <NuxtLayout>
     <div>
-        <NuxtLayout>
-            test
-        </NuxtLayout>
+        <h1>HELLO WORLDD</h1>
     </div>
+</NuxtLayout>
 </template>
 
 <script setup lang="ts">
