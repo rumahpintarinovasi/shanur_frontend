@@ -43,7 +43,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="invoice in invoices">
+                  <tr v-for="(invoice, index) in invoices" :key="index">
                     <td>
                       {{ $moment(invoice.invoiceDate).format("DD MMMM YYYY") }}
                     </td>

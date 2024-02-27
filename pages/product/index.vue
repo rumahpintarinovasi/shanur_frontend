@@ -128,7 +128,6 @@ const confirmDelete = (id: number) => {
 
 onMounted(async () => {
   product.value = await fetchProduct()
-  console.log(product.value)
 })
 
 </script>

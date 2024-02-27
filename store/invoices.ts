@@ -11,7 +11,6 @@ export const useInvoicesStore = defineStore( 'invoices', () => {
     const fetchInvoices = async (options:RequestPayload = {}): Promise<Invoice[]> => {
         try {
             const { whereConditions } = options
-            console.log(whereConditions, '<< ini where condut')
             const {data} = await $axios({
                 method: 'get',
                 url: '/invoice',
