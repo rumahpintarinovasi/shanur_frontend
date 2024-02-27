@@ -23,6 +23,8 @@
         <button type="submit" class="frm-submit" @click="handleSubmit">
           Login<i class="fa fa-arrow-circle-right"></i>
         </button>
+
+        
         <div class="row small-spacing text-center">
           <NuxtLink to="/auth/register" class="a-link"
             ><i class="fa fa-user-plus"></i>Don't have account? Register.</NuxtLink
@@ -40,6 +42,7 @@
 </template>
 
 <script setup>
+import 'primevue/resources/themes/aura-light-green/theme.css'
 
 import { useToast } from "vue-toast-notification";
 import "vue-toast-notification/dist/theme-sugar.css";
