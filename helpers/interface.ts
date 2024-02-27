@@ -74,4 +74,12 @@ interface NewDiscount {
     level : number
 }
 
-export type { Invoice, NewInvoice, InvoiceItem, Product, NewProduct, Stock, NewStock, InputFileEvent, RequestPayload, Discount, NewDiscount }
+interface Users {
+    id ? : string
+    name : string
+    role : string
+    storeName : string
+    status: string
+}
+
+export type { Invoice, NewInvoice, InvoiceItem, Product, NewProduct, Stock, NewStock, InputFileEvent, RequestPayload, Discount, NewDiscount, Users }

@@ -19,6 +19,9 @@ export default defineNuxtConfig({
   build: {
     transpile: ['axios'], // To avoid potential Axios issues with Nuxt 3
   },
+  primevue: {
+    usePrimeVue : true
+  },
   pages: true,
   app: {
     head: {
