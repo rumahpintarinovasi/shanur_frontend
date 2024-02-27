@@ -55,8 +55,6 @@ const userStore = useUserStore()
 
 const { loginUser } = userStore
 
-const roles = await userStore.getRoles();
-
 const username = ref('')
 const password = ref('')
 

@@ -12,6 +12,7 @@ interface axiosPayload {
 interface pluginResponse {
   provide : any
 }
+
 export default defineNuxtPlugin (()  => {
   const config = useRuntimeConfig()
   const defaultUrl:string = config.public.BASE_URL_BACKEND
