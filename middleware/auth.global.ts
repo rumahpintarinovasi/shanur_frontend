@@ -1,5 +1,5 @@
 export default defineNuxtRouteMiddleware((to, from) => {
-    const isLoggedIn = localStorage.getItem('token')
+    const isLoggedIn = localStorage.getItem('authorizeToken')
   
     if (to.path === '/auth/login' || to.path === '/auth/register') {
       if(!isLoggedIn) {

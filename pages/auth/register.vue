@@ -75,7 +75,7 @@ const nameUser = ref('')
 const email = ref('')
 const username = ref('')
 const password = ref('')
-const roleSelected = ref(2)
+const roleSelected = ref(2) // default role is user (2)
 
 const handleSubmit = async (e) => {
   e.preventDefault()
@@ -113,7 +113,7 @@ const handleSubmit = async (e) => {
 </script>
 
 
-<style>
+<style scoped>
 @import "../../assets/styles/style.min.css";
 @import "../../assets/fonts/themify-icons/themify-icons.css";
 

@@ -10,7 +10,7 @@ export default defineNuxtConfig({
     'nuxt-primevue'
   ],
   primevue: {
-    cssLayerOrder: 'reset,primevue'
+    cssLayerOrder: 'primevue'
 },
   plugins: [
     '~/plugins/axios.ts',

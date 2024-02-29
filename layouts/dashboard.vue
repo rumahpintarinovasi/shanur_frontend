@@ -51,6 +51,6 @@ export default {
 
 html,
 body {
-  font-family: "poppins";
+  font-family: "poppins" !important;
 }
 </style>

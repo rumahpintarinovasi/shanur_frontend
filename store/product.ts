@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import axios from "~~/plugins/axios";
-import type { Product } from "../helpers/interface";
+import type { Product, RequestPayload } from "../helpers/interface";
 const $axios = axios().provide.axios;
 import Swal from 'sweetalert2'
 
@@ -9,11 +9,15 @@ export const useProductStore = defineStore('product', () => {
   const products = ref([]);
 
   // Action
-  const fetchProduct = async (): Promise<Product[]> => {
+  const fetchProduct = async (options:RequestPayload = {}): Promise<Product[]> => {
     try {
+      const { whereConditions } = options
       const { data } = await $axios({
         method: "get",
         url: "/product",
+        params: {
+          whereConditions: whereConditions || "",
+        },
       })
 
 
