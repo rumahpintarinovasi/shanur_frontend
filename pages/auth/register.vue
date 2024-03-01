@@ -29,14 +29,14 @@
             ></i>
           </div>
           <!-- SELECT ROLE -->
-            <div class="frm-input">
+            <!-- <div class="frm-input">
                 <select class="frm-inp" v-model="roleSelected">
                 <option value="" disabled>Select Role</option>
                 <option v-for="role in roles" :key="role.id" :value="role.id">{{ role.name }}</option>
                 </select>
                 <i class="fa fa-user
                 frm-ico"></i>
-            </div>
+            </div> -->
           <button type="button" @click="handleSubmit" class="frm-submit">
             Register<i class="fa fa-arrow-circle-right"></i>
           </button>
@@ -69,13 +69,13 @@ const userStore = useUserStore()
 
 const { registerUser } = userStore
 
-const roles = await userStore.getRoles();
+// const roles = await userStore.getRoles();
 
 const nameUser = ref('')
 const email = ref('')
 const username = ref('')
 const password = ref('')
-const roleSelected = ref('')
+const roleSelected = ref(2) // default role is user (2)
 
 const handleSubmit = async (e) => {
   e.preventDefault()
@@ -113,7 +113,7 @@ const handleSubmit = async (e) => {
 </script>
 
 
-<style>
+<style scoped>
 @import "../../assets/styles/style.min.css";
 @import "../../assets/fonts/themify-icons/themify-icons.css";
 

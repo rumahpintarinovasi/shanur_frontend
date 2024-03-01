@@ -21,6 +21,8 @@
               </NuxtLink>
               </div>
 
+              <!--  -->
+
               <table class="table table-striped margin-bottom-10 margin-top-10">
                 <thead>
                   <tr>
@@ -132,7 +134,7 @@ onMounted(async () => {
 
 </script>
 
-<style>
+<style scoped>
 p {
   margin: 0 !important;
 }
