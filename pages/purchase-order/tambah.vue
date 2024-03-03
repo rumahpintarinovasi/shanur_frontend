@@ -39,7 +39,6 @@ const handleSave = async (payload:Invoice) => {
   payload.invoiceItems?.forEach(item => {
     delete item.productName
   })
-  console.log(payload, '<< ini payload')
 
   await addInvoices(payload)
 

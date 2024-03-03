@@ -31,9 +31,7 @@ export default {
   async created() {
     try {
       // const res = await this.$api("todos/1");
-      // console.log(res.data);
     } catch (error) {
-      console.log(error);
     }
   },
   methods: {

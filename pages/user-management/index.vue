@@ -8,10 +8,11 @@
               <div class="box-content">
                 <h4>User Management</h4>
                 <table
-                  class=" table table-stripped margin-bottom-10 margin-top-10"
+                  class="table table-stripped margin-bottom-10 margin-top-10"
                 >
                   <thead>
                     <tr>
+                      <th>No</th>
                       <th>Name</th>
                       <th>Role</th>
                       <th>Store Name</th>
@@ -20,74 +21,125 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="(user,index) in users" :key="index" >
-                      <td v-if="index !== editedRow" >
+                    <tr v-for="(user, index) in users" :key="index">
+                      <td>{{ index+1 }}</td>
+                      <td v-if="index !== editedRow">
                         {{ user.name }}
                       </td>
-                      <td v-else >
-                        <input type="text" :value="user.name" class="form-control" />
+                      <td v-else>
+                        <input
+                          name="name"
+                          @change="(e) => handleChangeForm(e, index)"
+                          type="text"
+                          :value="user.name"
+                          class="form-control"
+                        />
                       </td>
-                      <td v-if="index !== editedRow" >
+                      <td v-if="index !== editedRow">
                         {{ user.role }}
                       </td>
-
-                      <td v-else >
-                        <select class="form-control" >
-                          <option>Cashier</option>
-                          <option>Staff</option>
-                          <option>Store Owner</option>
+                      <td v-else>
+                        <select 
+                          class="form-control" 
+                          @change="(e) => handleChangeForm(e, index)" 
+                          name="roleId"
+                          :value="user.roleId"
+                          >
+                          <option selected disabled >
+                            Select Role
+                          </option>
+                          <option v-for="(role, index) in roles" :key="index"  :value="role.id" >
+                            {{ role.name }}
+                          </option>
                         </select>
                       </td>
 
-
-                      <td v-if="index !== editedRow" >
+                      <td v-if="index !== editedRow">
                         {{ user.storeName }}
                       </td>
-                      <td v-else >
-                        <input type="text" class="form-control" :value="user.storeName" />
+                      <td v-else>
+                        <select 
+                          @change="(e) => handleChangeForm(e, index)" 
+                          name="storeId" 
+                          class="form-control"
+                          :value="user.storeId"
+                        >
+                          <option selected disabled >
+                            Select Store
+                          </option>
+                          <option v-for="(store, index) in stores" :key="index" :value="store.id">
+                            {{ store.name }}
+                          </option>
+                        </select>
                       </td>
 
-                      <td class="status-col" v-if="index !== editedRow" style="vertical-align: center; align-items: center;" >
+                      <td
+                        class="status-col"
+                        v-if="index !== editedRow"
+                        style="vertical-align: center; align-items: center"
+                      >
                         <!-- {{ user.status }} -->
-                        <Shanurbadge :text="user.status" :type="generateBadgeType(user.status)" />
+                        <Shanurbadge
+                          :text="user.status"
+                          :type="generateBadgeType(user.status)"
+                        />
                       </td>
 
-                      <td class="status-col" v-else >
-                        <select class="form-control" >
-                          <option>Active</option>
-                          <option>To Be Confirm</option>
-                          <option>Deactive</option>
+                      <td class="status-col" v-else>
+                        <select 
+                        class="form-control" 
+                        @change="(e) => handleChangeForm(e, index)" 
+                        name="status" 
+                        :value="user.status"
+                        >
+                          <option selected disabled >
+                            Select Store
+                          </option>
+                          <option :value="userStatus.confirmed" >{{ userStatus.confirmed }}</option>
+                          <option :value="userStatus.toBeConfirm" >
+                            {{ userStatus.toBeConfirm }}
+                          </option>
+                          <option :value="userStatus.Rejected" >
+                            {{ userStatus.Rejected }}
+                          </option>
                         </select>
                       </td>
 
                       <td>
-                        <div v-if="index !== editedRow" class="action-button-wrapper">
-                            <button @click="() => handleOpenEditRow(index)" class="btn btn-info">
-                              <i class="fa fa-pencil"></i>
-                            </button>
-                          <!-- <button class="btn btn-secondary">
-                            <i class="fa fa-eye"> </i>
-                          </button> -->
+                        <div
+                          v-if="index !== editedRow"
+                          class="action-button-wrapper"
+                        >
+                          <button
+                            @click="() => handleOpenEditRow(index)"
+                            class="btn btn-info"
+                          >
+       
+                            <i class="fa fa-pencil"></i>
+                          </button>
                         </div>
 
-                        <div v-else class="action-button-wrapper" >
-                          <button @click="() => handleOpenEditRow(null)" class="btn btn-warning">
-                              <i class="fa fa-close"></i>
-                            </button>
-
-
-                          <button class="btn btn-success">
-                            <i class="fa fa-save"> </i>
+                        <div v-else class="action-button-wrapper">
+                          <button
+                            @click="() => handleOpenEditRow(null)"
+                            class="btn btn-warning"
+                          >
+                            <i class="fa fa-close"></i>
                           </button>
 
-                          <button class="btn btn-danger" >
-                            <i class="fa fa-trash" ></i>
+                          <button class="btn btn-success" @click="() => handleSaveEditUser(index)">
+                            <i :class="`fa ${isLoading ? 'fa-spin': 'fa-save'}`"> </i>
+                          </button>
+
+                          <button class="btn btn-danger">
+                            <i class="fa fa-trash"></i>
                           </button>
                         </div>
                       </td>
-                    </tr>                   
+                    </tr>
                   </tbody>
                 </table>
+                <Pagination :totalPages="totalPages" @handleChangePage="handleChangePage" :page="currentPages" />
               </div>
             </div>
           </div>
@@ -98,73 +150,138 @@
 </template>
 
 <script setup lang="ts">
+import type { User, Store, InputFileEvent, Role, RequestPayload } from "~/helpers/interface";
+import { useUserStore } from "~/store/user";
+import { useStoresStore } from "~/store/store"
+import { useRoleStore } from '~/store/role'
+import { constant } from '~/helpers/constant'
+import { useToast } from "vue-toast-notification";
+import Swal from 'sweetalert2';
 
-import { type Users } from '~/helpers/interface'
 definePageMeta({
   layout: "dashboard",
 });
 
-const editedRow = ref<Number|null>(null)
-const users = ref<Users[] | []>([
-  {
-    name : 'Cashier 1',
-    role : 'Cashier',
-    storeName : 'Shanur Bontonompo',
-    status : 'Confirmed'
-  },
-  {
-    name: 'Staff Toko 1',
-    role: 'Staff',
-    storeName : 'Shanur Tanralili',
-    status: 'To Be Confirm'
-  },
-  {
-    name: 'Staff Toko 1',
-    role: 'Store Manager',
-    storeName : 'Shanur Tanralili',
-    status: 'Rejected'
-  }
-])
+const { userStatus } = constant
+const { fetchUser, updateUserByAdmin, totalData } = useUserStore();
+const { fetchStore } = useStoresStore()
+const { fetchRoles } = useRoleStore()
 
-const handleOpenEditRow = (index:Number|null) => {
-  editedRow.value = index
+const editedRow = ref<Number | null>(null);
+const users = ref<User[] | []>([]);
+const stores = ref<Store[] | []>([])
+const roles = ref<Role[] | []> ([])
+const isLoading = ref<Boolean> (false)
+const totalPages = ref<Number>(1)
+const currentPages = ref<Number>(1)
+
+const handleOpenEditRow = (index: Number | null) => {
+  editedRow.value = index;
+};
+
+const generateBadgeType = (status: String) => {
+  switch (status) {
+    case "Confirmed":
+      return "success";
+    case "To Be Confirm":
+      return "warning";
+    case "Rejected":
+      return "failed";
+    default:
+      return "success";
+  }
+};
+
+const handleFetchUser = async (options : RequestPayload) => {
+  users.value = await fetchUser(options)
+  totalPages.value = Math.ceil(Number(totalData.valueOf())/ 10)
+} 
+
+const handleChangeForm = (e : Event, index: number) => {
+  const el = e as InputFileEvent
+  const { value, name } = el.target;
+
+  switch (name) {
+    case 'name':
+    case 'roleId':
+    case 'storeId':
+    case 'status':
+      users.value[index][name] = value
+      break;
+  
+    default:
+      break;
+  }
+
 }
 
-const generateBadgeType = (status:String) => {
-  switch (status) {
-    case 'Confirmed':
-      return 'success'
-    case 'To Be Confirm':
-      return 'warning'
-    case 'Rejected':
-      return 'failed'
-    default:
-      return 'success'
-  }
+const handleSaveEditUser =  async (index: number) => {
+  try {
+    const userId = users.value[index].id || ''
+    const editedUser = users.value[index]
+    const payload = {
+      roleId : editedUser.roleId || '',
+      storeId : editedUser.storeId || '',
+      status : editedUser.status || '',
+      name : editedUser.name
+    }
 
-  return ''
-} 
+    await updateUserByAdmin(payload, userId)
+    editedRow.value = null
+    await handleFetchUser({
+      whereConditions : '',
+      page : Number(currentPages.value),
+      size : 10
+    })
+    
+    Swal.fire({
+    icon : 'success',
+    text : "Success Change Users Value"
+  })
+
+  } catch (error) {
+    
+  }
+}
+
+const handleChangePage = async (index: number) => {
+  currentPages.value = index
+  await handleFetchUser({whereConditions : '', page : index, size : 10})
+}
+
+onMounted(async () => {
+  await handleFetchUser({
+    page : Number(currentPages.value),
+    size : 10,
+    whereConditions : ''
+  })
+  // users.value = await fetchUser({});
+  stores.value =  await fetchStore({})
+  roles.value = await fetchRoles({})
+
+});
 </script>
 
-<style scoped >
-  .action-button-wrapper {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    justify-content: center;
-  }
+<style scoped>
+.action-button-wrapper {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
 
-  td, th{
-    /* vertical-align: middle; */
-    text-align: center;
-  }
+td,
+th {
+  /* vertical-align: middle; */
+  text-align: center;
+}
 
-  .center-vertical-align td{
-    vertical-align: center !important;
-  }
+.center-vertical-align td {
+  vertical-align: center !important;
+}
 
-  .status-col {
-    display: flex;
-    justify-content: center;
-  }
+.status-col {
+  display: flex;
+  justify-content: center;
+}
 </style>
