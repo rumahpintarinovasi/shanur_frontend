@@ -1,27 +1,59 @@
 import { defineStore } from "pinia";
-import config from '~/config'
+import type { RequestPayload, User } from "~/helpers/interface";
 import axios from '~~/plugins/axios'
 const $axios = axios().provide.axios
 
 export const useUserStore = defineStore( 'user', () => {
-    
         const user = ref([])
-    
-        const defaultUrl = config.baseUrlBackend
-    
-        const fetchUser = async () => {
-            const {data} = await $axios({
-                method: 'get',
-                url: '/user',
-            })
-            
-            if (data.data) {
-                user.value = data.data
+        const users = ref([])
+        const totalData = ref<Number>(0)
+        const fetchUser = async (payload : RequestPayload): Promise<User[]> => {
+            try {
+                const { whereConditions, page, size } = payload
+                const {data} = await $axios({
+                    method: 'get',
+                    url: '/user',
+                    params : {
+                        whereConditions,
+                        page,
+                        size
+                    }
+                })
+                
+                if (data.data) {
+                    users.value = data.data
+                }
+                totalData.value = data.meta.totalData || 10
+
+                return users.value
+            } catch (error) {
+                throw error
             }
-    
         }
 
-        const registerUser = async (user) => {
+        const updateUserByAdmin = async (payload : User, userId: string) => {
+                try {
+                    if (!userId) {
+                        throw {}
+                    }
+    
+                    const { data } = await $axios({
+                        method : 'put',
+                        url : `/user/admin/update/${userId}`,
+                        data : payload
+                    })
+
+                    if (data.err) {
+                        throw {}
+                    }
+
+                    return data.data
+                } catch (error) {
+                    
+                }
+        }
+
+        const registerUser = async (user: any) => {
             const {data} = await $axios({
                 method: 'post',
                 url: '/auth/register',
@@ -34,7 +66,7 @@ export const useUserStore = defineStore( 'user', () => {
     
         }
 
-        const loginUser = async (user) => {
+        const loginUser = async (user: any) => {
             const {data} = await $axios({
                 method: 'post',
                 url: '/auth/login',
@@ -59,7 +91,7 @@ export const useUserStore = defineStore( 'user', () => {
     
         }
 
-        const createRole = async (role) => {
+        const createRole = async (role:any) => {
             const {data} = await $axios({
                 method: 'post',
                 url: '/role',
@@ -78,7 +110,9 @@ export const useUserStore = defineStore( 'user', () => {
             registerUser,
             loginUser,
             getRoles,
-            createRole
+            createRole,
+            updateUserByAdmin,
+            totalData,
         }
     }   
 )

@@ -80,7 +80,6 @@ const handleSubmit = async (e) => {
     localStorage.setItem('authorizeToken', response.token)
     $router.push('/')
   } catch (error) {
-    console.log(error)
     $toast.open({
       message: error.response.data.message,
       type: 'error',

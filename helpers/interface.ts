@@ -58,7 +58,7 @@ interface InputFileEvent extends Event {
 }
 
 interface RequestPayload {
-    whereConditions? : string[]
+    whereConditions? : string[] | string
     page? : number
     size? : number
 }
@@ -74,12 +74,43 @@ interface NewDiscount {
     level : number
 }
 
-interface Users {
+interface User {
     id ? : string
     name : string
-    role : string
-    storeName : string
+    role ? : string
+    storeName ?: string
     status: string
+    roleId? : string
+    storeId ? : string
+    password ? : string
+    email ? : string,
+    createdAt? : String,
+    deleteAt? : String | null
+    updatedAt? : String | null
+    userName ?: String
 }
 
-export type { Invoice, NewInvoice, InvoiceItem, Product, NewProduct, Stock, NewStock, InputFileEvent, RequestPayload, Discount, NewDiscount, Users }
+interface Store {
+    id ? : String
+    name : String
+    type : String
+    createdAt? : String,
+    deleteAt? : String | null
+    updatedAt? : String | null
+}
+
+
+interface Error {
+    err : true,
+    error : any
+}
+
+interface Role {
+    id ? : string
+    name : string
+    createdAt? : String,
+    deleteAt? : String | null
+    updatedAt? : String | null
+}
+
+export type { Invoice, NewInvoice, InvoiceItem, Product, NewProduct, Stock, NewStock, InputFileEvent, RequestPayload, Discount, NewDiscount, User, Store, Error, Role }
