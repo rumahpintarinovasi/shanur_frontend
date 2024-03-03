@@ -47,22 +47,6 @@
                 <form class="form-horizontal">
                   <div class="form-group">
                     <label
-                      for="inputKodeBarang"
-                      class="col-sm-3 control-label"
-                      style="text-align: left !important"
-                      >Kode Barang</label
-                    >
-                    <div class="col-sm-9">
-                      <input
-                        type="email"
-                        class="form-control"
-                        id="inputKodeBarang"
-                        placeholder="Ketik Kode Barang"
-                      />
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label
                       for="inputNamaBarang"
                       class="col-sm-3 control-label"
                       style="text-align: left !important"
@@ -102,7 +86,7 @@
                       for="inputHarga"
                       class="col-sm-3 control-label"
                       style="text-align: left !important"
-                      >Harga per Unit</label
+                      >Harga Awal</label
                     >
                     <div class="col-sm-9">
                       <input
@@ -111,6 +95,23 @@
                         id="inputHarga"
                         placeholder="Masukan Harga"
                         v-model="newProduct.initPrice"
+                      />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label
+                      for="inputHarga"
+                      class="col-sm-3 control-label"
+                      style="text-align: left !important"
+                      >Harga Jual </label
+                    >
+                    <div class="col-sm-9">
+                      <input
+                        type="number"
+                        class="form-control"
+                        id="inputHarga"
+                        placeholder="Masukan Harga"
+                        v-model="newProduct.sellingPrice"
                       />
                     </div>
                   </div>

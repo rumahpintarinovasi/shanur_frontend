@@ -116,7 +116,6 @@
             </div>
           </div>
           <div class="col-lg-6 col-xs-12">
-            <!-- button ajukan po (green) batalkan po (red) flex row but in mobile column-->
             <div class="flex-custom-responsive">
               <button @click="handleSaveInvoices" type="button" class="btn btn-success">Save Invoices</button>
               <button type="button" @click="() => $router.push('/invoice')" class="btn btn-danger">Cancel</button>

@@ -42,11 +42,11 @@
         >
       </li>
       <li>
-        <NuxtLink to="/kasir"
+        <NuxtLink to="/cashier"
           >
           <!-- icon cashier -->
           <i class="menu-icon ti-wallet"></i>
-          <span>Kasir</span></NuxtLink
+          <span>Cashier</span></NuxtLink
         >
       </li>
       <li>
