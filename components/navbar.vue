@@ -20,7 +20,7 @@
 			<i class="ti-user"></i>
 			<ul class="sub-ico-item">
 				<li><a href="#">Settings</a></li>
-				<li><a class="js__logout" href="#">Log Out</a></li>
+				<li><a class="js__logout" href="#" @click="logout">Log Out</a></li>
 			</ul>
 			<!-- /.sub-ico-item -->
 		</div>
@@ -35,6 +35,10 @@ export default {
     htmlAddMenuActive() {
 	  document.querySelector('html').classList.toggle('menu-active');
 	},
+	logout() {
+		localStorage.removeItem('authorizeToken');
+		this.$router.push('/login');
+	}
   },
 };
 </script>

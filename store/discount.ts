@@ -4,7 +4,7 @@ import type { Discount } from "../helpers/interface";
 const $axios = axios().provide.axios;
 import Swal from 'sweetalert2'
 
-export const useProductStore = defineStore('product', () => {
+export const useDiscountStore = defineStore('discount', () => {
   // State
   const discounts = ref([]);
 

@@ -1,137 +1,299 @@
 <template>
   <div>
-  <NuxtLayout>
-    <div id="wrapper">
-      <div class="main-content">
-        <!-- /.row small-spacing two -->
+    <NuxtLayout>
+      <div id="wrapper">
+        <div class="main-content">
+          <!-- /.row small-spacing two -->
 
-        <div class="row small-spacing">
-          <!-- Kartu Stok -->
-          <div class="col-12">
-            <div class="box-content">
-              <div class="flex-custom">
-                <h4 class="box-title">Produk Terdaftar</h4>
-                <NuxtLink
-                  to="/product/tambah"
+          <div class="row small-spacing">
+            <!-- Kartu Stok -->
+            <div class="col-12">
+              <div class="box-content">
+                <div class="flex-custom">
+                  <h4 class="box-title">Produk Terdaftar</h4>
+                  <NuxtLink
+                    to="/product/tambah"
+                    class="btn btn-sm"
+                    style="color: black; margin-bottom: 10px"
+                  >
+                    <i class="fa fa-plus"></i>
+                    Buat Produk
+                  </NuxtLink>
+                </div>
+
+                <button
                   class="btn btn-sm"
+                  @click="showFilter = !showFilter"
                   style="color: black; margin-bottom: 10px"
                 >
-                  <i class="fa fa-plus"></i>
-                  Buat Produk
-              </NuxtLink>
+                  <i class="fa fa-filter"></i>
+                  Filter
+                </button>
+
+                <!-- contain filter -->
+                <div class="custom-filter" :class="{ show: showFilter }">
+                  <!-- search name input and button search -->
+                  <div class="input-group" style="display: flex; gap: 5px">
+                    <input
+                      type="text"
+                      class="form-control"
+                      v-model="searchName"
+                      placeholder="Cari Nama Produk"
+                      style="max-width: 180px; max-height: 40px"
+                    />
+                    <div class="input-group-append">
+                      <button
+                        class="btn btn-info"
+                        style="padding: 8px 12px; height: 40px"
+                        @click="submitSearch"
+                      >
+                        <i class="fa fa-search"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="input-group" style="display: flex; gap: 5px">
+                    <input
+                      type="text"
+                      class="form-control"
+                      v-model="initPriceSearch"
+                      placeholder="Cari  Harga Awal"
+                      style="max-width: 180px; max-height: 40px"
+                    />
+                    <div class="input-group-append">
+                      <button
+                        class="btn btn-info"
+                        style="padding: 8px 12px; height: 40px"
+                        @click="submitInitPriceSearch"
+                      >
+                        <i class="fa fa-search"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="input-group" style="display: flex; gap: 5px">
+                    <input
+                      type="text"
+                      class="form-control"
+                      v-model="sellingPriceSearch"
+                      placeholder="Cari  Harga Jual"
+                      style="max-width: 180px; max-height: 40px"
+                    />
+                    <div class="input-group-append">
+                      <button
+                        class="btn btn-info"
+                        style="padding: 8px 12px; height: 40px"
+                        @click="submitSellingPriceSearch"
+                      >
+                        <i class="fa fa-search"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="card flex justify-content-center">
+                    <Dropdown
+                      v-model="selectedUniqData"
+                      :options="unitData"
+                      optionLabel="name"
+                      placeholder="Pilih Satuan"
+                      class="w-full md:w-14rem"
+                    />
+                  </div>
+                </div>
+
+                <table
+                  class="table table-striped margin-bottom-10 margin-top-10"
+                >
+                  <thead>
+                    <tr>
+                      <th>Kode</th>
+                      <th
+                        style="
+                          max-width: 300px;
+                          white-space: nowrap;
+                          overflow: hidden;
+                          text-overflow: ellipsis;
+                        "
+                      >
+                        Nama Barang
+                      </th>
+                      <th>Unit</th>
+                      <th>Harga</th>
+                      <th>Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="item in product">
+                      <td>{{ item.id }}</td>
+                      <td
+                        style="
+                          max-width: 300px;
+                          white-space: nowrap;
+                          overflow: hidden;
+                          text-overflow: ellipsis;
+                        "
+                        class="text-ellipsis"
+                      >
+                        {{ item.name }}
+                      </td>
+                      <td>{{ item.unit }}</td>
+                      <td>{{ item.sellingPrice }}</td>
+                      <td style="display: flex; gap: 10px">
+                        <button
+                          class="btn btn-info fa fa-pencil"
+                          @click="router.push(`/product/edit/${item.id}`)"
+                        />
+                        <button
+                          class="btn btn-danger fa fa-trash"
+                          @click="confirmDelete(item.id)"
+                        />
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <!-- if product empty -->
+                <div
+                  v-if="product.length === 0"
+                  class="d-flex justify-content-center"
+                  style="text-align: center;"
+                >
+                  <h4 class="box-title">Produk Kosong</h4>
+                </div>
+                
+
+                <Pagination />
               </div>
 
-              <!--  -->
-
-              <table class="table table-striped margin-bottom-10 margin-top-10">
-                <thead>
-                  <tr>
-                    <th>Kode</th>
-                    <th
-                      style="
-                        max-width: 300px;
-                        white-space: nowrap;
-                        overflow: hidden;
-                        text-overflow: ellipsis;
-                      "
-                    >
-                      Nama Barang
-                    </th>
-                    <th>Unit</th>
-                    <th>Harga</th>
-                    <th>Aksi</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="item in product">
-                    <td>{{ item.id }}</td>
-                    <td
-                      style="
-                        max-width: 300px;
-                        white-space: nowrap;
-                        overflow: hidden;
-                        text-overflow: ellipsis;
-                      "
-                      class="text-ellipsis"
-                    >
-                      {{ item.name }}
-                    </td>
-                    <td>{{ item.unit }}</td>
-                    <td>{{ item.sellingPrice }}</td>
-                    <td style="display: flex; gap: 10px">
-                      <button 
-                      class="btn btn-info fa fa-pencil" 
-                      @click="router.push(`/product/edit/${item.id}`)"
-                      />
-                      <button class="btn btn-danger fa fa-trash" 
-                      @click="confirmDelete(item.id)"
-                      />
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-              <Pagination />  
+              <!-- /.box-content -->
             </div>
-
-            <!-- /.box-content -->
           </div>
-        </div>
 
-        <Footer />
+          <Footer />
+        </div>
       </div>
-    </div>
-  </NuxtLayout>
+    </NuxtLayout>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { type Product } from '../../helpers/interface';
-import { useProductStore } from '~/store/product'
+import Dropdown from "primevue/dropdown";
 
-import { useToast } from 'vue-toast-notification';
+import { type Product } from "../../helpers/interface";
+import { useProductStore } from "~/store/product";
+
+import { useToast } from "vue-toast-notification";
 import "vue-toast-notification/dist/theme-sugar.css";
 
-import {swal} from 'sweetalert2'
+import { swal } from "sweetalert2";
 
 definePageMeta({
   layout: "dashboard",
 });
 
-const router = useRouter()
+const product = ref<Product[] | []>([]);
 
-const product = ref<Product[]| []>([])
 
-const productStore = useProductStore()
-const { fetchProduct, deleteProduct } = productStore
+const selectedUniqData = ref(null);
+const unitData = ref([
+  { name: "Dus", code: "dus" },
+  { name: "Sak", code: "sak" },
+  { name: "Box", code: "box" },
+]);
+
+// if selecedUniqData is null, then fetch all product and detec chanage
+watch(selectedUniqData, async () => {
+  if (selectedUniqData.value === null) {
+    const paramFetchProduct = {
+      whereConditions: [],
+    };
+    product.value = await fetchProduct(paramFetchProduct);
+  } else {
+    const paramFetchProduct = {
+      whereConditions: [`{"unit" : "${selectedUniqData.value?.code}"}`],
+    };
+    product.value = await fetchProduct(paramFetchProduct);
+  }
+});
+
+
+
+const searchName = ref("");
+
+const initPriceSearch = ref(null);
+
+const submitInitPriceSearch = async () => {
+  if (initPriceSearch.value === null || initPriceSearch.value === "") {
+    const paramFetchProduct = {
+      whereConditions: [],
+    };
+    product.value = await fetchProduct(paramFetchProduct);
+  } else {
+    const paramFetchProduct = {
+      whereConditions: [`{"initPrice" : "${initPriceSearch.value}"}`],
+    };
+    product.value = await fetchProduct(paramFetchProduct);
+  }
+};
+
+const sellingPriceSearch = ref(null);
+
+const submitSellingPriceSearch = async () => {
+  if (sellingPriceSearch.value === null || sellingPriceSearch.value === "") {
+    const paramFetchProduct = {
+      whereConditions: [],
+    };
+    product.value = await fetchProduct(paramFetchProduct);
+  } else {
+    const paramFetchProduct = {
+      whereConditions: [`{"sellingPrice" : "${sellingPriceSearch.value}"}`],
+    };
+    product.value = await fetchProduct(paramFetchProduct);
+  }
+};
+
+const submitSearch = async () => {
+  if (searchName.value === "" || searchName.value === null) {
+    const paramFetchProduct = {
+      whereConditions: [],
+    };
+    product.value = await fetchProduct(paramFetchProduct);
+  } else {
+    const paramFetchProduct = {
+      whereConditions: [`{"name" : "${searchName.value}"}`],
+    };
+    product.value = await fetchProduct(paramFetchProduct);
+  }
+};
+
+const showFilter = ref(false);
+
+const router = useRouter();
+
+const productStore = useProductStore();
+const { fetchProduct, deleteProduct } = productStore;
 
 const confirmDelete = (id: number) => {
   swal({
-    title: 'Apakah Anda yakin?',
+    title: "Apakah Anda yakin?",
     text: "Anda tidak akan dapat mengembalikan ini!",
-    icon: 'warning',
+    icon: "warning",
     showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Ya, hapus!',
-    cancelButtonText: 'Batal'
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Ya, hapus!",
+    cancelButtonText: "Batal",
   }).then((result) => {
     if (result.isConfirmed) {
-      deleteProduct(id)
-      swal(
-        'Terhapus!',
-        'Produk telah dihapus.',
-        'success'
-      )
+      deleteProduct(id);
+      swal("Terhapus!", "Produk telah dihapus.", "success");
     }
-  })
-}
-
-
+  });
+};
 
 onMounted(async () => {
-  product.value = await fetchProduct()
-})
-
+  const paramFetchProduct = {
+    whereConditions: [],
+  };
+  product.value = await fetchProduct(paramFetchProduct);
+});
 </script>
 
 <style scoped>
@@ -156,6 +318,31 @@ p {
 }
 .flex-custom h4.box-title {
   margin: 0;
+}
+
+.custom-filter {
+  display: flex !important;
+  width: 100%;
+  flex-direction: row;
+  gap: 10px;
+  transition: all 0.24s;
+  transform: scaleY(0);
+}
+
+.custom-filter.show {
+  transform: scaleY(1);
+  transition: all 0.24s;
+  display: flex !important;
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+}
+
+@media (max-width: 516px) {
+  .custom-filter {
+    flex-direction: row;
+    gap: 10px;
+  }
 }
 
 .content-list {
@@ -186,7 +373,7 @@ p {
 .content-list-two {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 30px;
 }
 
 .content-list-two .list {
