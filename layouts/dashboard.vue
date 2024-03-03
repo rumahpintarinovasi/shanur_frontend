@@ -27,6 +27,7 @@
 
 
 export default {
+
   async created() {
     try {
       // const res = await this.$api("todos/1");
@@ -44,11 +45,12 @@ export default {
 </script>
 
 <style>
+@import url("primevue/resources/themes/aura-light-green/theme.css");
 @import "../assets/styles/style.min.css";
 @import "../assets/fonts/themify-icons/themify-icons.css";
 
 html,
 body {
-  font-family: "poppins";
+  font-family: "poppins" !important;
 }
 </style>

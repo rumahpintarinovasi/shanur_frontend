@@ -23,6 +23,9 @@
         <button type="submit" class="frm-submit" @click="handleSubmit">
           Login<i class="fa fa-arrow-circle-right"></i>
         </button>
+
+
+        
         <div class="row small-spacing text-center">
           <NuxtLink to="/auth/register" class="a-link"
             ><i class="fa fa-user-plus"></i>Don't have account? Register.</NuxtLink
@@ -40,7 +43,7 @@
 </template>
 
 <script setup>
-
+import Button from 'primevue/button';
 import { useToast } from "vue-toast-notification";
 import "vue-toast-notification/dist/theme-sugar.css";
 
@@ -63,8 +66,8 @@ const handleSubmit = async (e) => {
 
   try {
     const response = await loginUser({
+      password: password.value,
       userName: username.value,
-      password: password.value
     })
 
     $toast.open({
@@ -74,8 +77,8 @@ const handleSubmit = async (e) => {
       duration: 5000
     })
 
-    $router.push('/dashboard')
-    localStorage.setItem('token', response.data.token)
+    localStorage.setItem('authorizeToken', response.token)
+    $router.push('/')
   } catch (error) {
     console.log(error)
     $toast.open({
@@ -93,7 +96,7 @@ const handleSubmit = async (e) => {
 
 <style>
  @import "../../assets/styles/style.min.css";
-@import "../../assets/fonts/themify-icons/themify-icons.css"; */
+@import "../../assets/fonts/themify-icons/themify-icons.css";
 
 html,
 body {
