@@ -113,4 +113,13 @@ interface Role {
     updatedAt? : String | null
 }
 
-export type { Invoice, NewInvoice, InvoiceItem, Product, NewProduct, Stock, NewStock, InputFileEvent, RequestPayload, Discount, NewDiscount, User, Store, Error, Role }
+interface Customer {
+    id ? : string
+    name : string
+    level : string
+    phoneNumber : string,
+    createdAt? : String,
+    deleteAt? : String | null
+    updatedAt? : String | null
+}
+export type { Invoice, NewInvoice, InvoiceItem, Product, NewProduct, Stock, NewStock, InputFileEvent, RequestPayload, Discount, NewDiscount, User, Store, Error, Role, Customer }
