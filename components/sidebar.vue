@@ -58,6 +58,16 @@
           <span>User Management</span>
         </NuxtLink>
       </li>
+
+      <li>
+        <NuxtLink 
+          to="/customer-management"
+          
+        >
+          <i class="menu-icon fa fa-users" />
+          <span>Customer Management</span>
+        </NuxtLink>
+      </li>
     </ul>
   </div>
 </template>
