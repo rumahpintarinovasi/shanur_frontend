@@ -62,7 +62,9 @@
                 </div>
                 <div class="flex-custom">
                   <h4 class="box-title">Total Belanja</h4>
-                  <h2>Rp 100.000</h2>
+                  <h2>
+                    {{ formatCurrency(totalPrice) }}
+                  </h2>
                 </div>
               </div>
             </div>
@@ -327,9 +329,9 @@ const isAddNewItem = ref<boolean>(false)
 
 const totalPrice = computed(() => {
   let total = 0
-  invoiceForm.value.invoiceItems?.forEach(item => {
-      total += (Number(item.price) * Number(item.quantity))
-  })
+  invoices.value.forEach(invoice => {
+    total += Number(invoice.price)
+  })  
   return total
 })
 
@@ -413,13 +415,23 @@ const submitTransaction = async () => {
   });
 
   if (confirm.isConfirmed) {
+
+    const dataItems = invoices.value.map(invoice => {
+      return {
+        productId: invoice.id,
+        quantity: invoice.totalItem,
+        price: invoice.price
+      }
+    })
+
     const newTransaction = {
-      type: "Cashier",
-      status: "Accepted",
-      invoiceDate: invoiceForm.value.invoiceDate,
-      items: invoiceForm.value.invoiceItems,
+      items: dataItems,
+      memberId: '',
+      cashierId: '',
       paymentMethod: paymentMethod.value,
     };
+
+    // 
 
     const response = await createTransaction(newTransaction);
     if (response) {
