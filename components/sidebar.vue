@@ -41,6 +41,15 @@
           <span>Product</span></NuxtLink
         >
       </li>
+      <!-- discount -->
+      <li>
+        <NuxtLink to="/discount"
+          >
+          <!-- icon discount -->
+          <i class="menu-icon ti-cut"></i>
+          <span>Discount</span></NuxtLink
+        >
+      </li>
       <li>
         <NuxtLink to="/cashier"
           >

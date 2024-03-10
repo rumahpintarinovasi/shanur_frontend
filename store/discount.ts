@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import axios from "~~/plugins/axios";
-import type { Discount } from "../helpers/interface";
+import type { Discount , RequestPayload} from "../helpers/interface";
 const $axios = axios().provide.axios;
 import Swal from 'sweetalert2'
 
@@ -9,11 +9,15 @@ export const useDiscountStore = defineStore('discount', () => {
   const discounts = ref([]);
 
   // Action
-  const fetchAllDiscount = async (): Promise<Discount[]> => {
+  const fetchAllDiscount = async (options:RequestPayload = {}): Promise<Discount[]> => {
     try {
+      const { whereConditions } = options
       const { data } = await $axios({
         method: "get",
         url: "/discount",
+        params: {
+          whereConditions: whereConditions || "",
+        },
       })
 
       if (data.data) {

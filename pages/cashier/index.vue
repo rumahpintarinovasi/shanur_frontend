@@ -201,15 +201,13 @@
                 </div>
                 <div class="flex-custom">
                   <h4 class="box-title">Diskon</h4>
-                  <!-- select -->
-                  <div class="form-group">
-                    <select class="form-control" style="width: 100%">
-                      <option value="">-</option>
-                      <option value="1">Diskon 1</option>
-                      <option value="2">Diskon 2</option>
-                      <option value="3">Diskon 3</option>
-                    </select>
-                  </div>
+                  
+                    <button
+                      class="btn btn-primary"
+                      @click="handleCheckDiscount"
+                    >
+                      Periksa
+                    </button>
                 </div>
             
                 <div class="flex-custom">
@@ -371,7 +369,7 @@ const handleChangeInvoiceForm = (e: Event) => {
 
 }
 
-const handleSaveInvoiceItems = () => {
+const handleSaveInvoiceItems = async () => {
   const newItem : InvoiceItem = {
     productId : newInvoiceItem.value.productId,
     quantity : newInvoiceItem.value.quantity,
@@ -386,9 +384,6 @@ const handleSaveInvoiceItems = () => {
     price: 0,
     total: 0
   }
-}
-
-const handleSaveInvoices = async () => {
   invoiceForm.value.invoiceItems?.forEach(item => {
     delete item.productName
   })
@@ -401,8 +396,8 @@ const handleSaveInvoices = async () => {
   }
 
   await addInvoices(newInvoices)
-
 }
+
 
 const submitTransaction = async () => {
   // confirm first
@@ -439,9 +434,22 @@ const submitTransaction = async () => {
 
 }
 
+const handleCheckDiscount = async () => {
+  const response = await checkDiscount(invoices.value)
+  if(response){
+    await Swal.fire("Berhasil!", "Diskon berhasil", "success");
+  }else{
+    await Swal.fire("Gagal!", "Diskon gagal", "error");
+  }
+}
+
 onMounted(async () => {
-  invoices.value = await fetchInvoices();
-  products.value = await fetchProduct()
+  const paramsFetchInvoices = {
+    whereConditions : [`{"type" : "Cashier" }`]
+  }
+  invoices.value = await fetchInvoices(paramsFetchInvoices);
+  const result = await fetchProduct()
+  products.value = result.data
 });
 </script>
 

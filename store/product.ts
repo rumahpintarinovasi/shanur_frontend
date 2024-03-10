@@ -22,7 +22,7 @@ export const useProductStore = defineStore('product', () => {
 
 
       if (data.data) {
-        products.value = data.data
+        products.value = data
       }
 
       return products.value
