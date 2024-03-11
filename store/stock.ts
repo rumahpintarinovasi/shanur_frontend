@@ -20,19 +20,27 @@ export const useStockStore = defineStore('stock', () => {
         },
       })
 
-
       if (data.data) {
         stocks.value = data.data
       }
 
       return stocks.value
     } catch (error) {
-      const message = error?.message || 'Something Wrong'
-      Swal.fire({
-        title: 'Error!',
-        text: message,
-        icon: 'error',
-      })
+      // if error 404
+      if (error.response.status === 404) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Stock not found!',
+        })
+      } else {
+        const message = error?.message || 'Something Wrong'
+        Swal.fire({
+          title: 'Error!',
+          text: message,
+          icon: 'error',
+        })
+      }
       throw error;
     }
   }

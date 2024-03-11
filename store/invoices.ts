@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import axios from '~~/plugins/axios'
+import Swal from "sweetalert2";
 import type { Invoice, RequestPayload } from '../helpers/interface';
 const $axios = axios().provide.axios
 
@@ -37,9 +38,21 @@ export const useInvoicesStore = defineStore( 'invoices', () => {
                 data: payload
             })
 
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: 'Invoice has been added'
+            })
+
             return true
+            
 
         } catch (error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: error?.response?.data?.message || 'Something wrong'
+            })
             throw error
         }
     }

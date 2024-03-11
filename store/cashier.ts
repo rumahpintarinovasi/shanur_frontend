@@ -39,8 +39,6 @@ export const useCashierStore = defineStore( 'cashier', () => {
         }
     }
 
-
-
     return {
         checkDiscount,
         createTransaction,

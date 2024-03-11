@@ -72,6 +72,7 @@ interface Discount {
 interface NewDiscount {
     discountPercentage : number
     level : number
+    ProductId : string
 }
 
 interface User {
