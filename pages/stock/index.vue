@@ -167,20 +167,9 @@ const $toast = useToast();
 
 const stock = ref<Stock[]>([]);
 const newStock = ref<NewStock>({
-  date: "",
-  in: 0,
-  out: 0,
-  balance: 0,
+  productId:'',
+  quantity: 0,
   price: 0,
-  totalIn: 0,
-  totalOut: 0,
-  totalStock: 0,
-  product: {
-    id: 0,
-    name: "",
-    unit: "",
-    sellingPrice: 0,
-  },
 });
 
 const stockStore = useStockStore();
@@ -222,7 +211,10 @@ const handleSubmit = async () => {
 };
 
 onMounted(async () => {
-  stock.value = await fetchAllStock();
+  const paramFetchStock = {
+    whereConditions: [],
+  };
+  stock.value = await fetchAllStock(paramFetchStock);
   console.log(stock.value);
 });
 </script>

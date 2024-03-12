@@ -39,12 +39,12 @@
                       class="form-control"
                       v-model="searchName"
                       placeholder="Cari Nama Produk"
-                      style="max-width: 180px; max-height: 40px"
+                      style="max-width: 180px; max-height: 30px"
                     />
                     <div class="input-group-append">
                       <button
                         class="btn btn-info"
-                        style="padding: 8px 12px; height: 40px"
+                        style="padding: 1px 12px; height: 30px"
                         @click="submitSearch"
                       >
                         <i class="fa fa-search"></i>
@@ -57,12 +57,12 @@
                       class="form-control"
                       v-model="initPriceSearch"
                       placeholder="Cari  Harga Awal"
-                      style="max-width: 180px; max-height: 40px"
+                      style="max-width: 180px; max-height: 30px"
                     />
                     <div class="input-group-append">
                       <button
                         class="btn btn-info"
-                        style="padding: 8px 12px; height: 40px"
+                        style="padding: 1px 12px; height: 30px"
                         @click="submitInitPriceSearch"
                       >
                         <i class="fa fa-search"></i>
@@ -75,12 +75,12 @@
                       class="form-control"
                       v-model="sellingPriceSearch"
                       placeholder="Cari  Harga Jual"
-                      style="max-width: 180px; max-height: 40px"
+                      style="max-width: 180px; max-height: 30px"
                     />
                     <div class="input-group-append">
                       <button
                         class="btn btn-info"
-                        style="padding: 8px 12px; height: 40px"
+                        style="padding: 1px 12px; height: 30px"
                         @click="submitSellingPriceSearch"
                       >
                         <i class="fa fa-search"></i>
@@ -103,13 +103,14 @@
                 >
                   <thead>
                     <tr>
-                      <th>Kode</th>
                       <th
                         style="
                           max-width: 300px;
                           white-space: nowrap;
                           overflow: hidden;
                           text-overflow: ellipsis;
+                          width:300px;
+                          text-align: left;
                         "
                       >
                         Nama Barang
@@ -121,21 +122,22 @@
                   </thead>
                   <tbody>
                     <tr v-for="item in product">
-                      <td>{{ item.id }}</td>
                       <td
                         style="
                           max-width: 300px;
                           white-space: nowrap;
                           overflow: hidden;
                           text-overflow: ellipsis;
+                          width:300px;
+                          text-align: left;
                         "
                         class="text-ellipsis"
                       >
                         {{ item.name }}
                       </td>
                       <td>{{ item.unit }}</td>
-                      <td>{{ item.sellingPrice }}</td>
-                      <td style="display: flex; gap: 10px">
+                      <td>Rp. {{ item.sellingPrice }}</td>
+                      <td style="display: flex; gap: 10px; justify-content: center;">
                         <button
                           class="btn btn-info fa fa-pencil"
                           @click="router.push(`/product/edit/${item.id}`)"
@@ -159,7 +161,15 @@
                 </div>
                 
 
-                <Pagination />
+                <Pagination 
+                  :page="1"
+                  :size="10"
+                  :totalPages="getTotalPages()"
+                  @handleChangePage="() => {
+                    // SHOW PAGE FROM PAGINATION COMPONENT
+                    
+                  }"
+                />
               </div>
 
               <!-- /.box-content -->
@@ -190,12 +200,19 @@ definePageMeta({
 
 const product = ref<Product[] | []>([]);
 
+const totalData = ref(0);
+
+const getTotalPages = () => {
+  return Math.ceil(totalData.value / 10);
+};
+
 
 const selectedUniqData = ref(null);
 const unitData = ref([
   { name: "Dus", code: "dus" },
   { name: "Sak", code: "sak" },
   { name: "Box", code: "box" },
+  { name: "Pcs", code: "pcs"}
 ]);
 
 // if selecedUniqData is null, then fetch all product and detec chanage
@@ -204,12 +221,16 @@ watch(selectedUniqData, async () => {
     const paramFetchProduct = {
       whereConditions: [],
     };
-    product.value = await fetchProduct(paramFetchProduct);
+    const result = await fetchProduct(paramFetchProduct);
+    product.value = result.data
+    totalData.value = result.meta.totalData
   } else {
     const paramFetchProduct = {
       whereConditions: [`{"unit" : "${selectedUniqData.value?.code}"}`],
     };
-    product.value = await fetchProduct(paramFetchProduct);
+    const result = await fetchProduct(paramFetchProduct);
+    product.value = result.data
+    totalData.value = result.meta.totalData
   }
 });
 
@@ -224,12 +245,16 @@ const submitInitPriceSearch = async () => {
     const paramFetchProduct = {
       whereConditions: [],
     };
-    product.value = await fetchProduct(paramFetchProduct);
+    const result = await fetchProduct(paramFetchProduct);
+    product.value = result.data
+    totalData.value = result.meta.totalData
   } else {
     const paramFetchProduct = {
       whereConditions: [`{"initPrice" : "${initPriceSearch.value}"}`],
     };
-    product.value = await fetchProduct(paramFetchProduct);
+    const result = await fetchProduct(paramFetchProduct);
+    product.value = result.data
+    totalData.value = result.meta.totalData
   }
 };
 
@@ -240,12 +265,16 @@ const submitSellingPriceSearch = async () => {
     const paramFetchProduct = {
       whereConditions: [],
     };
-    product.value = await fetchProduct(paramFetchProduct);
+    const result = await fetchProduct(paramFetchProduct);
+    product.value = result.data
+    totalData.value = result.meta.totalData
   } else {
     const paramFetchProduct = {
       whereConditions: [`{"sellingPrice" : "${sellingPriceSearch.value}"}`],
     };
-    product.value = await fetchProduct(paramFetchProduct);
+    const result = await fetchProduct(paramFetchProduct);
+    product.value = result.data
+    totalData.value = result.meta.totalData
   }
 };
 
@@ -254,12 +283,16 @@ const submitSearch = async () => {
     const paramFetchProduct = {
       whereConditions: [],
     };
-    product.value = await fetchProduct(paramFetchProduct);
+    const result = await fetchProduct(paramFetchProduct);
+    product.value = result.data
+    totalData.value = result.meta.totalData
   } else {
     const paramFetchProduct = {
       whereConditions: [`{"name" : "${searchName.value}"}`],
     };
-    product.value = await fetchProduct(paramFetchProduct);
+    const result = await fetchProduct(paramFetchProduct);
+    product.value = result.data
+    totalData.value = result.meta.totalData
   }
 };
 
@@ -292,7 +325,10 @@ onMounted(async () => {
   const paramFetchProduct = {
     whereConditions: [],
   };
-  product.value = await fetchProduct(paramFetchProduct);
+  const result = await fetchProduct(paramFetchProduct);
+  product.value = result.data
+  totalData.value = result.meta.totalData
+  console.log(totalData.value)
 });
 </script>
 

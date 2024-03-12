@@ -62,7 +62,9 @@
                 </div>
                 <div class="flex-custom">
                   <h4 class="box-title">Total Belanja</h4>
-                  <h2>Rp 100.000</h2>
+                  <h2>
+                    {{ formatCurrency(totalPrice) }}
+                  </h2>
                 </div>
               </div>
             </div>
@@ -201,15 +203,13 @@
                 </div>
                 <div class="flex-custom">
                   <h4 class="box-title">Diskon</h4>
-                  <!-- select -->
-                  <div class="form-group">
-                    <select class="form-control" style="width: 100%">
-                      <option value="">-</option>
-                      <option value="1">Diskon 1</option>
-                      <option value="2">Diskon 2</option>
-                      <option value="3">Diskon 3</option>
-                    </select>
-                  </div>
+                  
+                    <button
+                      class="btn btn-primary"
+                      @click="handleCheckDiscount"
+                    >
+                      Periksa
+                    </button>
                 </div>
             
                 <div class="flex-custom">
@@ -329,9 +329,9 @@ const isAddNewItem = ref<boolean>(false)
 
 const totalPrice = computed(() => {
   let total = 0
-  invoiceForm.value.invoiceItems?.forEach(item => {
-      total += (Number(item.price) * Number(item.quantity))
-  })
+  invoices.value.forEach(invoice => {
+    total += Number(invoice.price)
+  })  
   return total
 })
 
@@ -371,7 +371,7 @@ const handleChangeInvoiceForm = (e: Event) => {
 
 }
 
-const handleSaveInvoiceItems = () => {
+const handleSaveInvoiceItems = async () => {
   const newItem : InvoiceItem = {
     productId : newInvoiceItem.value.productId,
     quantity : newInvoiceItem.value.quantity,
@@ -386,9 +386,6 @@ const handleSaveInvoiceItems = () => {
     price: 0,
     total: 0
   }
-}
-
-const handleSaveInvoices = async () => {
   invoiceForm.value.invoiceItems?.forEach(item => {
     delete item.productName
   })
@@ -401,8 +398,8 @@ const handleSaveInvoices = async () => {
   }
 
   await addInvoices(newInvoices)
-
 }
+
 
 const submitTransaction = async () => {
   // confirm first
@@ -418,13 +415,23 @@ const submitTransaction = async () => {
   });
 
   if (confirm.isConfirmed) {
+
+    const dataItems = invoices.value.map(invoice => {
+      return {
+        productId: invoice.id,
+        quantity: invoice.totalItem,
+        price: invoice.price
+      }
+    })
+
     const newTransaction = {
-      type: "Cashier",
-      status: "Accepted",
-      invoiceDate: invoiceForm.value.invoiceDate,
-      items: invoiceForm.value.invoiceItems,
+      items: dataItems,
+      memberId: '',
+      cashierId: '',
       paymentMethod: paymentMethod.value,
     };
+
+    // 
 
     const response = await createTransaction(newTransaction);
     if (response) {
@@ -439,9 +446,22 @@ const submitTransaction = async () => {
 
 }
 
+const handleCheckDiscount = async () => {
+  const response = await checkDiscount(invoices.value)
+  if(response){
+    await Swal.fire("Berhasil!", "Diskon berhasil", "success");
+  }else{
+    await Swal.fire("Gagal!", "Diskon gagal", "error");
+  }
+}
+
 onMounted(async () => {
-  invoices.value = await fetchInvoices();
-  products.value = await fetchProduct()
+  const paramsFetchInvoices = {
+    whereConditions : [`{"type" : "Cashier" }`]
+  }
+  invoices.value = await fetchInvoices(paramsFetchInvoices);
+  const result = await fetchProduct()
+  products.value = result.data
 });
 </script>
 
