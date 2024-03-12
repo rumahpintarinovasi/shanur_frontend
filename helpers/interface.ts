@@ -119,8 +119,20 @@ interface Customer {
     name : string
     level : string
     phoneNumber : string,
+    status : string,
     createdAt? : String,
     deleteAt? : String | null
     updatedAt? : String | null
 }
-export type { Invoice, NewInvoice, InvoiceItem, Product, NewProduct, Stock, NewStock, InputFileEvent, RequestPayload, Discount, NewDiscount, User, Store, Error, Role, Customer }
+
+interface MetaData {
+    totalData : Number
+}
+interface Response {
+    code : Number
+    data : any,
+    err : Boolean
+    meta : MetaData
+}
+
+export type { Invoice, NewInvoice, InvoiceItem, Product, NewProduct, Stock, NewStock, InputFileEvent, RequestPayload, Discount, NewDiscount, User, Store, Error, Role, Customer, Response, MetaData }

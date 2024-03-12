@@ -21,35 +21,89 @@
 
                   <tbody>
                     <tr v-for="(customer, index) in customers" :key="index">
-                      <td>
+                      <td class="" >
                         {{ ((Number(currPages) - 1 ) * 10 )+ index + 1 }}
                       </td>
 
-                      <td v-if="index !== editedRow">
+                      <td>
                         {{ customer.name }}
                       </td>
-                      <td v-else>
-                        <input class="form-control" />
-                      </td>
+  
 
                       <td v-if="index !== editedRow">
                         {{ customer.level }}
                       </td>
                       <td v-else>
-                        <input class="form-control" />
+                        <input name="level" @change="(e) => handleChangeForm(e, index)" :value="customer.level" class="form-control" type="number" />
                       </td>
 
                       <td>
                         {{ customer.phoneNumber }}
                       </td>
 
-                      <td></td>
+                      <td 
+                        class="status-col" 
+                        v-if="index !== editedRow"
+                        style="vertical-align: center; align-items: center"
+                      >
+                        <Shanurbadge 
+                          :text="customer.status"
+                          :type="generateBadgeType(customer.status)"
+                        />
+                      </td>
+
+                      <td class="status-col" v-else>
+                        <select
+                          class="form-control"
+                          name="status"
+                          :value="customer.status"
+                          @change="(e) => handleChangeForm(e, index)"
+                        >
+                          <option selected disabled>Select Store</option>
+                          <option :value="userStatus.confirmed">
+                            {{ userStatus.confirmed }}
+                          </option>
+                          <option :value="userStatus.toBeConfirm">
+                            {{ userStatus.toBeConfirm }}
+                          </option>
+                          <option :value="userStatus.Rejected">
+                            {{ userStatus.Rejected }}
+                          </option>
+                        </select>
+                      </td>
 
                       <td>
-                        <div class="action-button-wrapper"></div>
-                        <button class="btn btn-info">
-                          <i class="fa fa-pencil"></i>
-                        </button>
+                        <div  v-if="index !== editedRow" class="action-button-wrapper">
+                          <button 
+                            class="btn btn-info"
+                            @click="() => handleOpenEditRow(index)"
+                          >
+                            <i class="fa fa-pencil"></i>
+                          </button>
+                      
+                        </div>
+
+                        <div v-else class="action-button-wrapper">
+                          <button
+                            @click="() => handleOpenEditRow(null)"
+                            class="btn btn-warning"
+                          >
+                            <i class="fa fa-close"></i>
+                          </button>
+
+                          <button
+                            class="btn btn-success"
+                          >
+                            <i
+                              :class="`fa ${false ? 'fa-spin' : 'fa-save'}`"
+                            >
+                            </i>
+                          </button>
+
+                          <button class="btn btn-danger">
+                            <i class="fa fa-trash"></i>
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   </tbody>
@@ -69,13 +123,16 @@
 </template>
 
 <script lang="ts" setup>
-import type { Customer, RequestPayload } from "~/helpers/interface";
+import type { Customer, InputFileEvent, RequestPayload } from "~/helpers/interface";
 import { useCustomerStore } from "~/store";
+import { constant } from "~/helpers/constant";
+
 definePageMeta({
   layout: "dashboard",
 });
 
-const { totalData: customerTotalData, fetchCustomers } = useCustomerStore();
+const { fetchCustomers,editCustomer } = useCustomerStore();
+const { userStatus } = constant;
 
 const customers = ref<Customer[] | null>(null);
 const totalData = ref<Number>(0);
@@ -85,17 +142,68 @@ const totalPages = ref<Number>(1);
 
 const handleFetchCustomer = async (options: RequestPayload) => {
   const cust = await fetchCustomers(options);
-  customers.value = cust;
-  totalData.value = customerTotalData;
-  console.log(totalData.value)
+  customers.value = cust.data;
+  totalData.value = cust.meta.totalData;
   totalPages.value = Math.ceil(Number(totalData.value) / 10)
 };
+
+const generateBadgeType = (status: String) => {
+  switch (status) {
+    case "Confirmed":
+      return "success";
+    case "To Be Confirm":
+      return "warning";
+    case "Rejected":
+      return "failed";
+    default:
+      return "success";
+  }
+};
+
 
 const handleChangePage = async (index: number) => {
     currPages.value = index
     await handleFetchCustomer({ whereConditions : '', page: index, size : 10})
 }
 
+const handleChangeForm = (e :Event, index: number) => {
+  const el = e as InputFileEvent
+  const { value , name } = el.target
+
+  switch (name) {
+    case 'level':
+    case 'status':
+      if (customers.value) {
+        customers.value[index][name] = value
+      }
+      break
+  
+    default:
+      break;
+  }
+}
+
+const handleSaveEdit = async (index: number) => {
+  try {
+    const customer = customers.value ? customers.value[index] : null
+    const customerId = customer?.id  || ''
+    const payload = {
+      level : customer?.level,
+      status : customer?.status
+    }
+
+    const editedValue = await editCustomer(payload, customerId)
+
+
+  } catch (error) {
+    
+  }
+
+}
+
+const handleOpenEditRow = (index: Number | null) => {
+  editedRow.value = index;
+};
 onMounted(async () => {
   await handleFetchCustomer({
     page: Number(currPages.value),
@@ -106,12 +214,23 @@ onMounted(async () => {
 </script>
 
 
-<style>
+<style scoped>
 td,
 th {
   /* vertical-align: middle; */
   text-align: center;
 }
 
+.status-col {
+  display: flex;
+  justify-content: center;
+}
+
+.action-button-wrapper {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
 
 </style>

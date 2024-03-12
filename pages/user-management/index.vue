@@ -206,7 +206,7 @@ definePageMeta({
 });
 
 const { userStatus } = constant;
-const { fetchUser, updateUserByAdmin, totalData } = useUserStore();
+const { fetchUser, updateUserByAdmin } = useUserStore();
 const { fetchStore } = useStoresStore();
 const { fetchRoles } = useRoleStore();
 
@@ -217,6 +217,7 @@ const roles = ref<Role[] | []>([]);
 const isLoading = ref<Boolean>(false);
 const totalPages = ref<Number>(1);
 const currentPages = ref<Number>(1);
+const totalData = ref<Number>(0)
 
 const handleOpenEditRow = (index: Number | null) => {
   editedRow.value = index;
@@ -236,8 +237,10 @@ const generateBadgeType = (status: String) => {
 };
 
 const handleFetchUser = async (options: RequestPayload) => {
-  users.value = await fetchUser(options);
-  totalPages.value = Math.ceil(Number(totalData.valueOf()) / 10);
+  const fetchingUser = await fetchUser(options);
+  users.value = fetchingUser.data
+  totalData.value = fetchingUser.meta.totalData
+  totalPages.value = Math.ceil(Number(totalData.value) / 10);
 };
 
 const handleChangeForm = (e: Event, index: number) => {

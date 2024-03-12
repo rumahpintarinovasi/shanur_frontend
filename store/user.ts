@@ -1,13 +1,19 @@
 import { defineStore } from "pinia";
-import type { RequestPayload, User } from "~/helpers/interface";
+import { verifyToken } from "~/helpers";
+import type { RequestPayload, User, Response } from "~/helpers/interface";
+import { setUserPayload } from "~/helpers/utils";
 import axios from '~~/plugins/axios'
 const $axios = axios().provide.axios
+
+interface FetchUserResponse extends Response {
+    data : User[]
+}
 
 export const useUserStore = defineStore( 'user', () => {
         const user = ref([])
         const users = ref([])
         const totalData = ref<Number>(0)
-        const fetchUser = async (payload : RequestPayload): Promise<User[]> => {
+        const fetchUser = async (payload : RequestPayload): Promise<FetchUserResponse> => {
             try {
                 const { whereConditions, page, size } = payload
                 const {data} = await $axios({
@@ -22,15 +28,14 @@ export const useUserStore = defineStore( 'user', () => {
                 
                 if (data.data) {
                     users.value = data.data
+                    totalData.value = data.meta.totalData || 10
                 }
-                totalData.value = data.meta.totalData || 10
 
-                return users.value
+                return data
             } catch (error) {
                 throw error
             }
         }
-
         const updateUserByAdmin = async (payload : User, userId: string) => {
                 try {
                     if (!userId) {
@@ -72,8 +77,13 @@ export const useUserStore = defineStore( 'user', () => {
                 url: '/auth/login',
                 data: user
             })
+
+
+
             
             if (data.data) {
+                const userPayload = verifyToken(data.data.token)
+                setUserPayload(userPayload)
                 return data.data
             }
     
