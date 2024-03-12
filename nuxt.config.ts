@@ -23,9 +23,6 @@ export default defineNuxtConfig({
   build: {
     transpile: ['axios'], // To avoid potential Axios issues with Nuxt 3
   },
-  primevue: {
-    usePrimeVue : true
-  },
   pages: true,
   app: {
     head: {
@@ -45,7 +42,8 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      BASE_URL_BACKEND: process.env.BASE_URL_BACKEND
+      BASE_URL_BACKEND: process.env.BASE_URL_BACKEND,
+      PRIVATE_KEY: process.env.PRIVATE_KEY
     }
   }
 

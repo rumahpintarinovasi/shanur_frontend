@@ -8,6 +8,16 @@ function formatCurrency(amount: number): string {
     return `Rp ${formattedIntegerPart}${decimalPart ? "." + decimalPart : ""}`;
 }
 
+
+function setUserPayload(payload:string) {
+    const parseData = JSON.parse(payload)
+    const { role, storeId, userName } = parseData
+    localStorage.setItem('role', role)
+    localStorage.setItem('storeId', storeId)
+    localStorage.setItem('userName', userName)
+}
+
 export { 
-    formatCurrency
+    formatCurrency,
+    setUserPayload
 }

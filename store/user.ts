@@ -1,5 +1,7 @@
 import { defineStore } from "pinia";
+import { verifyToken } from "~/helpers";
 import type { RequestPayload, User, Response } from "~/helpers/interface";
+import { setUserPayload } from "~/helpers/utils";
 import axios from '~~/plugins/axios'
 const $axios = axios().provide.axios
 
@@ -34,7 +36,6 @@ export const useUserStore = defineStore( 'user', () => {
                 throw error
             }
         }
-
         const updateUserByAdmin = async (payload : User, userId: string) => {
                 try {
                     if (!userId) {
@@ -76,8 +77,13 @@ export const useUserStore = defineStore( 'user', () => {
                 url: '/auth/login',
                 data: user
             })
+
+
+
             
             if (data.data) {
+                const userPayload = verifyToken(data.data.token)
+                setUserPayload(userPayload)
                 return data.data
             }
     
