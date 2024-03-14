@@ -96,6 +96,15 @@
                       class="w-full md:w-14rem"
                     />
                   </div>
+                  <!-- clear filter -->
+                  <button
+                    class="btn btn-sm"
+                    @click="selectedUniqData = null"
+                    style="color: black; margin-bottom: 10px"
+                  >
+                    <i class="fa fa-times"></i>
+                    Clear Filter
+                  </button>
                 </div>
 
                 <table
@@ -161,14 +170,10 @@
                 </div>
                 
 
-                <Pagination 
-                  :page="1"
-                  :size="10"
-                  :totalPages="getTotalPages()"
-                  @handleChangePage="() => {
-                    // SHOW PAGE FROM PAGINATION COMPONENT
-                    
-                  }"
+                <Pagination
+                  :totalPages="totalPages"
+                  @handleChangePage="handleChangePage"
+                  :page="currentPages"
                 />
               </div>
 
@@ -186,7 +191,7 @@
 <script lang="ts" setup>
 import Dropdown from "primevue/dropdown";
 
-import { type Product } from "../../helpers/interface";
+import type { Product, RequestPayload } from "../../helpers/interface";
 import { useProductStore } from "~/store/product";
 
 import { useToast } from "vue-toast-notification";
@@ -200,11 +205,9 @@ definePageMeta({
 
 const product = ref<Product[] | []>([]);
 
-const totalData = ref(0);
-
-const getTotalPages = () => {
-  return Math.ceil(totalData.value / 10);
-};
+const totalData = ref<Number>(0)
+const totalPages = ref<Number>(1);
+const currentPages = ref<Number>(1);
 
 
 const selectedUniqData = ref(null);
@@ -235,26 +238,29 @@ watch(selectedUniqData, async () => {
 });
 
 
-
 const searchName = ref("");
 
 const initPriceSearch = ref(null);
 
+const handleFetchProduct = async (options: RequestPayload) => {
+  const fetchingProduct = await fetchProduct(options);
+  product.value = fetchingProduct.data
+  totalData.value = fetchingProduct.meta.totalData
+  totalPages.value = Math.ceil(Number(totalData.value) / 10);
+};
+
 const submitInitPriceSearch = async () => {
   if (initPriceSearch.value === null || initPriceSearch.value === "") {
-    const paramFetchProduct = {
-      whereConditions: [],
-    };
-    const result = await fetchProduct(paramFetchProduct);
-    product.value = result.data
-    totalData.value = result.meta.totalData
+    await handleFetchProduct({ whereConditions: "", page: 1, size: 10 });
   } else {
     const paramFetchProduct = {
       whereConditions: [`{"initPrice" : "${initPriceSearch.value}"}`],
     };
-    const result = await fetchProduct(paramFetchProduct);
-    product.value = result.data
-    totalData.value = result.meta.totalData
+    await handleFetchProduct({
+      whereConditions: paramFetchProduct,
+      page:1,
+      size:10
+    })
   }
 };
 
@@ -262,37 +268,31 @@ const sellingPriceSearch = ref(null);
 
 const submitSellingPriceSearch = async () => {
   if (sellingPriceSearch.value === null || sellingPriceSearch.value === "") {
-    const paramFetchProduct = {
-      whereConditions: [],
-    };
-    const result = await fetchProduct(paramFetchProduct);
-    product.value = result.data
-    totalData.value = result.meta.totalData
+    await handleFetchProduct({ whereConditions: "", page: 1, size: 10 });
   } else {
     const paramFetchProduct = {
       whereConditions: [`{"sellingPrice" : "${sellingPriceSearch.value}"}`],
     };
-    const result = await fetchProduct(paramFetchProduct);
-    product.value = result.data
-    totalData.value = result.meta.totalData
+    await handleFetchProduct({
+      whereConditions: paramFetchProduct,
+      page:1,
+      size:10
+    })
   }
 };
 
 const submitSearch = async () => {
   if (searchName.value === "" || searchName.value === null) {
-    const paramFetchProduct = {
-      whereConditions: [],
-    };
-    const result = await fetchProduct(paramFetchProduct);
-    product.value = result.data
-    totalData.value = result.meta.totalData
+    await handleFetchProduct({ whereConditions: "", page: 1, size: 10 });
   } else {
     const paramFetchProduct = {
       whereConditions: [`{"name" : "${searchName.value}"}`],
     };
-    const result = await fetchProduct(paramFetchProduct);
-    product.value = result.data
-    totalData.value = result.meta.totalData
+    await handleFetchProduct({
+      whereConditions: paramFetchProduct,
+      page:1,
+      size:10
+    });
   }
 };
 
@@ -321,14 +321,15 @@ const confirmDelete = (id: number) => {
   });
 };
 
+
+const handleChangePage = async (index: number) => {
+  currentPages.value = index;
+  await handleFetchProduct({ whereConditions: "", page: index, size: 10 });
+};
+
 onMounted(async () => {
-  const paramFetchProduct = {
-    whereConditions: [],
-  };
-  const result = await fetchProduct(paramFetchProduct);
-  product.value = result.data
-  totalData.value = result.meta.totalData
-  console.log(totalData.value)
+  await handleFetchProduct({ whereConditions: "", page: 1, size: 10 });
+
 });
 </script>
 
