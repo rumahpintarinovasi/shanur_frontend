@@ -21,7 +21,7 @@ export const useInvoicesStore = defineStore( 'invoices', () => {
             })
             
             if (data.data) {
-                invoices.value = data.data
+                invoices.value = data
             }
 
             return invoices.value

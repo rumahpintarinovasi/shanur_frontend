@@ -78,12 +78,10 @@ export const useUserStore = defineStore( 'user', () => {
                 data: user
             })
 
-
-
-            
             if (data.data) {
-                const userPayload = verifyToken(data.data.token)
-                setUserPayload(userPayload)
+                // const userPayload = verifyToken(data.data.token)
+                // setUserPayload(userPayload)
+
                 return data.data
             }
     

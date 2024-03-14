@@ -85,6 +85,37 @@
             <div class="col-12">
               <div class="box-content">
                 <h4 class="box-title">Kartu Stock</h4>
+
+                <button
+                  class="btn btn-sm"
+                  @click="showFilter = !showFilter"
+                  style="color: black; margin-bottom: 10px"
+                >
+                  <i class="fa fa-filter"></i>
+                  Filter
+                </button>
+
+                <div class="custom-filter" :class="{ show: showFilter }">
+                  <div class="input-group" style="display: flex; gap: 5px">
+                    <input
+                      type="text"
+                      class="form-control"
+                      v-model="searchName"
+                      placeholder="Cari Barang"
+                      style="max-width: 180px; max-height: 30px"
+                    />
+                    <div class="input-group-append">
+                      <button
+                        class="btn btn-info"
+                        style="padding: 1px 12px; height: 30px"
+                        @click="submitSearch"
+                      >
+                        <i class="fa fa-search"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                
                 <div style="overflow-x: scroll">
                   <table
                     class="table table-striped margin-bottom-10 margin-top-10"
@@ -140,7 +171,11 @@
                     </tbody>
                   </table>
                 </div>
-                <Pagination />
+                <Pagination
+                  :totalPages="totalPages"
+                  @handleChangePage="handleChangePage"
+                  :page="currentPages"
+                />
               </div>
               <!-- /.box-content -->
             </div>
@@ -154,7 +189,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { Stock, NewStock } from "../../helpers/interface";
+import type { Stock, NewStock, RequestPayload } from "../../helpers/interface";
 import { useStockStore } from "~/store/stock";
 import { useToast } from "vue-toast-notification";
 import "vue-toast-notification/dist/theme-sugar.css";
@@ -172,8 +207,40 @@ const newStock = ref<NewStock>({
   price: 0,
 });
 
+const totalPages = ref<Number>(1);
+const currentPages = ref<Number>(1);
+const totalData = ref<Number>(0)
+
+const searchName = ref<string>("");
+
+const showFilter = ref<boolean>(false);
+
+const submitSearch = () => {
+  handleFetchStock({
+    whereConditions: searchName.value,
+    page: 1,
+    size: 10,
+  });
+};
+
 const stockStore = useStockStore();
 const { fetchAllStock, addStock } = stockStore;
+
+const handleFetchStock = async (options: RequestPayload) => {
+  const fetchingStock = await fetchAllStock(options);
+  stock.value = fetchingStock.data
+  totalData.value = fetchingStock?.meta?.totalData
+  totalPages.value = Math.ceil(Number(totalData.value) / 10);
+};
+
+const handleChangePage = (page: Number) => {
+  currentPages.value = page;
+  handleFetchStock({
+    whereConditions:"",
+    page: page,
+    size: 10,
+  });
+};
 
 const handleSubmit = async () => {
   try {
@@ -199,23 +266,20 @@ const handleSubmit = async () => {
       },
     };
   } catch (error) {
-    console.log(error);
     $toast.open({
-      message: error?.response?.data?.message,
+      message: error?.response?.data?.message || "Something went wrong",
       type: "error",
       position: "top",
-      duration: 5000,
     });
-    console.log(error);
   }
 };
 
 onMounted(async () => {
-  const paramFetchStock = {
-    whereConditions: [],
-  };
-  stock.value = await fetchAllStock(paramFetchStock);
-  console.log(stock.value);
+  await handleFetchStock({
+    whereConditions:"",
+    page: 1,
+    size:10
+  });
 });
 </script>
 
@@ -239,6 +303,31 @@ p {
 
 .modal-content {
   padding: 0 !important;
+}
+
+.custom-filter {
+  display: flex !important;
+  width: 100%;
+  flex-direction: row;
+  gap: 10px;
+  transition: all 0.24s;
+  transform: scaleY(0);
+}
+
+.custom-filter.show {
+  transform: scaleY(1);
+  transition: all 0.24s;
+  display: flex !important;
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+}
+
+@media (max-width: 516px) {
+  .custom-filter {
+    flex-direction: row;
+    gap: 10px;
+  }
 }
 
 @media (max-width: 516px) {
