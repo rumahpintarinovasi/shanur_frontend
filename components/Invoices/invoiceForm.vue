@@ -32,14 +32,14 @@
               <h4 class="box-title">Type</h4>
 
               <div class="input-group" style="width: 100%">
-                <select 
+                <select
                   name="type"
-                  class="form-select form-control" 
+                  class="form-select form-control"
                   @change="handleChangeInvoiceForm"
                 >
-                    <option selected disabled>Select Purchase Order Type</option>
-                    <option value="Purchase Order" >Purchase Order</option>
-                    <option value="Return" >Return</option>
+                  <option selected disabled>Select Purchase Order Type</option>
+                  <option value="Purchase Order">Purchase Order</option>
+                  <option value="Return">Return</option>
                 </select>
               </div>
             </div>
@@ -105,29 +105,31 @@
                   </td>
                   <td v-if="isEdit" style="display: flex; gap: 10px">
                     <button class="btn btn-info fa fa-pencil" />
-                    <button @click="() => {
-                      invoiceForm?.invoiceItems?.splice(index, 1)
-                    }" class="btn btn-danger fa fa-trash" />
+                    <button
+                      @click="
+                        () => {
+                          invoiceForm?.invoiceItems?.splice(index, 1);
+                        }
+                      "
+                      class="btn btn-danger fa fa-trash"
+                    />
                   </td>
                 </tr>
 
                 <tr v-if="isAddNewItem">
                   <td>
                     <!-- <input class="form-control" placeholder="Nama Item"  /> -->
-                    <select
-                      @change="(e) => handleChangeProductItem(e)"
-                      class="form-select form-control"
-                      placeholder="Item"
-                    >
-                      <option selected disabled>Open this select menu</option>
-                      <option
-                        v-for="(product, index) in products"
-                        :value="`${product.id}|${index}|${product.name}`"
-                        :key="index"
-                      >
-                        {{ product.name }}
-                      </option>
-                    </select>
+                    <Dropdown
+                      :options="products"
+                      v-model="selectedProduct"
+                      optionLabel="name"
+                      style="padding: 10px 0"
+                      @change="handleChangeProductItem"
+                      placeholder="Choose a product"
+                      filter
+                      showClear
+                      :filterPlaceholder="'Search'"
+                    />
                   </td>
                   <td>
                     <input
@@ -243,6 +245,8 @@ interface NewInvoiceItem extends InvoiceItem {
   total: number;
 }
 
+const selectedProduct = ref<any>();
+
 interface InvoiceFormProps {
   product?: Product[] | [];
   invoiceForm?: Invoice;
@@ -252,8 +256,8 @@ interface InvoiceFormProps {
 
 const props = defineProps<InvoiceFormProps>();
 const emits = defineEmits<{
-  (e: 'handleSave', payload: Invoice) : void
-}>()
+  (e: "handleSave", payload: Invoice): void;
+}>();
 
 // Ref State
 const products = toRef(props, "product");
@@ -279,19 +283,17 @@ const totalPrice = computed(() => {
 
 // Method
 const handleChangeProductItem = (value: Event) => {
-  const el = value as InputFileEvent;
-  const rawValue: string = el.target.value;
-  const rawValueArr: string[] = rawValue.split("|");
-  const productId: string = rawValueArr[0];
-  const index: number = Number(rawValueArr[1]);
-  const productName: string = rawValueArr[2];
-
+  const el = value.value
+  const productId: string = el.id;
+  const index: number = products.value?.findIndex((item) => item.id === productId) || 0;
+  const productName: string = el.name;
   newInvoiceItem.value.productId = productId;
   newInvoiceItem.value.price = products.value
     ? products.value[index].sellingPrice
     : 0;
   newInvoiceItem.value.productName = productName;
 
+  el.value = null
 };
 
 const handleChangeQantity = (value: Event) => {
@@ -316,7 +318,6 @@ const handleChangeInvoiceForm = (e: Event) => {
     default:
       break;
   }
-
 };
 
 const handleSaveInvoiceItems = () => {
