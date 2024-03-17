@@ -1,8 +1,14 @@
 <template>
   <div>
-  <NuxtLayout>
-    <InvoiceForm type="purchaseOrder" action="edit" :product="products" :invoiceForm="invoiceForm" :onHandleSave="handleSave" />
-  </NuxtLayout>
+    <NuxtLayout>
+      <InvoiceForm
+        type="purchaseOrder"
+        action="edit"
+        :product="products"
+        :invoiceForm="invoiceForm"
+        :onHandleSave="handleSave"
+      />
+    </NuxtLayout>
   </div>
 </template>
 
@@ -10,43 +16,51 @@
 definePageMeta({
   layout: "dashboard",
 });
-import { useProductStore, useInvoicesStore } from '~/store'
-import type { NewInvoice, Product, InputFileEvent, InvoiceItem, Invoice } from "../../helpers/interface";
-import Swal from 'sweetalert2';
-const { fetchProduct } = useProductStore()
-const { addInvoices  } = useInvoicesStore()
+import { useProductStore, useInvoicesStore } from "~/store";
+import type {
+  NewInvoice,
+  Product,
+  InputFileEvent,
+  InvoiceItem,
+  Invoice,
+} from "../../helpers/interface";
+import Swal from "sweetalert2";
 
-const products = ref<Product[]>()
-  const invoiceForm = ref<Invoice>({
-    invoiceDate: '',
-    invoiceItems: [],
-    price: 0,
-    totalItem: 0,
-    type: ''
+const { fetchProduct } = useProductStore();
+const { addInvoices } = useInvoicesStore();
+
+const products = ref<Product[]>();
+const invoiceForm = ref<Invoice>({
+  invoiceDate: "",
+  invoiceItems: [],
+  price: 0,
+  totalItem: 0,
+  type: "",
 });
 
 onMounted(async () => {
-  products.value = await fetchProduct()
-})
+  const response = await fetchProduct();
+  products.value = response.data;
+});
 
 // Method
-const handleSave = async (payload:Invoice) => {
-  payload.status = 'Requested'
+const handleSave = async (payload: Invoice) => {
+  payload.status = "Requested";
 
-  delete payload.price
-  delete payload.totalItem
+  delete payload.price;
+  delete payload.totalItem;
 
-  payload.invoiceItems?.forEach(item => {
-    delete item.productName
-  })
+  payload.invoiceItems?.forEach((item) => {
+    delete item.productName;
+  });
 
-  await addInvoices(payload)
+  await addInvoices(payload);
 
   Swal.fire({
-    icon : 'success',
-    text : "Success Create New Purchase Order"
-  })
-}
+    icon: "success",
+    text: "Success Create New Purchase Order",
+  });
+};
 
-// 
+//
 </script>

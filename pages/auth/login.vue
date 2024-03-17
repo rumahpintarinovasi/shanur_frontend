@@ -70,6 +70,7 @@ const handleSubmit = async (e) => {
       userName: username.value,
     })
 
+
     $toast.open({
       message: 'Login successfully',
       type: 'success',
@@ -78,10 +79,11 @@ const handleSubmit = async (e) => {
     })
 
     localStorage.setItem('authorizeToken', response.token)
+
     $router.push('/')
   } catch (error) {
     $toast.open({
-      message: error.response.data.message,
+      message: error?.response?.data?.message || 'Something went wrong',
       type: 'error',
       position: 'top',
       duration: 5000

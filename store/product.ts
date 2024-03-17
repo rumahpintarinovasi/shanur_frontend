@@ -16,7 +16,7 @@ export const useProductStore = defineStore('product', () => {
         method: "get",
         url: "/product",
         params: {
-          whereConditions: whereConditions || "",
+     ...options
         },
       })
 

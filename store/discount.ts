@@ -16,7 +16,7 @@ export const useDiscountStore = defineStore('discount', () => {
         method: "get",
         url: "/discount",
         params: {
-          whereConditions: whereConditions || "",
+     ...options
         },
       })
 

@@ -16,7 +16,7 @@ export const useStockStore = defineStore('stock', () => {
         method: "get",
         url: "/stock",
         params: {
-          whereConditions: whereConditions || "",
+     ...options
         },
       })
 
@@ -28,11 +28,7 @@ export const useStockStore = defineStore('stock', () => {
     } catch (error) {
       // if error 404
       if (error.response.status === 404) {
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Stock not found!',
-        })
+        return [];
       } else {
         const message = error?.message || 'Something Wrong'
         Swal.fire({

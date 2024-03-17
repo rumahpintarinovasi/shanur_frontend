@@ -80,65 +80,50 @@
                 >
                   <thead>
                     <tr>
-                      <th>Date</th>
-                      <th>Inv Number</th>
-                      <th
-                        style="
-                          max-width: 300px;
-                          white-space: nowrap;
-                          overflow: hidden;
-                          text-overflow: ellipsis;
-                        "
-                      >
-                        Type
-                      </th>
+                      <th style="width: 20%">Item</th>
+                      <th>Price</th>
                       <th>Quantity</th>
-                      <th>Total Price</th>
+                      <th>Total</th>
+                      <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="invoice in invoices">
+                    <tr
+                      v-for="(item, index) in invoiceForm.invoiceItems"
+                      :key="index"
+                    >
                       <td>
-                        {{
-                          $moment(invoice.invoiceDate).format("DD MMMM YYYY")
-                        }}
+                        {{ item.productName }}
                       </td>
-                      <td>{{ invoice.invoiceNumber || "-" }}</td>
-                      <td
-                        style="
-                          max-width: 300px;
-                          white-space: nowrap;
-                          overflow: hidden;
-                          text-overflow: ellipsis;
-                        "
-                        class="text-ellipsis"
-                      >
-                        {{ invoice.type }}
+                      <td>
+                        {{ formatCurrency(item.price) }}
                       </td>
-                      <td>{{ invoice.totalItem }}</td>
-                      <td>{{ formatCurrency(Number(invoice.price)) }}</td>
-                      <!-- <td>{{ invoice.price}}</td> -->
+                      <td>
+                        {{ item.quantity }}
+                      </td>
+                      <td>
+                        {{ formatCurrency(item.quantity * item.price) }}
+                      </td>
+                      <td style="display: flex; gap: 10px">
+                        <button class="btn btn-info fa fa-pencil" />
+                        <button class="btn btn-danger fa fa-trash" />
+                      </td>
                     </tr>
 
                     <tr v-if="isAddNewItem">
                       <td>
                         <!-- <input class="form-control" placeholder="Nama Item"  /> -->
-                        <select
-                          @change="(e) => handleChangeProductItem(e)"
-                          class="form-select form-control"
-                          placeholder="Item"
-                        >
-                          <option selected disabled>
-                            Open this select menu
-                          </option>
-                          <option
-                            v-for="(product, index) in products"
-                            :value="`${product.id}|${index}|${product.name}`"
-                            :key="index"
-                          >
-                            {{ product.name }}
-                          </option>
-                        </select>
+                        <Dropdown
+                          :options="products"
+                          v-model="selectedProduct"
+                          optionLabel="name"
+                          style="padding: 10px 0;"
+                          @change="handleChangeProductItem"
+                          placeholder="Choose a product"
+                          filter
+                          showClear
+                          :filterPlaceholder="'Search'"
+                        />
                       </td>
                       <td>
                         <input
@@ -301,6 +286,8 @@ import Swal from "sweetalert2";
 import { onMounted } from "vue";
 const $moment = moment().provide.moment;
 
+const selectedProduct = ref<Product | null>(null)
+
 const invoices = ref<Invoice[] | []>([]);
 
 const { addInvoices  } = useInvoicesStore()
@@ -329,9 +316,9 @@ const isAddNewItem = ref<boolean>(false)
 
 const totalPrice = computed(() => {
   let total = 0
-  invoices.value.forEach(invoice => {
-    total += Number(invoice.price)
-  })  
+  // invoices?.value?.forEach(invoice => {
+  //   total += Number(invoice.price)
+  // })  
   return total
 })
 
@@ -339,16 +326,18 @@ const invoicesStore = useInvoicesStore();
 const { fetchInvoices } = invoicesStore;
 
 const handleChangeProductItem = (value: Event) => {
-    const el = value as InputFileEvent
-    const rawValue:string = el.target.value
-    const rawValueArr: string[] = rawValue.split('|')
-    const productId:string = rawValueArr[0]
-    const index:number = Number(rawValueArr[1])
-    const productName:string = rawValueArr[2]
-    newInvoiceItem.value.productId = productId
-    newInvoiceItem.value.price = products.value? products.value[index].sellingPrice : 0
-    newInvoiceItem.value.productName = productName
-}
+  const el = value.value
+  const productId: string = el.id;
+  const index: number = products.value?.findIndex((item) => item.id === productId) || 0;
+  const productName: string = el.name;
+  newInvoiceItem.value.productId = productId;
+  newInvoiceItem.value.price = products.value
+    ? products.value[index].sellingPrice
+    : 0;
+  newInvoiceItem.value.productName = productName;
+
+  el.value = null
+};
 
 const handleChangeQantity = (value:Event) =>{
   const el = value as InputFileEvent
@@ -397,7 +386,6 @@ const handleSaveInvoiceItems = async () => {
     invoiceItems: invoiceForm.value.invoiceItems,
   }
 
-  await addInvoices(newInvoices)
 }
 
 
