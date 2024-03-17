@@ -101,32 +101,7 @@
           <span>Discount</span></NuxtLink
         >
       </li>
-      <li>
-        <NuxtLink to="/cashier"
-          >
-          <i class="menu-icon ti-wallet"></i>
-          <span>Cashier</span></NuxtLink
-        >
-      </li>
-      <li>
-        <NuxtLink 
-          to="/user-management"
-          
-        >
-          <i class="menu-icon fa fa-users" />
-          <span>User Management</span>
-        </NuxtLink>
-      </li>
 
-      <li>
-        <NuxtLink 
-          to="/customer-management"
-          
-        >
-          <i class="menu-icon fa fa-users" />
-          <span>Customer Management</span>
-        </NuxtLink>
-      </li> -->
     </ul>
   </div>
 </template>

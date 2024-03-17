@@ -5,30 +5,26 @@
       <div class="row small-spacing">
         <div class="">
           <div class="box-content custom-height">
-            <div v-if="action === 'detail'" class="">
+            <div v-if="!isEdit" class="flex-custom middle">
               <h4 class="box-title">Invoice Number</h4>
               <div class="input-group" style="width: 100%">
                 <input
-                  v-if="!isEdit"
+                  v-if="action !== 'detail'"
                   :value="invoiceForm?.invoiceNumber"
                   class="form-control"
                   disabled
                 />
                 <input
                   v-else
-                  @change="(e) => handleChangeInvoiceForm(e)"
-                  :value="new Date(invoiceForm?.invoiceDate || '')"
-                  type="date"
-                  name="invoiceDate"
+                  :value="invoiceForm?.invoiceNumber"
+                  name="invoiceNumber"
                   class="form-control"
-                  placeholder="mm/dd/yyyy"
-                  id="datepicker"
-                  style="width: 100%"
+                  disabled
                 />
               </div>
             </div>
 
-            <div class="flex-custom middle" style="margin-top: 20px">
+            <div v-if="isEdit" class="flex-custom middle" style="margin-top: 20px">
               <h4 class="box-title">Type</h4>
 
               <div class="input-group" style="width: 100%">
@@ -177,7 +173,6 @@
               Add Item
             </button>
           </div>
-          <!-- /.box-content -->
         </div>
       </div>
 
@@ -210,6 +205,12 @@
               class="btn btn-success"
             >
               Save
+            </button>
+            <button 
+              v-else
+              class="btn btn-warning"
+            >
+              Download Invoices
             </button>
             <button
               @click="() => $router.back()"
@@ -258,7 +259,6 @@ const emits = defineEmits<{
 // Ref State
 const products = toRef(props, "product");
 const invoiceForm = toRef(props, "invoiceForm");
-const type = toRef(props, "type");
 const action = toRef(props, "action");
 const newInvoiceItem = ref<NewInvoiceItem>({
   productId: "",
@@ -266,7 +266,7 @@ const newInvoiceItem = ref<NewInvoiceItem>({
   price: 0,
   total: 0,
 });
-const isEdit = action.value === "edit";
+const isEdit = ref<boolean>(action.value === "edit");
 const isAddNewItem = ref<boolean>(false);
 
 const totalPrice = computed(() => {
@@ -336,18 +336,10 @@ const handleSaveInvoiceItems = () => {
   };
 };
 
-// const handleSave = async () => {
-//   invoiceForm?.value?.invoiceItems?.forEach((item) => {
-//     delete item.productName;
-//   });
+onMounted(() => {
+  isEdit.value = action.value === 'edit'
+})
 
-//   const newInvoices = {
-//     type: "Cashier",
-//     status: "Accepted",
-//     invoiceDate: invoiceForm?.value?.invoiceDate,
-//     invoiceItems: invoiceForm?.value?.invoiceItems,
-//   };
-// };
 </script>
 
 <style global></style>
