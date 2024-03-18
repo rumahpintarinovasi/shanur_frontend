@@ -57,41 +57,7 @@
           <span>Customer Management</span>
         </NuxtLink>
       </li>
-      <!-- <li>
-        <NuxtLink to="/"
-          ><i class="menu-icon ti-dashboard"></i
-          ><span>Dashboard</span></NuxtLink
-        >
-      </li> -->
-      <!-- <li>
-        <NuxtLink to="/purchase-order"
-          >
-          <i class="menu-icon ti-shopping-cart"></i>
-          <span>Purchase Order</span></NuxtLink
-        >
-      </li> -->
-      
-      <!-- <li>
-        <NuxtLink to="/invoice"
-          >
-          <i class="menu-icon ti-money"></i>
-          <span>Invoice</span></NuxtLink
-        >
-      </li>
-      <li>
-        <NuxtLink to="/stock"
-          >
-          <i class="menu-icon ti-bag"></i>
-          <span>Stock</span></NuxtLink
-        >
-      </li>
-      <li>
-        <NuxtLink to="/product"
-          >
-          <i class="menu-icon ti-package"></i>
-          <span>Product</span></NuxtLink
-        >
-      </li>
+     
       <!-- discount -->
       <li>
         <NuxtLink to="/discount"
@@ -113,7 +79,7 @@
           to="/user-management"
           
         >
-          <i class="menu-icon fa fa-users" />
+          <i class="menu-icon fa fa-user" />
           <span>User Management</span>
         </NuxtLink>
       </li>
@@ -126,7 +92,7 @@
           <i class="menu-icon fa fa-users" />
           <span>Customer Management</span>
         </NuxtLink>
-      </li> -->
+      </li>
     </ul>
   </div>
 </template>
