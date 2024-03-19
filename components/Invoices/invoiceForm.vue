@@ -211,6 +211,7 @@
             <button 
               v-else
               class="btn btn-warning"
+              @click="handleDownload"
             >
               Download Invoices
             </button>
@@ -227,6 +228,7 @@
 
       <Footer />
     </div>
+    <div :ref="pdfSection"> <h1>HELLO</h1></div>
   </div>
 </template>
 
@@ -238,12 +240,33 @@ import type {
   InputFileEvent,
   Invoice,
 } from "~/helpers/interface";
-import { formatCurrency } from "~/helpers/utils";
+import { formatCurrency, generateInvoiceTemplate } from "~/helpers/utils";
 import moment from "~~/plugins/moment";
+import jsPDF from "jspdf";
+
 const router = useRouter();
 const $moment = moment().provide.moment;
+
+
 interface NewInvoiceItem extends InvoiceItem {
   total: number;
+}
+
+const handleDownload = () => {
+  const pdf = new jsPDF("p", "pt", "a4")
+  const template = generateInvoiceTemplate({items : [{ name : 'barang 1', price: 1000, unit : 'sak', qty : 2}], totalPrice :1000, totalQuantity : 2})
+  const htmlElement = document.createElement('html')
+  htmlElement.innerHTML = template
+
+  console.log(htmlElement)
+  pdf.html(htmlElement, {
+    callback: (doc) => {
+      doc.save('sample.pdf')
+    },
+    x : 100,
+    y : 100
+  })
+  // pdf.save('rer.pdf')
 }
 
 const selectedProduct = ref<any>();
@@ -282,6 +305,7 @@ const totalPrice = computed(() => {
 });
 
 // Method
+
 const handleChangeProductItem = (value: Event) => {
   const el = value.value
   const productId: string = el.id;

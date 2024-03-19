@@ -7,7 +7,8 @@ export default defineNuxtConfig({
   css: ['primevue/resources/themes/aura-light-green/theme.css'],
   modules: [
     '@pinia/nuxt',
-    'nuxt-primevue'
+    'nuxt-primevue',
+    '@sidebase/nuxt-pdf'
   ],
   primevue: {
     cssLayerOrder: 'primevue'
