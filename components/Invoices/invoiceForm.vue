@@ -5,30 +5,26 @@
       <div class="row small-spacing">
         <div class="">
           <div class="box-content custom-height">
-            <div v-if="action === 'detail'" class="">
+            <div v-if="!isEdit" class="flex-custom middle">
               <h4 class="box-title">Invoice Number</h4>
               <div class="input-group" style="width: 100%">
                 <input
-                  v-if="!isEdit"
+                  v-if="action !== 'detail'"
                   :value="invoiceForm?.invoiceNumber"
                   class="form-control"
                   disabled
                 />
                 <input
                   v-else
-                  @change="(e) => handleChangeInvoiceForm(e)"
-                  :value="new Date(invoiceForm?.invoiceDate || '')"
-                  type="date"
-                  name="invoiceDate"
+                  :value="invoiceForm?.invoiceNumber"
+                  name="invoiceNumber"
                   class="form-control"
-                  placeholder="mm/dd/yyyy"
-                  id="datepicker"
-                  style="width: 100%"
+                  disabled
                 />
               </div>
             </div>
 
-            <div class="flex-custom middle" style="margin-top: 20px">
+            <div v-if="isEdit" class="flex-custom middle" style="margin-top: 20px">
               <h4 class="box-title">Type</h4>
 
               <div class="input-group" style="width: 100%">
@@ -179,7 +175,6 @@
               Add Item
             </button>
           </div>
-          <!-- /.box-content -->
         </div>
       </div>
 
@@ -213,6 +208,13 @@
             >
               Save
             </button>
+            <button 
+              v-else
+              class="btn btn-warning"
+              @click="handleDownload"
+            >
+              Download Invoices
+            </button>
             <button
               @click="() => $router.back()"
               type="button"
@@ -226,6 +228,7 @@
 
       <Footer />
     </div>
+    <div :ref="pdfSection"> <h1>HELLO</h1></div>
   </div>
 </template>
 
@@ -237,12 +240,50 @@ import type {
   InputFileEvent,
   Invoice,
 } from "~/helpers/interface";
-import { formatCurrency } from "~/helpers/utils";
+import { formatCurrency, generateInvoiceTemplate } from "~/helpers/utils";
 import moment from "~~/plugins/moment";
+import { useDownloadInvoice } from '~/store'
+import { Base64 } from 'js-base64'
 const router = useRouter();
 const $moment = moment().provide.moment;
+const { downloadInvoices } = useDownloadInvoice()
+
+
 interface NewInvoiceItem extends InvoiceItem {
   total: number;
+}
+
+const handleDownload = async () => {
+  console.log(invoiceForm.value)
+  const invoiceId = invoiceForm.value?.id || ''
+  const invoiceNumber = invoiceForm.value?.invoiceNumber || ''
+  const invoice = await downloadInvoices(invoiceId)
+
+  const buff = Base64.toUint8Array(invoice)
+  const contentType = 'application/pdf'
+
+  const url = window.URL.createObjectURL(new Blob([buff], { type : contentType}))
+  const link = document.createElement('a')
+  link.setAttribute('download', `${invoiceNumber}.pdf`)
+
+  link.href = url
+  link.click()
+
+  // JS PDF
+  // const pdf = new jsPDF("p", "pt", "a4")
+  // const template = generateInvoiceTemplate({items : [{ name : 'barang 1', price: 1000, unit : 'sak', qty : 2}], totalPrice :1000, totalQuantity : 2})
+  // const htmlElement = document.createElement('html')
+  // htmlElement.innerHTML = template
+
+  // console.log(htmlElement)
+  // pdf.html(htmlElement, {
+  //   callback: (doc) => {
+  //     doc.save('sample.pdf')
+  //   },
+  //   x : 100,
+  //   y : 100
+  // })
+  // pdf.save('rer.pdf')
 }
 
 const selectedProduct = ref<any>();
@@ -262,7 +303,6 @@ const emits = defineEmits<{
 // Ref State
 const products = toRef(props, "product");
 const invoiceForm = toRef(props, "invoiceForm");
-const type = toRef(props, "type");
 const action = toRef(props, "action");
 const newInvoiceItem = ref<NewInvoiceItem>({
   productId: "",
@@ -270,7 +310,7 @@ const newInvoiceItem = ref<NewInvoiceItem>({
   price: 0,
   total: 0,
 });
-const isEdit = action.value === "edit";
+const isEdit = ref<boolean>(action.value === "edit");
 const isAddNewItem = ref<boolean>(false);
 
 const totalPrice = computed(() => {
@@ -282,6 +322,7 @@ const totalPrice = computed(() => {
 });
 
 // Method
+
 const handleChangeProductItem = (value: Event) => {
   const el = value.value
   const productId: string = el.id;
@@ -337,18 +378,10 @@ const handleSaveInvoiceItems = () => {
   };
 };
 
-// const handleSave = async () => {
-//   invoiceForm?.value?.invoiceItems?.forEach((item) => {
-//     delete item.productName;
-//   });
+onMounted(() => {
+  isEdit.value = action.value === 'edit'
+})
 
-//   const newInvoices = {
-//     type: "Cashier",
-//     status: "Accepted",
-//     invoiceDate: invoiceForm?.value?.invoiceDate,
-//     invoiceItems: invoiceForm?.value?.invoiceItems,
-//   };
-// };
 </script>
 
 <style global></style>
