@@ -242,30 +242,47 @@ import type {
 } from "~/helpers/interface";
 import { formatCurrency, generateInvoiceTemplate } from "~/helpers/utils";
 import moment from "~~/plugins/moment";
-import jsPDF from "jspdf";
-
+import { useDownloadInvoice } from '~/store'
+import { Base64 } from 'js-base64'
 const router = useRouter();
 const $moment = moment().provide.moment;
+const { downloadInvoices } = useDownloadInvoice()
 
 
 interface NewInvoiceItem extends InvoiceItem {
   total: number;
 }
 
-const handleDownload = () => {
-  const pdf = new jsPDF("p", "pt", "a4")
-  const template = generateInvoiceTemplate({items : [{ name : 'barang 1', price: 1000, unit : 'sak', qty : 2}], totalPrice :1000, totalQuantity : 2})
-  const htmlElement = document.createElement('html')
-  htmlElement.innerHTML = template
+const handleDownload = async () => {
+  console.log(invoiceForm.value)
+  const invoiceId = invoiceForm.value?.id || ''
+  const invoiceNumber = invoiceForm.value?.invoiceNumber || ''
+  const invoice = await downloadInvoices(invoiceId)
 
-  console.log(htmlElement)
-  pdf.html(htmlElement, {
-    callback: (doc) => {
-      doc.save('sample.pdf')
-    },
-    x : 100,
-    y : 100
-  })
+  const buff = Base64.toUint8Array(invoice)
+  const contentType = 'application/pdf'
+
+  const url = window.URL.createObjectURL(new Blob([buff], { type : contentType}))
+  const link = document.createElement('a')
+  link.setAttribute('download', `${invoiceNumber}.pdf`)
+
+  link.href = url
+  link.click()
+
+  // JS PDF
+  // const pdf = new jsPDF("p", "pt", "a4")
+  // const template = generateInvoiceTemplate({items : [{ name : 'barang 1', price: 1000, unit : 'sak', qty : 2}], totalPrice :1000, totalQuantity : 2})
+  // const htmlElement = document.createElement('html')
+  // htmlElement.innerHTML = template
+
+  // console.log(htmlElement)
+  // pdf.html(htmlElement, {
+  //   callback: (doc) => {
+  //     doc.save('sample.pdf')
+  //   },
+  //   x : 100,
+  //   y : 100
+  // })
   // pdf.save('rer.pdf')
 }
 

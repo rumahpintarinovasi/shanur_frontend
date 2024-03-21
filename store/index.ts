@@ -7,7 +7,7 @@ import { useRoleStore } from './role'
 import { useStockStore } from './stock'
 import { useStoresStore } from './store'
 import { useUserStore } from './user'
-
+import { useDownloadInvoice } from './downloadpdf'
 export {
     useInvoicesStore,
     useProductStore,
@@ -17,5 +17,6 @@ export {
     useRoleStore,
     useStockStore,
     useStoresStore,
-    useUserStore
+    useUserStore,
+    useDownloadInvoice
 }
