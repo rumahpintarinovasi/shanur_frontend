@@ -49,7 +49,6 @@
           <div class="row small-spacing">
             <div class="col-lg-12 col-xs-12">
               <div class="box-content">
-                <p>{{ JSON.stringify(invoiceForm.invoiceItems) }}</p>
                 <table
                   class="table table-striped margin-bottom-10 margin-top-10"
                   style="margin-bottom: 20px"
@@ -63,27 +62,79 @@
                       <th>Action</th>
                     </tr>
                   </thead>
-
                   <tbody>
                     <tr
                       v-for="(item, index) in invoiceForm.invoiceItems"
                       :key="index"
                     >
-                      <td>
+                      <td v-if="editedRow !== index" >
                         {{ item.productName }}
                       </td>
-                      <td>
+                      <td v-else >
+                        <Dropdown
+                          :options="products"
+                          optionLabel="name"
+                          optionValue="id"
+                          style="padding: 10px 0; width: 100%;"
+                          placeholder="Choose a product"
+                          filter
+                          showClear
+                          :filterPlaceholder="'Search'"
+                          :modelValue="item.productId"
+                          @change="(e) => handleChangeEditedProductItem(e, index)"
+                        />
+                      </td>
+
+                      <td v-if="editedRow !== index">
                         {{ formatCurrency(item.price) }}
                       </td>
-                      <td>
+
+                      <td v-else >
+                        <input
+                          class="form-control"
+                          placeholder="Harga"
+                          :value="item.price"
+                          disabled
+                        />
+                      </td>
+
+
+                      <td v-if="editedRow !== index" >
                         {{ item.quantity }}
                       </td>
-                      <td>
+
+                      <td v-else >
+                        <input
+                          class="form-control"
+                          placeholder="Jumlah"
+                          type="number"
+                          min="1"
+                          :value="item.quantity"
+                          @change="(e) => handleChangeEditedQuantityItem(e, index)"
+                        />
+                      </td>
+
+                      <td v-if="editedRow !== index" >
                         {{ formatCurrency(item.quantity * item.price) }}
                       </td>
-                      <td style="display: flex; gap: 10px">
-                        <button class="btn btn-info fa fa-pencil" />
+
+                      <td v-else >
+                        <input
+                          class="form-control"
+                          placeholder="Total"
+                          disabled
+                          :value="item.quantity * item.price"
+                        />
+                      </td>
+
+                      <td v-if="index !== editedRow" style="display: flex; gap: 10px">
+                        <button @click="() => handleOpenEditRow(item, index)" class="btn btn-info fa fa-pencil" />
                         <button  class="btn btn-danger fa fa-trash" />
+                      </td>
+
+                      <td v-else style="display: flex; gap: 10px" >
+                        <button @click="() => { editedRow = null }" class="btn btn-primary fa fa-save"></button>
+                        <button @click="() => handleCancelEdit(index)" class="btn btn-warning fa fa-close"></button>
                       </td>
                     </tr>
 
@@ -115,7 +166,7 @@
                           class="form-control"
                           placeholder="Jumlah"
                           type="number"
-                          min="0"
+                          min="1"
                           :value="newInvoiceItem.quantity"
                           @click="(e) => handleChangeQuantity(e)"
                         />
@@ -188,6 +239,8 @@ import type {
 } from "../../helpers/interface";
 import { formatCurrency } from "~/helpers";
 import Swal from "sweetalert2";
+import Tooltip from 'primevue/tooltip'
+import type { DropdownChangeEvent } from "primevue/dropdown";
 
 interface NewInvoiceItem extends InvoiceItem {
   total: number;
@@ -216,6 +269,7 @@ const invoiceForm = ref<NewInvoice>({
   invoiceItems: [],
   type: "",
 });
+const editedRow = ref<number|null>(null)
 const newInvoiceItem = ref<NewInvoiceItem>({
   productId: "",
   quantity: 0,
@@ -223,6 +277,13 @@ const newInvoiceItem = ref<NewInvoiceItem>({
   total: 0,
 });
 const isAddNewItem = ref<boolean>(false);
+const defaultEditedValue = ref<NewInvoiceItem>({
+  productId: "",
+    quantity: 0,
+    price: 0,
+    total: 0,
+})
+
 const totalPrice = computed(() => {
   let total = 0;
   invoiceForm.value.invoiceItems?.forEach((item) => {
@@ -231,9 +292,14 @@ const totalPrice = computed(() => {
   return total;
 });
 
+const handleOpenEditRow = (item: any, index:number) => {
+  editedRow.value = index
+  const tempDefaultValue = {...item}
+  defaultEditedValue.value = tempDefaultValue
+
+}
 const handleFetchProductOptions = async (options : any) => {
   const fetchProductValue = await fetchProduct()
-  console.log(fetchProductValue)
   products.value = fetchProductValue
 }
 
@@ -261,7 +327,7 @@ const handleSaveInvoiceItems = () => {
   selectedProduct.value = null
 };
 
-const handleChangeProductItem = (value: Event) => {
+const handleChangeProductItem = (value: DropdownChangeEvent) => {
   const el = value.value
   const productId: string = el.id;
   const index: number = products.value?.findIndex((item) => item.id === productId) || 0;
@@ -274,6 +340,33 @@ const handleChangeProductItem = (value: Event) => {
 
   el.value = null
 };
+
+const handleChangeEditedProductItem = (event : DropdownChangeEvent, index : number) => {
+  const { value } = event
+  const product = products.value?.find((item:any) => item.id === value)
+  if (invoiceForm && invoiceForm.value && invoiceForm.value.invoiceItems) {
+    const tempEditedObject = invoiceForm.value.invoiceItems[index]
+    tempEditedObject.price = product?.sellingPrice || 0
+  }
+
+}
+
+const handleChangeEditedQuantityItem = (event : Event, index: number) => {
+  const el = event as InputFileEvent;
+  const { value } = el.target
+  if (invoiceForm && invoiceForm.value && invoiceForm.value.invoiceItems) {
+    const tempEditedObject = invoiceForm.value.invoiceItems[index]
+    tempEditedObject.quantity = Number(value) || 0
+  }
+}
+
+const handleCancelEdit = (index:number) => {
+  if (invoiceForm.value && invoiceForm.value.invoiceItems) {
+    invoiceForm.value.invoiceItems[index] = defaultEditedValue.value
+  }
+
+  editedRow.value = null
+}
 
 const handleSaveInvoices = async () => {
   try {

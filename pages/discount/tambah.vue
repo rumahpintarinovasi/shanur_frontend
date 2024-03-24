@@ -131,7 +131,6 @@
 
 <script setup lang="ts">
 import type { NewDiscount } from "../../helpers/interface";
-import Dropdown from "primevue/dropdown";
 import { useToast } from "vue-toast-notification";
 import "vue-toast-notification/dist/theme-sugar.css";
 import { useDiscountStore, useProductStore } from "~/store";
