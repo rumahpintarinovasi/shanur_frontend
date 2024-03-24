@@ -21,6 +21,7 @@ interface InvoiceItem {
 interface NewInvoice {
     invoiceDate : string,
     invoiceItems? : InvoiceItem[]
+    type ? : string
 }
 
 interface Product { 
@@ -58,9 +59,10 @@ interface InputFileEvent extends Event {
 }
 
 interface RequestPayload {
-    whereConditions? : string[] | string
+    whereConditions? : string[] | string | any
     page? : number
     size? : number
+    storeId ? : string
 }
 
 interface Discount {

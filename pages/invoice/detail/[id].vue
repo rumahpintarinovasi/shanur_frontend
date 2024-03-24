@@ -1,7 +1,7 @@
 <template>
   <div>
     <NuxtLayout>
-      <InvoiceForm :product="[]" :invoiceForm="invoiceDetail" type="invoices" action="detail" />
+      <InvoiceForm :product="[]" :invoiceForm="invoiceDetail" type="invoices" action="edit" />
     </NuxtLayout>
   </div>
 </template>

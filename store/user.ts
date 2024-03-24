@@ -9,6 +9,14 @@ interface FetchUserResponse extends Response {
     data : User[]
 }
 
+interface UserInformation {
+    id : string
+    userName : string
+    role : string
+    storeId : string
+    storeType : string
+}
+
 export const useUserStore = defineStore( 'user', () => {
         const user = ref([])
         const users = ref([])
@@ -79,10 +87,19 @@ export const useUserStore = defineStore( 'user', () => {
             })
 
             if (data.data) {
-                // const userPayload = verifyToken(data.data.token)
-                // setUserPayload(userPayload)
+                const responseData = data.data
+                const { token } = responseData
 
-                return data.data
+                const encryptedData: UserInformation  = JSON.parse(verifyToken(token))
+                const { id:userId, userName, role, storeId, storeType } = encryptedData
+                localStorage.setItem('authorizeToken', token)
+                localStorage.setItem('userId', userId)
+                localStorage.setItem('userName', userName)
+                localStorage.setItem('role', role)
+                localStorage.setItem('storeId', storeId)
+                localStorage.setItem('storeType', storeType)
+
+                return responseData
             }
     
         }

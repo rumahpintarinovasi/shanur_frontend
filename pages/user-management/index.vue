@@ -122,7 +122,7 @@
                           name="status"
                           :value="user.status"
                         >
-                          <option selected disabled>Select Store</option>
+                          <option selected disabled>Select Status</option>
                           <option :value="userStatus.confirmed">
                             {{ userStatus.confirmed }}
                           </option>

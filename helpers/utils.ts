@@ -1,33 +1,42 @@
-// import puppeteer from "puppeteer";  
+// import puppeteer from "puppeteer";
 function formatCurrency(amount: number): string {
-    if (!amount) {
-        return `Rp. 0`
-    }
-    const [integerPart, decimalPart] = amount.toFixed(2).split(".");
-    const formattedIntegerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  if (!amount) {
+    return `Rp. 0`;
+  }
+  const [integerPart, decimalPart] = amount.toFixed(2).split(".");
+  const formattedIntegerPart = integerPart.replace(
+    /\B(?=(\d{3})+(?!\d))/g,
+    ","
+  );
 
-    return `Rp ${formattedIntegerPart}${decimalPart ? "." + decimalPart : ""}`;
+  return `Rp ${formattedIntegerPart}${decimalPart ? "." + decimalPart : ""}`;
 }
 
-
-function setUserPayload(payload:string) {
-    const parseData = JSON.parse(payload)
-    const { role, storeId, userName } = parseData
-    localStorage.setItem('role', role)
-    localStorage.setItem('storeId', storeId)
-    localStorage.setItem('userName', userName)
+function setUserPayload(payload: string) {
+  const parseData = JSON.parse(payload);
+  const { role, storeId, userName } = parseData;
+  localStorage.setItem("role", role);
+  localStorage.setItem("storeId", storeId);
+  localStorage.setItem("userName", userName);
 }
 
 interface InvoiceItems {
-    name : String
-    price : Number
-    unit : String
-    qty : Number
+  name: String;
+  price: Number;
+  unit: String;
+  qty: Number;
 }
 
-const generateInvoiceTemplate = ( { items , totalPrice, totalQuantity } : { items : InvoiceItems[], totalPrice : number , totalQuantity : number}) => {
-
-    const invoicesTemplate = `
+const generateInvoiceTemplate = ({
+  items,
+  totalPrice,
+  totalQuantity,
+}: {
+  items: InvoiceItems[];
+  totalPrice: number;
+  totalQuantity: number;
+}) => {
+  const invoicesTemplate = `
 
     <head>
         <meta charset="UTF-8">
@@ -58,21 +67,18 @@ const generateInvoiceTemplate = ( { items , totalPrice, totalQuantity } : { item
                     <th>Total</th>
                 </tr>
 
-                ${
-                    items.map(item => (
-                        `
+                ${items.map(
+                  (item) =>
+                    `
                         <tr>
                             <td>${item.name}</td>
                             <td>${item.price}</td>
-                            <td>${item.unit || ''}</td>
+                            <td>${item.unit || ""}</td>
                             <td>${item.qty}</td>
                             <td>${+item.price * +item.qty}</td>
                         </tr>
                         `
-                    )
-
-                    )
-                }
+                )}
     
                 <tr>
                     <td></td>
@@ -135,56 +141,30 @@ const generateInvoiceTemplate = ( { items , totalPrice, totalQuantity } : { item
             margin-top: 20px;
         }
     </style>
-    `
- 
-    console.log(invoicesTemplate)
-    return invoicesTemplate
-}
+    `;
 
+  console.log(invoicesTemplate);
+  return invoicesTemplate;
+};
 
-// const downloadPDF = async (kind : string, payload: any, invoiceNumber : string) => {
-//     try {
-//         const browser = await puppeteer.launch()
-//         let template:any
-//         switch (kind) {
-//             case 'invoices':
-//                 template = generateInvoiceTemplate(payload)
-//                 break;
-        
-//             default:
-//                 break;
-//         }
+const generateBadgeType = (status: String) => {
+  switch (status) {
+    case "Confirmed":
+      return "success";
+    case "Requested":
+    case "To Be Confirm":
+      return "warning";
+    case "Rejected":
+      return "failed";
+    default:
+      return "success";
+  }
+};
 
-
-//         const page = await browser.newPage()
-
-//         await page.setContent(template, { waitUntil : 'domcontentloaded'})
-//         await page.emulateMediaType('screen')
-//         const pdf =  await page.pdf({
-//             margin: { top: '100px', right: '50px', bottom: '100px', left: '50px' },
-//             printBackground: true,
-//             format: 'A4',
-//         });
-
-//         await browser.close();
-//         const contentType = 'application/pdf'
-
-//         const url = window.URL.createObjectURL(new Blob([pdf], { type: contentType }))
-//         const link = document.createElement('a')
-//         link.href = url
-//         link.setAttribute('download', `${invoiceNumber}.pdf`)
-//         document.body.appendChild(link)
-//         link.click()
-
-//     } catch (error) {
-//         console.log(error)
-//     }
-
-// }
-
-export { 
-    formatCurrency,
-    setUserPayload,
-    generateInvoiceTemplate
-    // downloadPDF
-}
+export {
+  formatCurrency,
+  setUserPayload,
+  generateInvoiceTemplate,
+  generateBadgeType,
+  // downloadPDF
+};

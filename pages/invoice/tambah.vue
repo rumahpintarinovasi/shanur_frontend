@@ -89,7 +89,7 @@
                       </td>
                       <td>
                         <input
-                          @change="(e) => handleChangeQantity(e)"
+                          @change="(e) => handleChangeQuantity(e)"
                           class="form-control"
                           placeholder="Jumlah"
                           type="number"
@@ -243,7 +243,7 @@ const handleChangeProductItem = (value: Event) => {
   el.value = null
 };
 
-const handleChangeQantity = (value: Event) => {
+const handleChangeQuantity = (value: Event) => {
   const el = value as InputFileEvent;
   newInvoiceItem.value.quantity = Number(el.target.value);
   newInvoiceItem.value.total =

@@ -24,19 +24,32 @@
               </div>
             </div>
 
-            <div v-if="isEdit" class="flex-custom middle" style="margin-top: 20px">
-              <h4 class="box-title">Type</h4>
-
-              <div class="input-group" style="width: 100%">
-                <select
-                  name="type"
-                  class="form-select form-control"
-                  @change="handleChangeInvoiceForm"
-                >
-                  <option selected disabled>Select Purchase Order Type</option>
-                  <option value="Purchase Order">Purchase Order</option>
-                  <option value="Return">Return</option>
-                </select>
+            <div
+              v-if="isEdit"
+              class="flex-custom middle"
+              style="margin-top: 20px"
+            >
+              <div style="display: flex; flex-direction: row; gap: 30px; width: 100%; align-items: center" >
+                <div>
+                  <h4 class="box-title">Type</h4>
+                </div>
+                <div>
+                  <div class="input-group" style="width: 100%">
+                    <select
+                      style="width: 100%;"
+                      name="type"
+                      class="form-select form-control"
+                      @change="handleChangeInvoiceForm"
+                      :value="invoiceForm?.type"
+                    >
+                      <option selected disabled :value="''">
+                        Select Purchase Order Type
+                      </option>
+                      <option value="Purchase Order">Purchase Order</option>
+                      <option value="Return">Return</option>
+                    </select>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -44,7 +57,7 @@
               <h4 class="box-title">Invoice Date</h4>
               <div class="input-group" style="width: 100%">
                 <input
-                  v-if="!isEdit"
+                v-if="!isEdit"
                   :value="
                     $moment(invoiceForm?.invoiceDate).format('YYYY MMMM DD')
                   "
@@ -199,7 +212,15 @@
         </div>
         <div class="col-lg-6 col-xs-12">
           <!-- button ajukan po (green) batalkan po (red) flex row but in mobile column-->
-          <div class="flex-custom-responsive">
+          <div
+            style="
+              display: flex;
+              flex-direction: column;
+              max-width: 300px;
+              gap: 1.5em;
+              justify-content: space-between;
+            "
+          >
             <button
               v-if="isEdit"
               @click="emits('handleSave', invoiceForm)"
@@ -208,11 +229,7 @@
             >
               Save
             </button>
-            <button 
-              v-else
-              class="btn btn-warning"
-              @click="handleDownload"
-            >
+            <button v-else class="btn btn-warning" @click="handleDownload">
               Download Invoices
             </button>
             <button
@@ -228,7 +245,6 @@
 
       <Footer />
     </div>
-    <div :ref="pdfSection"> <h1>HELLO</h1></div>
   </div>
 </template>
 
@@ -236,38 +252,37 @@
 import type {
   InvoiceItem,
   Product,
-  NewInvoice,
   InputFileEvent,
   Invoice,
 } from "~/helpers/interface";
 import { formatCurrency, generateInvoiceTemplate } from "~/helpers/utils";
 import moment from "~~/plugins/moment";
-import { useDownloadInvoice } from '~/store'
-import { Base64 } from 'js-base64'
-const router = useRouter();
+import { useDownloadInvoice } from "~/store";
+import { Base64 } from "js-base64";
 const $moment = moment().provide.moment;
-const { downloadInvoices } = useDownloadInvoice()
-
+const { downloadInvoices } = useDownloadInvoice();
 
 interface NewInvoiceItem extends InvoiceItem {
   total: number;
 }
 
 const handleDownload = async () => {
-  console.log(invoiceForm.value)
-  const invoiceId = invoiceForm.value?.id || ''
-  const invoiceNumber = invoiceForm.value?.invoiceNumber || ''
-  const invoice = await downloadInvoices(invoiceId)
+  console.log(invoiceForm.value);
+  const invoiceId = invoiceForm.value?.id || "";
+  const invoiceNumber = invoiceForm.value?.invoiceNumber || "";
+  const invoice = await downloadInvoices(invoiceId);
 
-  const buff = Base64.toUint8Array(invoice)
-  const contentType = 'application/pdf'
+  const buff = Base64.toUint8Array(invoice);
+  const contentType = "application/pdf";
 
-  const url = window.URL.createObjectURL(new Blob([buff], { type : contentType}))
-  const link = document.createElement('a')
-  link.setAttribute('download', `${invoiceNumber}.pdf`)
+  const url = window.URL.createObjectURL(
+    new Blob([buff], { type: contentType })
+  );
+  const link = document.createElement("a");
+  link.setAttribute("download", `${invoiceNumber}.pdf`);
 
-  link.href = url
-  link.click()
+  link.href = url;
+  link.click();
 
   // JS PDF
   // const pdf = new jsPDF("p", "pt", "a4")
@@ -284,7 +299,7 @@ const handleDownload = async () => {
   //   y : 100
   // })
   // pdf.save('rer.pdf')
-}
+};
 
 const selectedProduct = ref<any>();
 
@@ -324,9 +339,10 @@ const totalPrice = computed(() => {
 // Method
 
 const handleChangeProductItem = (value: Event) => {
-  const el = value.value
+  const el = value.value;
   const productId: string = el.id;
-  const index: number = products.value?.findIndex((item) => item.id === productId) || 0;
+  const index: number =
+    products.value?.findIndex((item) => item.id === productId) || 0;
   const productName: string = el.name;
   newInvoiceItem.value.productId = productId;
   newInvoiceItem.value.price = products.value
@@ -334,7 +350,7 @@ const handleChangeProductItem = (value: Event) => {
     : 0;
   newInvoiceItem.value.productName = productName;
 
-  el.value = null
+  el.value = null;
 };
 
 const handleChangeQantity = (value: Event) => {
@@ -379,9 +395,8 @@ const handleSaveInvoiceItems = () => {
 };
 
 onMounted(() => {
-  isEdit.value = action.value === 'edit'
-})
-
+  isEdit.value = action.value === "edit";
+});
 </script>
 
 <style global></style>

@@ -37,6 +37,11 @@ export default {
 	},
 	logout() {
 		localStorage.removeItem('authorizeToken');
+		localStorage.removeItem('userId')
+		localStorage.removeItem('userName')
+		localStorage.removeItem('role')
+		localStorage.removeItem('storeId')
+		localStorage.removeItem('storeType')
 		this.$router.push('/login');
 	}
   },

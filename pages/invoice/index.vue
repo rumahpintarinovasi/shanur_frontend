@@ -159,16 +159,18 @@
 
 <script lang="ts" setup>
 import Dropdown from "primevue/dropdown";
-import type { Invoice, RequestPayload } from "../../helpers/interface";
+import type { InputFileEvent, Invoice, RequestPayload } from "../../helpers/interface";
 import { useInvoicesStore } from "~/store/invoices";
 import { formatCurrency } from "../../helpers/utils";
 import moment from "~~/plugins/moment";
+
+const storeId = localStorage.getItem('storeId') || ''
 const $moment = moment().provide.moment;
 definePageMeta({
   layout: "dashboard",
 });
 const invoices = ref<Invoice[] | []>([]);
-  const totalPages = ref<Number>(1);
+const totalPages = ref<Number>(1);
 const currentPages = ref<Number>(1);
 const totalData = ref<Number>(0)
 
@@ -221,8 +223,9 @@ const submitTotalPriceSearch = () => {
 };
 
 const handleFetchInvoices = async (options: RequestPayload) => {
+  options.storeId = storeId
   const fetchingUser = await fetchInvoices(options);
-  console.log(fetchingUser)
+
   invoices.value = fetchingUser.data
   totalData.value = fetchingUser.meta.totalData
   totalPages.value = Math.ceil(Number(totalData.value) / 10);
@@ -232,6 +235,7 @@ const handleChangePage = (page: Number) => {
   currentPages.value = page;
   handleFetchInvoices({ whereConditions: '', page: Number(page), size: 10 });
 };
+
 
 onMounted(async () => {
   await handleFetchInvoices({ 

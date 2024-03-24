@@ -9,7 +9,7 @@ export const useProductStore = defineStore('product', () => {
   const products = ref([]);
 
   // Action
-  const fetchProduct = async (options:RequestPayload = {}): Promise<Product[]> => {
+  const fetchProduct = async (options:RequestPayload = {}): Promise<any> => {
     try {
       const { whereConditions } = options
       const { data } = await $axios({
@@ -20,12 +20,11 @@ export const useProductStore = defineStore('product', () => {
         },
       })
 
+      console.log(data, '<< ')
 
-      if (data.data) {
-        products.value = data
-      }
+      products.value = data
+      return data.data
 
-      return products.value
     } catch (error) {
       const message = error?.message || 'Something Wrong'
       Swal.fire({

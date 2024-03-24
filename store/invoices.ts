@@ -7,25 +7,31 @@ const $axios = axios().provide.axios
 export const useInvoicesStore = defineStore( 'invoices', () => {
     // State
     const invoices = ref([])
+    const isLoading = ref(false)
 
     // Action
     const fetchInvoices = async (options:RequestPayload = {}): Promise<Invoice[]> => {
         try {
-            const { whereConditions } = options
+            isLoading.value = true
+            const { whereConditions, page, size, storeId } = options
             const {data} = await $axios({
                 method: 'get',
                 url: '/invoice',
                 params: {
-                    whereConditions : whereConditions || ''
+                    whereConditions : whereConditions || '',
+                    page,
+                    size,
+                    storeId
                 }
             })
             
             if (data.data) {
                 invoices.value = data
             }
-
+            isLoading.value = false
             return invoices.value
         } catch (error) {
+            isLoading.value = false
             throw error
         }
     }
@@ -75,10 +81,27 @@ export const useInvoicesStore = defineStore( 'invoices', () => {
         }
     }
 
+    const updateInvoice = async (payload: any, invoiceNumber: string) => {
+        try {
+            const { data } = await $axios({
+                method : 'PUT',
+                url :  `/invoice/${invoiceNumber}`,
+                data: payload
+            })
+
+            return data
+        } catch (error) {
+            console.log(error)
+        }
+
+
+    }
     return {
         invoices,
+        isLoading,
         fetchInvoices,
         addInvoices,
-        fetchInvoiceDetail
+        fetchInvoiceDetail,
+        updateInvoice
     }
 })
