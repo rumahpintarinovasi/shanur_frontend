@@ -76,14 +76,15 @@
                       :options="unitData"
                       optionLabel="name"
                       placeholder="Pilih Tipe Invoice"
-                      class="w-full md:w-14rem"
+                      style="padding:3px"
                     />
                   </div>
                   <!-- clear filter -->
                   <button
                     class="btn btn-sm"
+                    
                     @click="selectedUniqData = null"
-                    style="color: black; margin-bottom: 10px"
+                    style="color: black; margin-bottom: 10px;font-size: 12px;padding: 4px 12px;"
                   >
                     <i class="fa fa-times"></i>
                     Clear Filter

@@ -67,6 +67,7 @@
           <span>Discount</span></NuxtLink
         >
       </li>
+<<<<<<<<< Temporary merge branch 1
       <li>
         <NuxtLink to="/cashier"
           >
@@ -93,6 +94,9 @@
           <span>Customer Management</span>
         </NuxtLink>
       </li>
+=========
+
+>>>>>>>>> Temporary merge branch 2
     </ul>
   </div>
 </template>

@@ -1,90 +1,184 @@
 <template>
-  <!-- Modal -->
-  <div
-    class="modal fade"
-    id="boostrapModal-1"
-    tabindex="-1"
-    role="dialog"
-    aria-labelledby="myModalLabel"
-  >
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header bg-primary">
-          <button
-            type="button"
-            class="close text-white"
-            data-dismiss="modal"
-            aria-label="Close"
-          >
-            <span aria-hidden="true">&times;</span>
-          </button>
-          <h4 class="modal-title" id="myModalLabel">Edit Stok Barang</h4>
-        </div>
-        <div class="modal-body">
-          <form class="form-horizontal">
-            <div class="form-group">
-              <label
-                for="inputEmail3"
-                class="col-sm-3 control-label"
-                style="text-align: left !important"
-                >Nama Barang</label
-              >
-              <div class="col-sm-9">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="inputEmail3"
-                  placeholder="Ketik Nama Barang"
-                />
-              </div>
-            </div>
-            <div class="form-group">
-              <label
-                for="inputPassword3"
-                class="col-sm-3 control-label"
-                style="text-align: left !important"
-                >Jumlah Masuk</label
-              >
-              <div class="col-sm-9">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="inputPassword3"
-                  placeholder="Masukan Jumlah Masuk"
-                />
-              </div>
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-danger btn-sm waves-effect waves-light"
-            data-dismiss="modal"
-          >
-            Batalkan
-          </button>
-          <button
-            type="button"
-            class="btn btn-success btn-sm waves-effect waves-light"
-          >
-            Simpan
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
   <div>
     <NuxtLayout>
+      <div
+        class="modal fade"
+        id="modal-tambah"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="myModalLabel"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header bg-primary">
+              <button
+                type="button"
+                class="close text-white"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h4 class="modal-title" id="myModalLabel">Tambah Stok Barang</h4>
+            </div>
+            <div class="modal-body">
+              <form class="form-horizontal">
+                <div class="form-group">
+                  <label
+                    for="inputEmail3"
+                    class="col-sm-3 control-label"
+                    style="text-align: left !important"
+                    >Nama Barang</label
+                  >
+                  <div class="col-sm-9">
+                    <Dropdown
+                          :options="products"
+                          v-model="selectedProduct"
+                          optionLabel="name"
+                          style="padding: 10px 0;width:100%"
+                          @change="handleChangeProductItem"
+                          placeholder="Choose a product"
+                          filter
+                          showClear
+                          :filterPlaceholder="'Search'"
+                        />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label
+                    for="inputPassword3"
+                    class="col-sm-3 control-label"
+                    style="text-align: left !important"
+                    >Jumlah Masuk</label
+                  >
+                  <div class="col-sm-9">
+                    <input
+                      type="text"
+                      class="form-control"
+                      v-model="newStock.quantity"
+                      id="inputPassword3"
+                      placeholder="Masukan Jumlah Masuk"
+                    />
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-danger btn-sm waves-effect waves-light"
+                data-dismiss="modal"
+              >
+                Batalkan
+              </button>
+              <button
+                type="button"
+                @click="handleSubmit"
+                class="btn btn-success btn-sm waves-effect waves-light"
+              >
+                Simpan
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="modal fade"
+        id="boostrapModal-1"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="myModalLabel"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header bg-primary">
+              <button
+                type="button"
+                class="close text-white"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h4 class="modal-title" id="myModalLabel">Edit Stok Barang</h4>
+            </div>
+            <div class="modal-body">
+              <form class="form-horizontal">
+                <div class="form-group">
+                  <label
+                    for="inputEmail3"
+                    class="col-sm-3 control-label"
+                    style="text-align: left !important"
+                    >Nama Barang</label
+                  >
+                  <div class="col-sm-9">
+                    <Dropdown
+                      v-model="newStock.productId"
+                      :options="products"
+                      filter
+                      optionLabel="name"
+                      showClear
+                      style="z-index: 99999;padding:8px 0; width:100%"
+                      filterPlaceholder="Cari Barang"
+                      placeholder="Pilih Barang"
+                    />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label
+                    for="inputPassword3"
+                    class="col-sm-3 control-label"
+                    style="text-align: left !important"
+                    >Jumlah Masuk</label
+                  >
+                  <div class="col-sm-9">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="inputPassword3"
+                      placeholder="Masukan Jumlah Masuk"
+                    />
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-danger btn-sm waves-effect waves-light"
+                data-dismiss="modal"
+              >
+                Batalkan
+              </button>
+              <button
+                type="button"
+                class="btn btn-success btn-sm waves-effect waves-light"
+              >
+                Simpan
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
       <div id="wrapper">
         <div class="main-content">
           <!-- /.row small-spacing two -->
-
           <div class="row small-spacing">
             <!-- Kartu Stok -->
             <div class="col-12">
               <div class="box-content">
-                <h4 class="box-title">Kartu Stock</h4>
+                <div 
+                  style="display: flex;justify-content: space-between;align-items: end;margin-bottom: 20px;"
+                >
+                  <h4 class="box-title">Kartu Stock</h4>
+                
+                <button
+                  class="btn btn-info fa fa-pencil"
+                  data-toggle="modal"
+                  data-target="#modal-tambah"
+                />
+                </div>
+
 
                 <button
                   class="btn btn-sm"
@@ -115,7 +209,7 @@
                     </div>
                   </div>
                 </div>
-                
+
                 <div style="overflow-x: scroll">
                   <table
                     class="table table-striped margin-bottom-10 margin-top-10"
@@ -171,11 +265,12 @@
                     </tbody>
                   </table>
                 </div>
-                <Pagination
+                <!-- <Pagination
                   :totalPages="totalPages"
                   @handleChangePage="handleChangePage"
                   :page="currentPages"
-                />
+                  :size="10"
+                /> -->
               </div>
               <!-- /.box-content -->
             </div>
@@ -191,6 +286,7 @@
 <script lang="ts" setup>
 import type { Stock, NewStock, RequestPayload } from "../../helpers/interface";
 import { useStockStore } from "~/store/stock";
+import { useProductStore } from "~/store";
 import { useToast } from "vue-toast-notification";
 import "vue-toast-notification/dist/theme-sugar.css";
 
@@ -199,19 +295,25 @@ definePageMeta({
 });
 
 const $toast = useToast();
+const productStore = useProductStore();
+const { fetchProduct } = productStore;
 
 const stock = ref<Stock[]>([]);
 const newStock = ref<NewStock>({
-  productId:'',
+  productId: "",
   quantity: 0,
   price: 0,
 });
 
+
+const products = ref(null);
+
 const totalPages = ref<Number>(1);
 const currentPages = ref<Number>(1);
-const totalData = ref<Number>(0)
+const totalData = ref<Number>(0);
 
 const searchName = ref<string>("");
+const selectedProduct = ref(null);
 
 const showFilter = ref<boolean>(false);
 
@@ -228,18 +330,27 @@ const { fetchAllStock, addStock } = stockStore;
 
 const handleFetchStock = async (options: RequestPayload) => {
   const fetchingStock = await fetchAllStock(options);
-  stock.value = fetchingStock.data
-  totalData.value = fetchingStock?.meta?.totalData
+  stock.value = fetchingStock?.data;
+  totalData.value = fetchingStock?.meta?.totalData;
   totalPages.value = Math.ceil(Number(totalData.value) / 10);
 };
+
+
+
 
 const handleChangePage = (page: Number) => {
   currentPages.value = page;
   handleFetchStock({
-    whereConditions:"",
+    whereConditions: "",
     page: page,
     size: 10,
   });
+};
+
+const handleChangeProductItem = (value: Event) => {
+  newStock.value.productId = value.value.id;
+  newStock.value.price = value.value.price;
+
 };
 
 const handleSubmit = async () => {
@@ -251,19 +362,9 @@ const handleSubmit = async () => {
       position: "top",
     });
     newStock.value = {
-      in: 0,
-      out: 0,
-      balance: 0,
+      productId: "",
+      quantity: 0,
       price: 0,
-      totalIn: 0,
-      totalOut: 0,
-      totalStock: 0,
-      product: {
-        id: 0,
-        name: "",
-        unit: "",
-        sellingPrice: 0,
-      },
     };
   } catch (error) {
     $toast.open({
@@ -276,10 +377,13 @@ const handleSubmit = async () => {
 
 onMounted(async () => {
   await handleFetchStock({
-    whereConditions:"",
+    whereConditions: "",
     page: 1,
-    size:10
+    size: 10,
   });
+
+  const response = await fetchProduct();
+  products.value = response.data;
 });
 </script>
 
@@ -346,6 +450,11 @@ p {
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+
+.p-dropdown-panel {
+  z-index: 999999 !important;
+  max-width: 350px;
 }
 
 .content-list .list {
