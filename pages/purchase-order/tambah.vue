@@ -6,7 +6,7 @@
           <div class="row small-spacing">
             <div class="">
               <div
-                class="box-content custom-height"
+                class="box-content"
                 style="display: flex; flex-direction: column; gap: 30px"
               >
                 <div style="display: flex; gap: 30px">
@@ -296,7 +296,6 @@ const handleOpenEditRow = (item: any, index:number) => {
   editedRow.value = index
   const tempDefaultValue = {...item}
   defaultEditedValue.value = tempDefaultValue
-
 }
 const handleFetchProductOptions = async (options : any) => {
   const fetchProductValue = await fetchProduct()
@@ -375,7 +374,7 @@ const handleSaveInvoices = async () => {
   });
 
   const newInvoices = {
-    type: "Cashier",
+    type: invoiceForm.value.type,
     invoiceDate: invoiceForm.value.invoiceDate,
     invoiceItems: invoiceForm.value.invoiceItems,
     storeId : localStorage.getItem('storeId'),

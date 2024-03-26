@@ -69,7 +69,7 @@
                       <th>Action</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody v-if="invoices.length" >
                     <tr v-for="(invoice, index) in invoices" :key="index">
                       <td>{{ invoice.type }}</td>
                       <td>
@@ -165,6 +165,10 @@
                     </tr>
                   </tbody>
                 </table>
+
+                <div v-if="!invoices.length" style="display: flex; justify-content: center;">
+                  <h5>Tidak ada data</h5>
+                </div>
 
                 <Pagination
                   :totalPages="totalPages"
