@@ -260,14 +260,13 @@ import moment from "~~/plugins/moment";
 import { useDownloadInvoice } from "~/store";
 import { Base64 } from "js-base64";
 const $moment = moment().provide.moment;
-const { downloadInvoices } = useDownloadInvoice();
+const { downloadInvoices } = useDownloadInvoice(); 
 
 interface NewInvoiceItem extends InvoiceItem {
   total: number;
 }
 
 const handleDownload = async () => {
-  console.log(invoiceForm.value);
   const invoiceId = invoiceForm.value?.id || "";
   const invoiceNumber = invoiceForm.value?.invoiceNumber || "";
   const invoice = await downloadInvoices(invoiceId);

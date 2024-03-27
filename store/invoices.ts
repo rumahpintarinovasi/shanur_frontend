@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import axios from '~~/plugins/axios'
 import Swal from "sweetalert2";
-import type { Invoice, RequestPayload } from '../helpers/interface';
+import type { DeleteInvoiceItemsPayload, Invoice, RequestPayload } from '../helpers/interface';
 const $axios = axios().provide.axios
 
 export const useInvoicesStore = defineStore( 'invoices', () => {
@@ -93,15 +93,59 @@ export const useInvoicesStore = defineStore( 'invoices', () => {
         } catch (error) {
             console.log(error)
         }
-
-
     }
+
+    const addInvoiceItems = async (payload:any) => {
+        try {
+            const { data } = await $axios({
+                method : 'POST',
+                url : `/invoiceItems`,
+                data : payload
+            })
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: 'Invoice Berhasil Diperbarui'
+            })
+            return data
+        } catch (error:any) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: error?.response.data?.message || 'Something wrong'
+            })
+        }
+    }
+
+
+
+    const deleteInvoiceItems = async (payload:DeleteInvoiceItemsPayload) => {
+        try {
+            await $axios({
+                method : 'DELETE',
+                url : '/invoiceItems',
+                data : payload
+            })
+
+
+        } catch (error:any) {
+            console.log(error, '<< ini error')
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: error?.response.data?.message || 'Something wrong'
+            })
+        }
+    }
+
     return {
         invoices,
         isLoading,
         fetchInvoices,
         addInvoices,
         fetchInvoiceDetail,
-        updateInvoice
+        updateInvoice,
+        addInvoiceItems,
+        deleteInvoiceItems
     }
 })

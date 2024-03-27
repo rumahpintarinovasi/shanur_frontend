@@ -16,6 +16,7 @@ interface InvoiceItem {
     quantity: number,
     price : number,
     productName? : string
+    trxInvoicesId?: string
 }
 
 interface NewInvoice {
@@ -137,4 +138,8 @@ interface Response {
     meta : MetaData
 }
 
-export type { Invoice, NewInvoice, InvoiceItem, Product, NewProduct, Stock, NewStock, InputFileEvent, RequestPayload, Discount, NewDiscount, User, Store, Error, Role, Customer, Response, MetaData }
+interface DeleteInvoiceItemsPayload {
+    invoicesItemsId : string[]
+}
+
+export type { Invoice, NewInvoice, InvoiceItem, Product, NewProduct, Stock, NewStock, InputFileEvent, RequestPayload, Discount, NewDiscount, User, Store, Error, Role, Customer, Response, MetaData, DeleteInvoiceItemsPayload }
