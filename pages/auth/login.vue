@@ -53,6 +53,7 @@ import { useUserStore } from '~/store/user';
 
 const $toast = useToast();
 const $router = useRouter()
+const $route = useRoute()
 
 const userStore = useUserStore()
 
@@ -65,29 +66,45 @@ const handleSubmit = async (e) => {
   e.preventDefault()
 
   try {
-    await loginUser({
+    const response = await loginUser({
       password: password.value,
       userName: username.value,
     })
 
-    $toast.open({
-      message: 'Login successfully',
-      type: 'success',
-      position: 'top',
-      duration: 5000
-    })
+    // Check the response and navigate to the appropriate route
+    if (response) {
+      // If login is successful, navigate to the home page
+      $toast.open({
+        message: 'Login successfully',
+        type: 'success',
+        position: 'top',
+        duration: 5000
+      })
 
-    $router.push('/')
+      localStorage.setItem('authorizeToken', response)
+
+      // Use $router.push('/') to navigate to the home page
+      await $router.push('/')
+    } else {
+      // Handle login failure, e.g., display an error message
+      $toast.open({
+        message: 'Login failed',
+        type: 'error',
+        position: 'top',
+        duration: 5000
+      })
+    }
   } catch (error) {
+    // Handle any errors that occur during the login process
     $toast.open({
-      message: error?.response?.data?.message || 'Something went wrong',
+      message: error.message || 'Something went wrong',
       type: 'error',
       position: 'top',
       duration: 5000
     })
   }
-  
 }
+
 
 
 </script>

@@ -8,18 +8,6 @@
             <div class="col-lg-6 col-xs-12">
               <div class="box-content">
                 <div class="flex-custom">
-                  <h4 class="box-title">Tanggal</h4>
-                  <div class="input-group" style="width: 100%">
-                    <input
-                      type="date"
-                      class="form-control"
-                      placeholder="mm/dd/yyyy"
-                      id="datepicker"
-                      style="width: 100%"
-                    />
-                  </div>
-                </div>
-                <div class="flex-custom">
                   <h4 class="box-title">Nama Kasir</h4>
                   <!-- select -->
                   <div class="form-group">
