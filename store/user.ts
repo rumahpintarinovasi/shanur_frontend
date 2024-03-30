@@ -90,14 +90,14 @@ export const useUserStore = defineStore( 'user', () => {
               if (response.status === 200 && response.data && response.data.data) {
                 const { token } = response.data.data
           
-                    const encryptedData: UserInformation  = JSON.parse(verifyToken(token))
-                const { id:userId, userName, role, storeId, storeType } = encryptedData
-                localStorage.setItem('authorizeToken', token)
-                localStorage.setItem('userId', userId)
-                localStorage.setItem('userName', userName)
-                localStorage.setItem('role', role)
-                localStorage.setItem('storeId', storeId)
-                localStorage.setItem('storeType', storeType)
+                //     const encryptedData: UserInformation  = JSON.parse(verifyToken(token))
+                // const { id:userId, userName, role, storeId, storeType } = encryptedData
+                // localStorage.setItem('authorizeToken', token)
+                // localStorage.setItem('userId', userId)
+                // localStorage.setItem('userName', userName)
+                // localStorage.setItem('role', role)
+                // localStorage.setItem('storeId', storeId)
+                // localStorage.setItem('storeType', storeType)
 
 
           

@@ -38,17 +38,6 @@
             <div class="col-lg-6 col-xs-12">
               <div class="box-content">
                 <div class="flex-custom">
-                  <h4 class="box-title">Nomor Invoice</h4>
-                  <div class="form-group">
-                    <input
-                      type="text"
-                      class="form-control"
-                      placeholder="Nomor Invoice"
-                      style="width: 100%"
-                    />
-                  </div>
-                </div>
-                <div class="flex-custom">
                   <h4 class="box-title">Total Belanja</h4>
                   <h2>
                     {{ formatCurrency(totalPrice) }}
@@ -175,13 +164,12 @@
                   </div>
                 </div>
                 <div class="flex-custom">
-                  <h4 class="box-title">Diskon</h4>
                   
                     <button
                       class="btn btn-primary"
                       @click="handleCheckDiscount"
                     >
-                      Periksa
+                      Check Diskon
                     </button>
                 </div>
             
