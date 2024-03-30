@@ -253,8 +253,8 @@ definePageMeta({
   layout: "dashboard",
 });
 
-import type { Product, NewInvoice, InputFileEvent, InvoiceItem, Invoice } from "../../helpers/interface";
-import { useProductStore, useInvoicesStore } from '~/store'
+import type { Product,Stock, NewInvoice, InputFileEvent, InvoiceItem, Invoice } from "../../helpers/interface";
+import { useProductStore, useInvoicesStore, useStockStore } from '~/store'
 import { useCashierStore } from "~/store/cashier";
 import { formatCurrency } from "../../helpers/utils";
 import moment from "~~/plugins/moment";
@@ -268,6 +268,8 @@ const invoices = ref<Invoice[] | []>([]);
 
 const { addInvoices  } = useInvoicesStore()
 const productStore =  useProductStore()
+const stockStore = useStockStore()
+const {fetchAllStock} = stockStore
 const { fetchProduct } = productStore
 interface NewInvoiceItem extends InvoiceItem {
   total : number
@@ -277,6 +279,7 @@ const paymentMethod = ref<string>("Cash");
 const {createTransaction, checkDiscount } = useCashierStore()
 
 const products = ref<Product[]>()
+const stocks = ref<Stock[]>()
 
 const invoiceForm = ref<NewInvoice>({
   invoiceDate: "",
