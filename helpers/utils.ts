@@ -1,4 +1,5 @@
-// import puppeteer from "puppeteer";
+import { constant } from '../helpers'
+
 function formatCurrency(amount: number): string {
   if (!amount) {
     return `Rp. 0`;
@@ -149,7 +150,12 @@ const generateInvoiceTemplate = ({
 
 const generateBadgeType = (status: String) => {
   switch (status) {
+    case constant.invoiceStatus.done:
+        return 'primary'
+    case constant.invoiceStatus.processed:
+        return 'info'
     case "Confirmed":
+    case constant.invoiceStatus.approved:
       return "success";
     case "Requested":
     case "To Be Confirm":
@@ -157,7 +163,7 @@ const generateBadgeType = (status: String) => {
     case "Rejected":
       return "failed";
     default:
-      return "success";
+      return "failed";
   }
 };
 
