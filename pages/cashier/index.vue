@@ -8,18 +8,6 @@
             <div class="col-lg-6 col-xs-12">
               <div class="box-content">
                 <div class="flex-custom">
-                  <h4 class="box-title">Tanggal</h4>
-                  <div class="input-group" style="width: 100%">
-                    <input
-                      type="date"
-                      class="form-control"
-                      placeholder="mm/dd/yyyy"
-                      id="datepicker"
-                      style="width: 100%"
-                    />
-                  </div>
-                </div>
-                <div class="flex-custom">
                   <h4 class="box-title">Nama Kasir</h4>
                   <!-- select -->
                   <div class="form-group">
@@ -49,17 +37,6 @@
             <!-- Faktur Penjualan -->
             <div class="col-lg-6 col-xs-12">
               <div class="box-content">
-                <div class="flex-custom">
-                  <h4 class="box-title">Nomor Invoice</h4>
-                  <div class="form-group">
-                    <input
-                      type="text"
-                      class="form-control"
-                      placeholder="Nomor Invoice"
-                      style="width: 100%"
-                    />
-                  </div>
-                </div>
                 <div class="flex-custom">
                   <h4 class="box-title">Total Belanja</h4>
                   <h2>
@@ -187,13 +164,12 @@
                   </div>
                 </div>
                 <div class="flex-custom">
-                  <h4 class="box-title">Diskon</h4>
                   
                     <button
                       class="btn btn-primary"
                       @click="handleCheckDiscount"
                     >
-                      Periksa
+                      Check Diskon
                     </button>
                 </div>
             
@@ -277,8 +253,8 @@ definePageMeta({
   layout: "dashboard",
 });
 
-import type { Product, NewInvoice, InputFileEvent, InvoiceItem, Invoice } from "../../helpers/interface";
-import { useProductStore, useInvoicesStore } from '~/store'
+import type { Product,Stock, NewInvoice, InputFileEvent, InvoiceItem, Invoice } from "../../helpers/interface";
+import { useProductStore, useInvoicesStore, useStockStore } from '~/store'
 import { useCashierStore } from "~/store/cashier";
 import { formatCurrency } from "../../helpers/utils";
 import moment from "~~/plugins/moment";
@@ -292,6 +268,8 @@ const invoices = ref<Invoice[] | []>([]);
 
 const { addInvoices  } = useInvoicesStore()
 const productStore =  useProductStore()
+const stockStore = useStockStore()
+const {fetchAllStock} = stockStore
 const { fetchProduct } = productStore
 interface NewInvoiceItem extends InvoiceItem {
   total : number
@@ -301,6 +279,7 @@ const paymentMethod = ref<string>("Cash");
 const {createTransaction, checkDiscount } = useCashierStore()
 
 const products = ref<Product[]>()
+const stocks = ref<Stock[]>()
 
 const invoiceForm = ref<NewInvoice>({
   invoiceDate: "",

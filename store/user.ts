@@ -79,30 +79,37 @@ export const useUserStore = defineStore( 'user', () => {
     
         }
 
-        const loginUser = async (user: any) => {
-            const {data} = await $axios({
+        const loginUser = async (user:any) => {
+            try {
+              const response = await $axios({
                 method: 'post',
                 url: '/auth/login',
                 data: user
-            })
+              })
+          
+              if (response.status === 200 && response.data && response.data.data) {
+                const { token } = response.data.data
+          
+                //     const encryptedData: UserInformation  = JSON.parse(verifyToken(token))
+                // const { id:userId, userName, role, storeId, storeType } = encryptedData
+                // localStorage.setItem('authorizeToken', token)
+                // localStorage.setItem('userId', userId)
+                // localStorage.setItem('userName', userName)
+                // localStorage.setItem('role', role)
+                // localStorage.setItem('storeId', storeId)
+                // localStorage.setItem('storeType', storeType)
 
-            if (data.data) {
-                const responseData = data.data
-                const { token } = responseData
 
-                const encryptedData: UserInformation  = JSON.parse(verifyToken(token))
-                const { id:userId, userName, role, storeId, storeType } = encryptedData
-                localStorage.setItem('authorizeToken', token)
-                localStorage.setItem('userId', userId)
-                localStorage.setItem('userName', userName)
-                localStorage.setItem('role', role)
-                localStorage.setItem('storeId', storeId)
-                localStorage.setItem('storeType', storeType)
-
-                return responseData
+          
+                return response.data.data
+              } else {
+                throw new Error('Invalid response format')
+              }
+            } catch (error) {
+              throw new Error(error.response?.data?.message || 'Something went wrong')
             }
-    
-        }
+          }
+          
 
         const getRoles = async () => {
             const {data} = await $axios({

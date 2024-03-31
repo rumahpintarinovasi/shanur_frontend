@@ -32,6 +32,15 @@
         justify-content: center;
     }
 
+    .primary-badge {
+        background-color: #0275d8;
+        color: #ffff;
+    }
+
+    .info-badge {
+        background-color: #5bc0de;
+        color: #ffff;
+    }
     .success-badge{
         background-color: #DBEBD7;
         color: #366D25;
@@ -45,7 +54,6 @@
     .warning-badge {
         background-color: #FEEEC1;
         color: #8F701C;
-
     }
 
 </style>

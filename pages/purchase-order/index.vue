@@ -69,7 +69,7 @@
                       <th>Action</th>
                     </tr>
                   </thead>
-                  <tbody v-if="invoices.length" >
+                  <tbody v-if="invoices.length">
                     <tr v-for="(invoice, index) in invoices" :key="index">
                       <td>{{ invoice.type }}</td>
                       <td>
@@ -84,7 +84,7 @@
                         <Shanurbadge
                           v-if="index !== editedRow"
                           :text="invoice.status || ''"
-                          :type="generateBadgeType(invoice.status)"
+                          :type="generateBadgeType(invoice.status || '')"
                         />
 
                         <select
@@ -95,6 +95,12 @@
                           @change="(e) => handleChangeStatus(e, index)"
                         >
                           <option selected disabled>Select Status</option>
+                          <option :value="invoiceStatus.done">
+                            {{ invoiceStatus.done }}
+                          </option>
+                          <option :value="invoiceStatus.processed">
+                            {{ invoiceStatus.processed }}
+                          </option>
                           <option :value="invoiceStatus.approved">
                             {{ invoiceStatus.approved }}
                           </option>
@@ -144,10 +150,7 @@
                             :disabled="loadingPage"
                             class="btn btn-success"
                           >
-                            <i
-                              class="fa fa-save"
-                            >
-                            </i>
+                            <i class="fa fa-save"> </i>
                           </button>
                           <button
                             v-if="storeType === constant.storeType.warehouse"
@@ -166,7 +169,10 @@
                   </tbody>
                 </table>
 
-                <div v-if="!invoices.length" style="display: flex; justify-content: center;">
+                <div
+                  v-if="!invoices.length"
+                  style="display: flex; justify-content: center"
+                >
                   <h5>Tidak ada data</h5>
                 </div>
 
