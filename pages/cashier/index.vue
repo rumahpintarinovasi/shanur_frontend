@@ -279,7 +279,7 @@ const paymentMethod = ref<string>("Cash");
 const {createTransaction, checkDiscount } = useCashierStore()
 
 const products = ref<Product[]>()
-const stocks = ref<Stock[]>()
+const stocks = ref<Stock[]>() 
 
 const invoiceForm = ref<NewInvoice>({
   invoiceDate: "",

@@ -235,6 +235,7 @@
                         <th style="min-width: 150px">Total Nilai Masuk</th>
                         <th style="min-width: 150px">Total Nilai Keluar</th>
                         <th style="min-width: 150px">Total Nilai Stock</th>
+                        <th style="min-width: 150px;">Margin</th>
                         <th>Aksi</th>
                       </tr>
                     </thead>
