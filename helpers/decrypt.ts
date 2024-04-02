@@ -1,7 +1,7 @@
 import CryptoJS from 'crypto-js'
 
 const config = useRuntimeConfig()
-const privateKey : any = config.public.PRIVATE_KEY || 'asdasda'
+const privateKey : any = config.public.PRIVATE_KEY || 'aOGshUGXMIVH2kH'
 const verifyToken = (encryptedData : any) => {
   const decipher = CryptoJS.AES.decrypt(encryptedData, privateKey);
   const originalText = decipher.toString(CryptoJS.enc.Utf8);
