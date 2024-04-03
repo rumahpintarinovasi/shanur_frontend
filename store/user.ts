@@ -89,6 +89,8 @@ export const useUserStore = defineStore( 'user', () => {
           
               if (response.status === 200 && response.data && response.data.data) {
                 const { token } = response.data.data
+
+                console.log('token', token)
           
                 const encryptedData: UserInformation  = JSON.parse(verifyToken(token))
                 const { id:userId, userName, role, storeId, storeType } = encryptedData

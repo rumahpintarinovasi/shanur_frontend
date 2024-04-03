@@ -81,7 +81,6 @@ const handleSubmit = async (e) => {
         duration: 5000
       })
 
-      localStorage.setItem('authorizeToken', response)
 
       // Use $router.push('/') to navigate to the home page
       await $router.push('/')
