@@ -304,6 +304,8 @@ const newStock = ref<NewStock>({
   productId: "",
   quantity: 0,
   price: 0,
+  storeId: localStorage.getItem("storeId"),
+  margin: 0,
 });
 
 
@@ -350,12 +352,15 @@ const handleChangePage = (page: Number) => {
 
 const handleChangeProductItem = (value: Event) => {
   newStock.value.productId = value.value.id;
-  newStock.value.price = value.value.price;
+  newStock.value.price = value.value.initPrice;
+  newStock.value.margin = value.value.sellingPrice - value.value.initPrice;
+  
 
 };
 
 const handleSubmit = async () => {
   try {
+    newStock.value.quantity = Number(newStock.value.quantity);
     await addStock(newStock.value);
     $toast.open({
       message: "Berhasil menambahkan stok baru",
