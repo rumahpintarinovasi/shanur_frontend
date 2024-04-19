@@ -23,7 +23,7 @@ export const useProductStore = defineStore('product', () => {
       console.log(data, '<< ')
 
       products.value = data
-      return data.data
+      return data
 
     } catch (error) {
       const message = error?.message || 'Something Wrong'
