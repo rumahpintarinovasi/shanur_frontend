@@ -59,16 +59,15 @@
       </li>
      
       <!-- discount -->
-      <li>
+      <!-- <li>
         <NuxtLink to="/discount"
           >
-          <!-- icon discount -->
           <i class="menu-icon ti-cut"></i>
           <span>Discount</span></NuxtLink
         >
-      </li>
+      </li> -->
 
-      <li>
+      <!-- <li>
         <NuxtLink to="/cashier"
           >
           <i class="menu-icon ti-wallet"></i>
@@ -93,7 +92,7 @@
           <i class="menu-icon fa fa-users" />
           <span>Customer Management</span>
         </NuxtLink>
-      </li>
+      </li> -->
 
     </ul>
   </div>
