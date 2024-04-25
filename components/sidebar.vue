@@ -59,13 +59,13 @@
       </li>
      
       <!-- discount -->
-      <!-- <li>
-        <NuxtLink to="/discount"
+        <!-- <li>
+          <NuxtLink to="/discount"
+            >
+            <i class="menu-icon ti-cut"></i>
+            <span>Discount</span></NuxtLink
           >
-          <i class="menu-icon ti-cut"></i>
-          <span>Discount</span></NuxtLink
-        >
-      </li> -->
+        </li> -->
 
       <!-- <li>
         <NuxtLink to="/cashier"
