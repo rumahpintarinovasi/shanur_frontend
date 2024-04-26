@@ -82,8 +82,12 @@
                         {{ formatCurrency(item.quantity * item.price) }}
                       </td>
                       <td style="display: flex; gap: 10px">
-                        <button class="btn btn-info fa fa-pencil" />
-                        <button class="btn btn-danger fa fa-trash" />
+                        <button 
+                        @click="() => handleEditInvoiceItem(index)"
+                        class="btn btn-info fa fa-pencil" />
+                        <button 
+                        @click="() => handleDeleteInvoiceItem(index)"
+                        class="btn btn-danger fa fa-trash" />
                       </td>
                     </tr>
 
@@ -292,6 +296,16 @@ const newInvoiceItem = ref<NewInvoiceItem>({
   total : 0
 })
 const isAddNewItem = ref<boolean>(false)
+
+const handleDeleteInvoiceItem = (index: number) => {
+  invoiceForm.value.invoiceItems?.splice(index, 1);
+};
+
+// when edit set to like tr isAddNewItem = true
+const handleEditInvoiceItem = (index: number) => {
+  isAddNewItem.value = true;
+  newInvoiceItem.value = invoiceForm.value.invoiceItems[index];
+};
 
 const totalPrice = computed(() => {
   let total = 0
