@@ -162,7 +162,7 @@
                       type="text"
                       class="form-control"
                       placeholder="Subtotal"
-                      value="Rp 100.000"
+                      value="Rp 0"
                       style="width: 100%"
                     />
                   </div>
@@ -184,7 +184,7 @@
                       type="text"
                       class="form-control"
                       placeholder="Total"
-                      value="Rp 100.000"
+                      value="Rp 0"
                       style="width: 100%"
                     />
                   </div>
@@ -212,7 +212,7 @@
                       type="text"
                       class="form-control"
                       placeholder="Cash"
-                      value="Rp 100.000"
+                      value="Rp 0"
                       style="width: 100%"
                     />
                   </div>
