@@ -372,6 +372,15 @@ const handleSubmit = async () => {
       quantity: 0,
       price: 0,
     };
+
+    // close modal
+    document.getElementById("modal-tambah").click();
+    
+    await handleFetchStock({
+      whereConditions: "",
+      page: 1,
+      size: 10,
+    });
   } catch (error) {
     $toast.open({
       message: error?.response?.data?.message || "Something went wrong",
